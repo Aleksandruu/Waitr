@@ -33,6 +33,23 @@ Client
 -can leave feedback
 
 
+Accounts:
+admin:
+admin
+abcdefgh
+
+manager:
+bistropub
+12345678
+
+Endpoints:
+/auth/login
+
+/auth/create-manager
+
+/auth/create-employee
+
+
 Documentatie
 
 1 martie 2025
@@ -48,3 +65,8 @@ https://blog.logrocket.com/crud-rest-api-node-js-express-postgresql/
 https://medium.com/@amaan6307/db-migrate-101-manage-database-migrations-with-javascript-82234029bbde
 https://db-migrate.readthedocs.io/en/latest/Getting%20Started/usage/#usage-of-db-migrate
 
+
+9 martie 2025
+https://www.npmjs.com/package/nodemon
+https://www.npmjs.com/package/dotenv
+https://www.geeksforgeeks.org/jwt-authentication-with-node-js/
