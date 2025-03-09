@@ -1,0 +1,16 @@
+{
+  "name": "waitr-be",
+  "version": "1.0.0",
+  "description": "An app for managing restaurants, bars and caffes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Aleksandruu",
+  "license": "ISC",
+  "dependencies": {
+    "db-migrate-pg": "^1.5.2",
+    "express": "^4.21.2",
+    "pg": "^8.13.3"
+  }
+}

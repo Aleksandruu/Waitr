@@ -1,0 +1,50 @@
+LICENTA
+
+WaitersApp
+
+Admin 
+-is the only one who can create a manager account
+
+Manager
+-there is only one manager account for a location
+-creates accounts for waiters, cooks etc.
+-adds/deletes/edits products on the menu
+-adds/deletes/edits product categories
+-can what each employee did
+-can see sales and orders
+-can see feedbacks
+
+Waiter
+-receives orders and can accept them
+-can be called at a table
+-can see all tables and orders that he accepted
+-can change the state of a product
+-can cash in an order
+
+Cook/Bartender/Barista
+-doesn't see orders, just products
+-can change the state of a product to ready
+
+Client
+-see al products w description
+-can add products to order
+-can place order
+-can call waiter to table
+-can leave feedback
+
+
+Documentatie
+
+1 martie 2025
+https://bun.sh/docs
+https://bun.sh/guides/ecosystem/express
+https://expressjs.com/en/guide/database-integration.html#postgresql
+https://vitaly-t.github.io/pg-promise/index.html
+https://github.com/vitaly-t/pg-promise/wiki/Learn-by-Example#basics
+https://bun.uptrace.dev/guide/migrations.html#sql-based-migrations
+
+6 martie 2025
+https://blog.logrocket.com/crud-rest-api-node-js-express-postgresql/
+https://medium.com/@amaan6307/db-migrate-101-manage-database-migrations-with-javascript-82234029bbde
+https://db-migrate.readthedocs.io/en/latest/Getting%20Started/usage/#usage-of-db-migrate
+

@@ -1,0 +1,11 @@
+{
+  "defaultEnv": "beta",
+  "beta": {
+    "driver": "postgresql",
+    "host": "localhost",
+    "user": "postgres",
+    "password": "12345",
+    "database": "Waitr",
+    "port": 5432
+  }
+}
