@@ -1,5 +1,3 @@
-import "./index.scss";
-import reportWebVitals from "./reportWebVitals";
 import { RouterProvider, createRouter } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen";
 import { StrictMode } from "react";
@@ -22,5 +20,3 @@ if (!rootElement.innerHTML) {
     </StrictMode>
   );
 }
-
-reportWebVitals();
