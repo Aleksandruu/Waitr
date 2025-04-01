@@ -4,12 +4,14 @@ CREATE TABLE IF NOT EXISTS public.User (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     role VARCHAR(255) NOT NULL,
-    password VARCHAR(255) NOT NULL
+    password VARCHAR(255) NOT NULL,
+    location VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS public.Category (
     id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL
+    name VARCHAR(255) NOT NULL,
+    location VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS public.Product (
@@ -18,13 +20,15 @@ CREATE TABLE IF NOT EXISTS public.Product (
     ingredients TEXT,
     nutrients TEXT,
     price DECIMAL(10, 2) NOT NULL,
-    category_id INTEGER REFERENCES public.Category(id)
+    category_id INTEGER REFERENCES public.Category(id),
+    location VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS public.Order (
     id SERIAL PRIMARY KEY,
     table_number INTEGER NOT NULL,
-    waiter_id INTEGER REFERENCES public.User(id)
+    waiter_id INTEGER REFERENCES public.User(id),
+    location VARCHAR(255) NOT NULL
 );
 
 

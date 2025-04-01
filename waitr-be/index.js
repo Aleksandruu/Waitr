@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv").config();
-const authRouter = require("./auth");
+const authRouter = require("./routes/auth");
 
 const app = express();
 const port = process.env.PORT || 3000;

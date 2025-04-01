@@ -70,3 +70,4 @@ https://db-migrate.readthedocs.io/en/latest/Getting%20Started/usage/#usage-of-db
 https://www.npmjs.com/package/nodemon
 https://www.npmjs.com/package/dotenv
 https://www.geeksforgeeks.org/jwt-authentication-with-node-js/
+https://dev.to/mr_ali3n/folder-structure-for-nodejs-expressjs-project-435l
