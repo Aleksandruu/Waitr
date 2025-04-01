@@ -1,12 +1,14 @@
 const Roles = require("../models/roles.enum");
 
 function checkAdminRole(req, res, next) {
-  if (req.user.role !== Roles.ADMIN) return res.sendStatus(403);
+  if (req.user.role !== Roles.ADMIN)
+    return res.sendStatus(403).json({ error: "Unauthorized." });
   next();
 }
 
 function checkManagerRole(req, res, next) {
-  if (req.user.role !== Roles.MANAGER) return res.sendStatus(403);
+  if (req.user.role !== Roles.MANAGER)
+    return res.sendStatus(403).json({ error: "Unauthorized." });
   next();
 }
 

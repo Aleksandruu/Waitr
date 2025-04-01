@@ -1,7 +1,0 @@
-DROP TABLE IF EXISTS publics.ProductOrder;
-DROP TABLE IF EXISTS publics.Product;
-DROP TABLE IF EXISTS publics.Order;
-DROP TABLE IF EXISTS publics.Category;
-DROP TABLE IF EXISTS publics.User;
-
-DROP SCHEMA IF EXISTS publics CASCADE;

@@ -71,3 +71,18 @@ https://www.npmjs.com/package/nodemon
 https://www.npmjs.com/package/dotenv
 https://www.geeksforgeeks.org/jwt-authentication-with-node-js/
 https://dev.to/mr_ali3n/folder-structure-for-nodejs-expressjs-project-435l
+
+10 martie 2025
+https://react.dev/learn
+
+17 martie 2025
+https://reactrouter.com/start/declarative/routing
+
+18 martie 2025
+https://medium.com/%40kimtai.developer/react-typescript-authentication-guide-using-context-api-5c82f2530eb1
+
+20 martie 2025
+https://medium.com/@greennolgaa/mastering-asynchronous-data-handling-in-react-a-comprehensive-guide-using-fetch-and-axios-28f5bd9885e5
+
+26 martie 2025
+https://socket.io/how-to/use-with-react
