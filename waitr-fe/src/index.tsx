@@ -2,8 +2,9 @@ import "./index.scss";
 import reportWebVitals from "./reportWebVitals";
 import { RouterProvider, createRouter } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen";
-import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
+import { AuthProvider, useAuth } from "./hooks/AuthProvider";
+import React from "react";
 
 const router = createRouter({ routeTree });
 
@@ -13,13 +14,26 @@ declare module "@tanstack/react-router" {
   }
 }
 
+function InnerApp() {
+  const auth = useAuth();
+  return <RouterProvider router={router} context={{ auth }} />;
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <InnerApp />
+    </AuthProvider>
+  );
+}
+
 const rootElement = document.getElementById("root")!;
 if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement);
   root.render(
-    <StrictMode>
-      <RouterProvider router={router} />
-    </StrictMode>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
   );
 }
 
