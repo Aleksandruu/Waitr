@@ -1,8 +1,8 @@
 import "./admin.scss";
-import { getLocations } from "../../service/adminService";
+import { getLocations } from "../../../service/adminService";
 import { useEffect, useState } from "react";
-import { ILocation } from "../../models/location.model";
-import LocationCard from "../../components/locationCard/LocationCard";
+import { ILocation } from "../../../models/location.model";
+import LocationCard from "./locationCard/LocationCard";
 
 const Admin = () => {
   const [locations, setLocations] = useState<ILocation[]>([]);

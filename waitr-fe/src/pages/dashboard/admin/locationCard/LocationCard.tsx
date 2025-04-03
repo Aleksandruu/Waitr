@@ -1,4 +1,4 @@
-import { ILocation } from "../../models/location.model";
+import { ILocation } from "../../../../models/location.model";
 import "./locationCard.scss";
 
 function LocationCard({ location }: { location: ILocation }) {

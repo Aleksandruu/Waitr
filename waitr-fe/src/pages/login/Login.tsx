@@ -1,16 +1,24 @@
 import "./login.scss";
 import { useAuth } from "../../hooks/AuthProvider";
 import { useState } from "react";
+import { useNavigate } from "@tanstack/react-router";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const auth = useAuth();
+  const navigate = useNavigate();
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    auth.logIn({ username, password });
-    console.log("Login");
+    auth?.logIn({ username, password }).then((role: string) => {
+      if (role === "admin") {
+        navigate({ to: "/admin" });
+      }
+      if (role === "manager") {
+        navigate({ to: "/manager" });
+      }
+    });
   };
 
   return (
