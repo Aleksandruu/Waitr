@@ -6,7 +6,17 @@ import ReactDOM from "react-dom/client";
 import { AuthProvider, useAuth } from "./hooks/AuthProvider";
 import React from "react";
 
-const router = createRouter({ routeTree });
+export type RouterContext = {
+  auth: {
+    token: string | undefined;
+    getRole(): string;
+  };
+};
+
+const router = createRouter({
+  routeTree,
+  context: {} as RouterContext,
+});
 
 declare module "@tanstack/react-router" {
   interface Register {

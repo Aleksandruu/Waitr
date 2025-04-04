@@ -34,6 +34,49 @@ router.get(
   }
 );
 
+router.get(
+  "/location/:locationId",
+  authenticateToken,
+  checkAdminRole,
+  async (req, res) => {
+    try {
+      const { locationId } = req.params;
+      const location = await pool.query(
+        `SELECT 
+          l.id AS id,
+          l.name AS name,
+          l.slug AS slug,
+        COALESCE(
+        JSON_AGG(
+            JSON_BUILD_OBJECT(
+                'id', u.id,
+                'name', u.name,
+                'role', u.role
+            )
+        ) FILTER (WHERE u.id IS NOT NULL), 
+        '[]'
+        ) AS staff
+        FROM 
+          public.Location l
+        LEFT JOIN 
+          public.User u ON l.id = u.location_id
+        WHERE 
+          l.id = $1
+        GROUP BY 
+          l.id;`,
+        [locationId]
+      );
+      if (location.rows.length > 0) {
+        return res.status(200).json(location.rows[0]);
+      }
+    } catch (err) {
+      return res.status(500).json({ error: err.message });
+    }
+
+    return res.status(403).json({ message: "No location found with this id" });
+  }
+);
+
 router.post("/manager", authenticateToken, checkAdminRole, async (req, res) => {
   try {
     const { name, password, location, slug } = req.body;

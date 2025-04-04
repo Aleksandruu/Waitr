@@ -1,5 +1,12 @@
 export interface ILocation {
-  location: string;
-  id: number;
+  id: string;
+  slug: string;
   name: string;
+  staffMembers?: StaffMember[];
+}
+
+interface StaffMember {
+  id: string;
+  name: string;
+  role: string;
 }
