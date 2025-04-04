@@ -6,6 +6,6 @@
     "user": "postgres",
     "password": "12345",
     "database": "Waitr",
-    "port": 5432
+    "port": 5433
   }
 }
