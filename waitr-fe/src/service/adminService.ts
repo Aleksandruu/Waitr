@@ -7,3 +7,8 @@ export async function getLocations(): Promise<ILocation[]> {
   const response = await axios.get(apiUrl + "/admin/locations");
   return response.data;
 }
+
+export async function getLocation(locationId: string): Promise<ILocation> {
+  const response = await axios.get(apiUrl + "/admin/location/" + locationId);
+  return response.data;
+}

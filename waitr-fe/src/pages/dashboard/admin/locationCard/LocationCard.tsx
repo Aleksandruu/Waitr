@@ -1,13 +1,17 @@
 import { ILocation } from "../../../../models/location.model";
 import "./locationCard.scss";
+import { Link } from '@tanstack/react-router'
+
 
 function LocationCard({ location }: { location: ILocation }) {
+  const clientUrl = import.meta.env.VITE_APP_CLIENT_URL;
+
   return (
-    <div className="card">
-      <h2>{location.location}</h2>
-      <p>Manager: {location.name}</p>
+    <Link className="card" to="/dashboard/admin/location/$locationId" params={{locationId: location.id}}>
+      <h2>{location.name}</h2>
       <p>Id: {location.id}</p>
-    </div>
+      <p>Website: {clientUrl + "/" + location.slug}</p>
+      </Link>
   );
 }
 

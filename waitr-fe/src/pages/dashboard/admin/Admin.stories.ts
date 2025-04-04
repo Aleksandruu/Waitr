@@ -4,8 +4,8 @@ import * as LocationStories from "./locationCard/LocationCard.stories";
 
 const locations = [
   {
-    location: "The Restaurant",
     id: 123,
+    slug: "The Restaurant",
     name: "Alexandru",
   },
 ];

@@ -11,17 +11,27 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as ManagerImport } from './routes/manager'
 import { Route as LoginImport } from './routes/login'
-import { Route as AdminImport } from './routes/admin'
+import { Route as DashboardImport } from './routes/dashboard'
+import { Route as IndexImport } from './routes/index'
+import { Route as LocationSlugIndexImport } from './routes/$locationSlug/index'
+import { Route as DashboardWaiterImport } from './routes/dashboard/waiter'
+import { Route as DashboardManagerImport } from './routes/dashboard/manager'
+import { Route as DashboardCookImport } from './routes/dashboard/cook'
+import { Route as DashboardAdminImport } from './routes/dashboard/admin'
+import { Route as LocationSlugTableNumberIndexImport } from './routes/$locationSlug/$tableNumber/index'
+import { Route as LocationSlugTableNumberPlaceOrderImport } from './routes/$locationSlug/$tableNumber/place-order'
+import { Route as LocationSlugTableNumberOrderImport } from './routes/$locationSlug/$tableNumber/order'
+import { Route as LocationSlugTableNumberFeedbackImport } from './routes/$locationSlug/$tableNumber/feedback'
+import { Route as DashboardManagerProductIndexImport } from './routes/dashboard/manager/product/index'
+import { Route as DashboardManagerStaffCreateImport } from './routes/dashboard/manager/staff.create'
+import { Route as DashboardManagerProductCreateImport } from './routes/dashboard/manager/product/create'
+import { Route as DashboardManagerProductProductIdImport } from './routes/dashboard/manager/product/$productId'
+import { Route as DashboardAdminsLocationCreateImport } from './routes/dashboard/admins/location/create'
+import { Route as DashboardAdminsLocationLocationIdImport } from './routes/dashboard/admins/location/$locationId'
+import { Route as DashboardManagerProductEditProductIdImport } from './routes/dashboard/manager/product/edit.$productId'
 
 // Create/Update Routes
-
-const ManagerRoute = ManagerImport.update({
-  id: '/manager',
-  path: '/manager',
-  getParentRoute: () => rootRoute,
-} as any)
 
 const LoginRoute = LoginImport.update({
   id: '/login',
@@ -29,21 +39,141 @@ const LoginRoute = LoginImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const AdminRoute = AdminImport.update({
-  id: '/admin',
-  path: '/admin',
+const DashboardRoute = DashboardImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
   getParentRoute: () => rootRoute,
 } as any)
+
+const IndexRoute = IndexImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const LocationSlugIndexRoute = LocationSlugIndexImport.update({
+  id: '/$locationSlug/',
+  path: '/$locationSlug/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const DashboardWaiterRoute = DashboardWaiterImport.update({
+  id: '/waiter',
+  path: '/waiter',
+  getParentRoute: () => DashboardRoute,
+} as any)
+
+const DashboardManagerRoute = DashboardManagerImport.update({
+  id: '/manager',
+  path: '/manager',
+  getParentRoute: () => DashboardRoute,
+} as any)
+
+const DashboardCookRoute = DashboardCookImport.update({
+  id: '/cook',
+  path: '/cook',
+  getParentRoute: () => DashboardRoute,
+} as any)
+
+const DashboardAdminRoute = DashboardAdminImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => DashboardRoute,
+} as any)
+
+const LocationSlugTableNumberIndexRoute =
+  LocationSlugTableNumberIndexImport.update({
+    id: '/$locationSlug/$tableNumber/',
+    path: '/$locationSlug/$tableNumber/',
+    getParentRoute: () => rootRoute,
+  } as any)
+
+const LocationSlugTableNumberPlaceOrderRoute =
+  LocationSlugTableNumberPlaceOrderImport.update({
+    id: '/$locationSlug/$tableNumber/place-order',
+    path: '/$locationSlug/$tableNumber/place-order',
+    getParentRoute: () => rootRoute,
+  } as any)
+
+const LocationSlugTableNumberOrderRoute =
+  LocationSlugTableNumberOrderImport.update({
+    id: '/$locationSlug/$tableNumber/order',
+    path: '/$locationSlug/$tableNumber/order',
+    getParentRoute: () => rootRoute,
+  } as any)
+
+const LocationSlugTableNumberFeedbackRoute =
+  LocationSlugTableNumberFeedbackImport.update({
+    id: '/$locationSlug/$tableNumber/feedback',
+    path: '/$locationSlug/$tableNumber/feedback',
+    getParentRoute: () => rootRoute,
+  } as any)
+
+const DashboardManagerProductIndexRoute =
+  DashboardManagerProductIndexImport.update({
+    id: '/product/',
+    path: '/product/',
+    getParentRoute: () => DashboardManagerRoute,
+  } as any)
+
+const DashboardManagerStaffCreateRoute =
+  DashboardManagerStaffCreateImport.update({
+    id: '/staff/create',
+    path: '/staff/create',
+    getParentRoute: () => DashboardManagerRoute,
+  } as any)
+
+const DashboardManagerProductCreateRoute =
+  DashboardManagerProductCreateImport.update({
+    id: '/product/create',
+    path: '/product/create',
+    getParentRoute: () => DashboardManagerRoute,
+  } as any)
+
+const DashboardManagerProductProductIdRoute =
+  DashboardManagerProductProductIdImport.update({
+    id: '/product/$productId',
+    path: '/product/$productId',
+    getParentRoute: () => DashboardManagerRoute,
+  } as any)
+
+const DashboardAdminsLocationCreateRoute =
+  DashboardAdminsLocationCreateImport.update({
+    id: '/admins/location/create',
+    path: '/admins/location/create',
+    getParentRoute: () => DashboardRoute,
+  } as any)
+
+const DashboardAdminsLocationLocationIdRoute =
+  DashboardAdminsLocationLocationIdImport.update({
+    id: '/admins/location/$locationId',
+    path: '/admins/location/$locationId',
+    getParentRoute: () => DashboardRoute,
+  } as any)
+
+const DashboardManagerProductEditProductIdRoute =
+  DashboardManagerProductEditProductIdImport.update({
+    id: '/product/edit/$productId',
+    path: '/product/edit/$productId',
+    getParentRoute: () => DashboardManagerRoute,
+  } as any)
 
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/admin': {
-      id: '/admin'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AdminImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardImport
       parentRoute: typeof rootRoute
     }
     '/login': {
@@ -53,56 +183,321 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginImport
       parentRoute: typeof rootRoute
     }
-    '/manager': {
-      id: '/manager'
+    '/dashboard/admin': {
+      id: '/dashboard/admin'
+      path: '/admin'
+      fullPath: '/dashboard/admin'
+      preLoaderRoute: typeof DashboardAdminImport
+      parentRoute: typeof DashboardImport
+    }
+    '/dashboard/cook': {
+      id: '/dashboard/cook'
+      path: '/cook'
+      fullPath: '/dashboard/cook'
+      preLoaderRoute: typeof DashboardCookImport
+      parentRoute: typeof DashboardImport
+    }
+    '/dashboard/manager': {
+      id: '/dashboard/manager'
       path: '/manager'
-      fullPath: '/manager'
-      preLoaderRoute: typeof ManagerImport
+      fullPath: '/dashboard/manager'
+      preLoaderRoute: typeof DashboardManagerImport
+      parentRoute: typeof DashboardImport
+    }
+    '/dashboard/waiter': {
+      id: '/dashboard/waiter'
+      path: '/waiter'
+      fullPath: '/dashboard/waiter'
+      preLoaderRoute: typeof DashboardWaiterImport
+      parentRoute: typeof DashboardImport
+    }
+    '/$locationSlug/': {
+      id: '/$locationSlug/'
+      path: '/$locationSlug'
+      fullPath: '/$locationSlug'
+      preLoaderRoute: typeof LocationSlugIndexImport
       parentRoute: typeof rootRoute
+    }
+    '/$locationSlug/$tableNumber/feedback': {
+      id: '/$locationSlug/$tableNumber/feedback'
+      path: '/$locationSlug/$tableNumber/feedback'
+      fullPath: '/$locationSlug/$tableNumber/feedback'
+      preLoaderRoute: typeof LocationSlugTableNumberFeedbackImport
+      parentRoute: typeof rootRoute
+    }
+    '/$locationSlug/$tableNumber/order': {
+      id: '/$locationSlug/$tableNumber/order'
+      path: '/$locationSlug/$tableNumber/order'
+      fullPath: '/$locationSlug/$tableNumber/order'
+      preLoaderRoute: typeof LocationSlugTableNumberOrderImport
+      parentRoute: typeof rootRoute
+    }
+    '/$locationSlug/$tableNumber/place-order': {
+      id: '/$locationSlug/$tableNumber/place-order'
+      path: '/$locationSlug/$tableNumber/place-order'
+      fullPath: '/$locationSlug/$tableNumber/place-order'
+      preLoaderRoute: typeof LocationSlugTableNumberPlaceOrderImport
+      parentRoute: typeof rootRoute
+    }
+    '/$locationSlug/$tableNumber/': {
+      id: '/$locationSlug/$tableNumber/'
+      path: '/$locationSlug/$tableNumber'
+      fullPath: '/$locationSlug/$tableNumber'
+      preLoaderRoute: typeof LocationSlugTableNumberIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/dashboard/admins/location/$locationId': {
+      id: '/dashboard/admins/location/$locationId'
+      path: '/admins/location/$locationId'
+      fullPath: '/dashboard/admins/location/$locationId'
+      preLoaderRoute: typeof DashboardAdminsLocationLocationIdImport
+      parentRoute: typeof DashboardImport
+    }
+    '/dashboard/admins/location/create': {
+      id: '/dashboard/admins/location/create'
+      path: '/admins/location/create'
+      fullPath: '/dashboard/admins/location/create'
+      preLoaderRoute: typeof DashboardAdminsLocationCreateImport
+      parentRoute: typeof DashboardImport
+    }
+    '/dashboard/manager/product/$productId': {
+      id: '/dashboard/manager/product/$productId'
+      path: '/product/$productId'
+      fullPath: '/dashboard/manager/product/$productId'
+      preLoaderRoute: typeof DashboardManagerProductProductIdImport
+      parentRoute: typeof DashboardManagerImport
+    }
+    '/dashboard/manager/product/create': {
+      id: '/dashboard/manager/product/create'
+      path: '/product/create'
+      fullPath: '/dashboard/manager/product/create'
+      preLoaderRoute: typeof DashboardManagerProductCreateImport
+      parentRoute: typeof DashboardManagerImport
+    }
+    '/dashboard/manager/staff/create': {
+      id: '/dashboard/manager/staff/create'
+      path: '/staff/create'
+      fullPath: '/dashboard/manager/staff/create'
+      preLoaderRoute: typeof DashboardManagerStaffCreateImport
+      parentRoute: typeof DashboardManagerImport
+    }
+    '/dashboard/manager/product/': {
+      id: '/dashboard/manager/product/'
+      path: '/product'
+      fullPath: '/dashboard/manager/product'
+      preLoaderRoute: typeof DashboardManagerProductIndexImport
+      parentRoute: typeof DashboardManagerImport
+    }
+    '/dashboard/manager/product/edit/$productId': {
+      id: '/dashboard/manager/product/edit/$productId'
+      path: '/product/edit/$productId'
+      fullPath: '/dashboard/manager/product/edit/$productId'
+      preLoaderRoute: typeof DashboardManagerProductEditProductIdImport
+      parentRoute: typeof DashboardManagerImport
     }
   }
 }
 
 // Create and export the route tree
 
+interface DashboardManagerRouteChildren {
+  DashboardManagerProductProductIdRoute: typeof DashboardManagerProductProductIdRoute
+  DashboardManagerProductCreateRoute: typeof DashboardManagerProductCreateRoute
+  DashboardManagerStaffCreateRoute: typeof DashboardManagerStaffCreateRoute
+  DashboardManagerProductIndexRoute: typeof DashboardManagerProductIndexRoute
+  DashboardManagerProductEditProductIdRoute: typeof DashboardManagerProductEditProductIdRoute
+}
+
+const DashboardManagerRouteChildren: DashboardManagerRouteChildren = {
+  DashboardManagerProductProductIdRoute: DashboardManagerProductProductIdRoute,
+  DashboardManagerProductCreateRoute: DashboardManagerProductCreateRoute,
+  DashboardManagerStaffCreateRoute: DashboardManagerStaffCreateRoute,
+  DashboardManagerProductIndexRoute: DashboardManagerProductIndexRoute,
+  DashboardManagerProductEditProductIdRoute:
+    DashboardManagerProductEditProductIdRoute,
+}
+
+const DashboardManagerRouteWithChildren =
+  DashboardManagerRoute._addFileChildren(DashboardManagerRouteChildren)
+
+interface DashboardRouteChildren {
+  DashboardAdminRoute: typeof DashboardAdminRoute
+  DashboardCookRoute: typeof DashboardCookRoute
+  DashboardManagerRoute: typeof DashboardManagerRouteWithChildren
+  DashboardWaiterRoute: typeof DashboardWaiterRoute
+  DashboardAdminsLocationLocationIdRoute: typeof DashboardAdminsLocationLocationIdRoute
+  DashboardAdminsLocationCreateRoute: typeof DashboardAdminsLocationCreateRoute
+}
+
+const DashboardRouteChildren: DashboardRouteChildren = {
+  DashboardAdminRoute: DashboardAdminRoute,
+  DashboardCookRoute: DashboardCookRoute,
+  DashboardManagerRoute: DashboardManagerRouteWithChildren,
+  DashboardWaiterRoute: DashboardWaiterRoute,
+  DashboardAdminsLocationLocationIdRoute:
+    DashboardAdminsLocationLocationIdRoute,
+  DashboardAdminsLocationCreateRoute: DashboardAdminsLocationCreateRoute,
+}
+
+const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
+  DashboardRouteChildren,
+)
+
 export interface FileRoutesByFullPath {
-  '/admin': typeof AdminRoute
+  '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRouteWithChildren
   '/login': typeof LoginRoute
-  '/manager': typeof ManagerRoute
+  '/dashboard/admin': typeof DashboardAdminRoute
+  '/dashboard/cook': typeof DashboardCookRoute
+  '/dashboard/manager': typeof DashboardManagerRouteWithChildren
+  '/dashboard/waiter': typeof DashboardWaiterRoute
+  '/$locationSlug': typeof LocationSlugIndexRoute
+  '/$locationSlug/$tableNumber/feedback': typeof LocationSlugTableNumberFeedbackRoute
+  '/$locationSlug/$tableNumber/order': typeof LocationSlugTableNumberOrderRoute
+  '/$locationSlug/$tableNumber/place-order': typeof LocationSlugTableNumberPlaceOrderRoute
+  '/$locationSlug/$tableNumber': typeof LocationSlugTableNumberIndexRoute
+  '/dashboard/admins/location/$locationId': typeof DashboardAdminsLocationLocationIdRoute
+  '/dashboard/admins/location/create': typeof DashboardAdminsLocationCreateRoute
+  '/dashboard/manager/product/$productId': typeof DashboardManagerProductProductIdRoute
+  '/dashboard/manager/product/create': typeof DashboardManagerProductCreateRoute
+  '/dashboard/manager/staff/create': typeof DashboardManagerStaffCreateRoute
+  '/dashboard/manager/product': typeof DashboardManagerProductIndexRoute
+  '/dashboard/manager/product/edit/$productId': typeof DashboardManagerProductEditProductIdRoute
 }
 
 export interface FileRoutesByTo {
-  '/admin': typeof AdminRoute
+  '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRouteWithChildren
   '/login': typeof LoginRoute
-  '/manager': typeof ManagerRoute
+  '/dashboard/admin': typeof DashboardAdminRoute
+  '/dashboard/cook': typeof DashboardCookRoute
+  '/dashboard/manager': typeof DashboardManagerRouteWithChildren
+  '/dashboard/waiter': typeof DashboardWaiterRoute
+  '/$locationSlug': typeof LocationSlugIndexRoute
+  '/$locationSlug/$tableNumber/feedback': typeof LocationSlugTableNumberFeedbackRoute
+  '/$locationSlug/$tableNumber/order': typeof LocationSlugTableNumberOrderRoute
+  '/$locationSlug/$tableNumber/place-order': typeof LocationSlugTableNumberPlaceOrderRoute
+  '/$locationSlug/$tableNumber': typeof LocationSlugTableNumberIndexRoute
+  '/dashboard/admins/location/$locationId': typeof DashboardAdminsLocationLocationIdRoute
+  '/dashboard/admins/location/create': typeof DashboardAdminsLocationCreateRoute
+  '/dashboard/manager/product/$productId': typeof DashboardManagerProductProductIdRoute
+  '/dashboard/manager/product/create': typeof DashboardManagerProductCreateRoute
+  '/dashboard/manager/staff/create': typeof DashboardManagerStaffCreateRoute
+  '/dashboard/manager/product': typeof DashboardManagerProductIndexRoute
+  '/dashboard/manager/product/edit/$productId': typeof DashboardManagerProductEditProductIdRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
-  '/admin': typeof AdminRoute
+  '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRouteWithChildren
   '/login': typeof LoginRoute
-  '/manager': typeof ManagerRoute
+  '/dashboard/admin': typeof DashboardAdminRoute
+  '/dashboard/cook': typeof DashboardCookRoute
+  '/dashboard/manager': typeof DashboardManagerRouteWithChildren
+  '/dashboard/waiter': typeof DashboardWaiterRoute
+  '/$locationSlug/': typeof LocationSlugIndexRoute
+  '/$locationSlug/$tableNumber/feedback': typeof LocationSlugTableNumberFeedbackRoute
+  '/$locationSlug/$tableNumber/order': typeof LocationSlugTableNumberOrderRoute
+  '/$locationSlug/$tableNumber/place-order': typeof LocationSlugTableNumberPlaceOrderRoute
+  '/$locationSlug/$tableNumber/': typeof LocationSlugTableNumberIndexRoute
+  '/dashboard/admins/location/$locationId': typeof DashboardAdminsLocationLocationIdRoute
+  '/dashboard/admins/location/create': typeof DashboardAdminsLocationCreateRoute
+  '/dashboard/manager/product/$productId': typeof DashboardManagerProductProductIdRoute
+  '/dashboard/manager/product/create': typeof DashboardManagerProductCreateRoute
+  '/dashboard/manager/staff/create': typeof DashboardManagerStaffCreateRoute
+  '/dashboard/manager/product/': typeof DashboardManagerProductIndexRoute
+  '/dashboard/manager/product/edit/$productId': typeof DashboardManagerProductEditProductIdRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/admin' | '/login' | '/manager'
+  fullPaths:
+    | '/'
+    | '/dashboard'
+    | '/login'
+    | '/dashboard/admin'
+    | '/dashboard/cook'
+    | '/dashboard/manager'
+    | '/dashboard/waiter'
+    | '/$locationSlug'
+    | '/$locationSlug/$tableNumber/feedback'
+    | '/$locationSlug/$tableNumber/order'
+    | '/$locationSlug/$tableNumber/place-order'
+    | '/$locationSlug/$tableNumber'
+    | '/dashboard/admins/location/$locationId'
+    | '/dashboard/admins/location/create'
+    | '/dashboard/manager/product/$productId'
+    | '/dashboard/manager/product/create'
+    | '/dashboard/manager/staff/create'
+    | '/dashboard/manager/product'
+    | '/dashboard/manager/product/edit/$productId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/admin' | '/login' | '/manager'
-  id: '__root__' | '/admin' | '/login' | '/manager'
+  to:
+    | '/'
+    | '/dashboard'
+    | '/login'
+    | '/dashboard/admin'
+    | '/dashboard/cook'
+    | '/dashboard/manager'
+    | '/dashboard/waiter'
+    | '/$locationSlug'
+    | '/$locationSlug/$tableNumber/feedback'
+    | '/$locationSlug/$tableNumber/order'
+    | '/$locationSlug/$tableNumber/place-order'
+    | '/$locationSlug/$tableNumber'
+    | '/dashboard/admins/location/$locationId'
+    | '/dashboard/admins/location/create'
+    | '/dashboard/manager/product/$productId'
+    | '/dashboard/manager/product/create'
+    | '/dashboard/manager/staff/create'
+    | '/dashboard/manager/product'
+    | '/dashboard/manager/product/edit/$productId'
+  id:
+    | '__root__'
+    | '/'
+    | '/dashboard'
+    | '/login'
+    | '/dashboard/admin'
+    | '/dashboard/cook'
+    | '/dashboard/manager'
+    | '/dashboard/waiter'
+    | '/$locationSlug/'
+    | '/$locationSlug/$tableNumber/feedback'
+    | '/$locationSlug/$tableNumber/order'
+    | '/$locationSlug/$tableNumber/place-order'
+    | '/$locationSlug/$tableNumber/'
+    | '/dashboard/admins/location/$locationId'
+    | '/dashboard/admins/location/create'
+    | '/dashboard/manager/product/$productId'
+    | '/dashboard/manager/product/create'
+    | '/dashboard/manager/staff/create'
+    | '/dashboard/manager/product/'
+    | '/dashboard/manager/product/edit/$productId'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
-  AdminRoute: typeof AdminRoute
+  IndexRoute: typeof IndexRoute
+  DashboardRoute: typeof DashboardRouteWithChildren
   LoginRoute: typeof LoginRoute
-  ManagerRoute: typeof ManagerRoute
+  LocationSlugIndexRoute: typeof LocationSlugIndexRoute
+  LocationSlugTableNumberFeedbackRoute: typeof LocationSlugTableNumberFeedbackRoute
+  LocationSlugTableNumberOrderRoute: typeof LocationSlugTableNumberOrderRoute
+  LocationSlugTableNumberPlaceOrderRoute: typeof LocationSlugTableNumberPlaceOrderRoute
+  LocationSlugTableNumberIndexRoute: typeof LocationSlugTableNumberIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  AdminRoute: AdminRoute,
+  IndexRoute: IndexRoute,
+  DashboardRoute: DashboardRouteWithChildren,
   LoginRoute: LoginRoute,
-  ManagerRoute: ManagerRoute,
+  LocationSlugIndexRoute: LocationSlugIndexRoute,
+  LocationSlugTableNumberFeedbackRoute: LocationSlugTableNumberFeedbackRoute,
+  LocationSlugTableNumberOrderRoute: LocationSlugTableNumberOrderRoute,
+  LocationSlugTableNumberPlaceOrderRoute:
+    LocationSlugTableNumberPlaceOrderRoute,
+  LocationSlugTableNumberIndexRoute: LocationSlugTableNumberIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -115,19 +510,98 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/admin",
+        "/",
+        "/dashboard",
         "/login",
-        "/manager"
+        "/$locationSlug/",
+        "/$locationSlug/$tableNumber/feedback",
+        "/$locationSlug/$tableNumber/order",
+        "/$locationSlug/$tableNumber/place-order",
+        "/$locationSlug/$tableNumber/"
       ]
     },
-    "/admin": {
-      "filePath": "admin.tsx"
+    "/": {
+      "filePath": "index.tsx"
+    },
+    "/dashboard": {
+      "filePath": "dashboard.tsx",
+      "children": [
+        "/dashboard/admin",
+        "/dashboard/cook",
+        "/dashboard/manager",
+        "/dashboard/waiter",
+        "/dashboard/admins/location/$locationId",
+        "/dashboard/admins/location/create"
+      ]
     },
     "/login": {
       "filePath": "login.tsx"
     },
-    "/manager": {
-      "filePath": "manager.tsx"
+    "/dashboard/admin": {
+      "filePath": "dashboard/admin.tsx",
+      "parent": "/dashboard"
+    },
+    "/dashboard/cook": {
+      "filePath": "dashboard/cook.tsx",
+      "parent": "/dashboard"
+    },
+    "/dashboard/manager": {
+      "filePath": "dashboard/manager.tsx",
+      "parent": "/dashboard",
+      "children": [
+        "/dashboard/manager/product/$productId",
+        "/dashboard/manager/product/create",
+        "/dashboard/manager/staff/create",
+        "/dashboard/manager/product/",
+        "/dashboard/manager/product/edit/$productId"
+      ]
+    },
+    "/dashboard/waiter": {
+      "filePath": "dashboard/waiter.tsx",
+      "parent": "/dashboard"
+    },
+    "/$locationSlug/": {
+      "filePath": "$locationSlug/index.tsx"
+    },
+    "/$locationSlug/$tableNumber/feedback": {
+      "filePath": "$locationSlug/$tableNumber/feedback.tsx"
+    },
+    "/$locationSlug/$tableNumber/order": {
+      "filePath": "$locationSlug/$tableNumber/order.tsx"
+    },
+    "/$locationSlug/$tableNumber/place-order": {
+      "filePath": "$locationSlug/$tableNumber/place-order.tsx"
+    },
+    "/$locationSlug/$tableNumber/": {
+      "filePath": "$locationSlug/$tableNumber/index.tsx"
+    },
+    "/dashboard/admins/location/$locationId": {
+      "filePath": "dashboard/admins/location/$locationId.tsx",
+      "parent": "/dashboard"
+    },
+    "/dashboard/admins/location/create": {
+      "filePath": "dashboard/admins/location/create.tsx",
+      "parent": "/dashboard"
+    },
+    "/dashboard/manager/product/$productId": {
+      "filePath": "dashboard/manager/product/$productId.tsx",
+      "parent": "/dashboard/manager"
+    },
+    "/dashboard/manager/product/create": {
+      "filePath": "dashboard/manager/product/create.tsx",
+      "parent": "/dashboard/manager"
+    },
+    "/dashboard/manager/staff/create": {
+      "filePath": "dashboard/manager/staff.create.tsx",
+      "parent": "/dashboard/manager"
+    },
+    "/dashboard/manager/product/": {
+      "filePath": "dashboard/manager/product/index.tsx",
+      "parent": "/dashboard/manager"
+    },
+    "/dashboard/manager/product/edit/$productId": {
+      "filePath": "dashboard/manager/product/edit.$productId.tsx",
+      "parent": "/dashboard/manager"
     }
   }
 }

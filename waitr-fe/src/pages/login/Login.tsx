@@ -11,13 +11,8 @@ const Login = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    auth?.logIn({ username, password }).then((role: string) => {
-      if (role === "admin") {
-        navigate({ to: "/admin" });
-      }
-      if (role === "manager") {
-        navigate({ to: "/manager" });
-      }
+    auth?.logIn({ username, password }).then(() => {
+      navigate({ to: "/dashboard" });
     });
   };
 
