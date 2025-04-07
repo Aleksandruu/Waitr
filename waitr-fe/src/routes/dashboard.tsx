@@ -43,7 +43,7 @@ function RouteComponent() {
   return (
     <>
       <Navbar></Navbar>
-      <Outlet />;
+      <Outlet />
     </>
   );
 }
