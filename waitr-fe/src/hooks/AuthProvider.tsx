@@ -7,6 +7,7 @@ import { createInterceptor } from "./HttpInterceptor";
 
 interface AuthContextType {
   getRole(): string;
+  getUsername(): string;
   token: string;
   logIn(data: { username: string; password: string }): Promise<void>;
   logOut(): void;
@@ -14,7 +15,7 @@ interface AuthContextType {
 
 export interface TokenPayload {
   role: "admin" | "manager" | "waiter" | "cook";
-  username: string;
+  name: string;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -32,8 +33,19 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const getRole = () => {
+    if (token === "") {
+      return "";
+    }
     const role = jwtDecode<TokenPayload>(token).role;
     return role;
+  };
+
+  const getUsername = () => {
+    if (token === "") {
+      return "";
+    }
+    const username = jwtDecode<TokenPayload>(token).name;
+    return username;
   };
 
   const logOut = () => {
@@ -42,7 +54,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ token, getRole, logIn, logOut }}>
+    <AuthContext.Provider
+      value={{ token, getRole, getUsername, logIn, logOut }}
+    >
       {children}
     </AuthContext.Provider>
   );
