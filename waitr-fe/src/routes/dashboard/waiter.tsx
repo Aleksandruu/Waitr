@@ -1,4 +1,4 @@
-import { createFileRoute, redirect } from "@tanstack/react-router";
+import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import { RouterContext } from "../..";
 
 export const Route = createFileRoute("/dashboard/waiter")({
@@ -14,5 +14,5 @@ export const Route = createFileRoute("/dashboard/waiter")({
 });
 
 function RouteComponent() {
-  return <div>Hello "/dashboard/waiter"!</div>;
+  return <Outlet />;
 }

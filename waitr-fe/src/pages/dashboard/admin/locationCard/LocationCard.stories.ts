@@ -2,9 +2,9 @@ import type { Meta, StoryObj } from "@storybook/react";
 import LocationCard from "./LocationCard";
 
 const location = {
-  id: 123,
+  id: "123",
   name: "Alexandru",
-  slug:"sdasdas"
+  slug: "sdasdas",
 };
 
 const meta = {
