@@ -1,5 +1,6 @@
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import { RouterContext } from "..";
+import Navbar from "../pages/dashboard/navbar/Navbar";
 
 export const Route = createFileRoute("/dashboard")({
   component: RouteComponent,
@@ -39,5 +40,10 @@ export const Route = createFileRoute("/dashboard")({
 });
 
 function RouteComponent() {
-  return <Outlet />;
+  return (
+    <>
+      <Navbar></Navbar>
+      <Outlet />;
+    </>
+  );
 }
