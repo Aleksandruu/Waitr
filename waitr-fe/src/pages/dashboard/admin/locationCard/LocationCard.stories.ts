@@ -8,7 +8,7 @@ const location = {
 };
 
 const meta = {
-  title: "Admin/Location Card",
+  title: "Dashboard/Admin/Location Card",
   component: LocationCard,
   tags: ["autodocs"],
   parameters: {

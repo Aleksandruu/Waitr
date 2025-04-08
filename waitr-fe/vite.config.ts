@@ -17,4 +17,9 @@ export default defineConfig({
   build: {
     outDir: "dist",
   },
+  css: {
+    modules: {
+      localsConvention: "camelCase",
+    },
+  },
 });

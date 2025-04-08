@@ -1,6 +1,6 @@
 @import "../../../variables";
 
-nav {
+.nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -26,5 +26,4 @@ nav {
 .nav-filler {
   height: 80px;
   width: 100%;
-  background-color: $gray-background;
 }

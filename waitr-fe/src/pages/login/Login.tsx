@@ -1,7 +1,7 @@
-import "./login.scss";
 import { useAuth } from "../../hooks/AuthProvider";
 import { useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
+import Button from "../../base_components/button/Button";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -19,7 +19,7 @@ const Login = () => {
   return (
     <div className="container">
       <form
-        className="middle-column-container"
+        className="middle-column-container justify-center"
         onSubmit={(event) => handleSubmit(event)}
       >
         <div className="input-label">
@@ -46,9 +46,7 @@ const Login = () => {
             required
           />
         </div>
-        <button className="btn" type="submit">
-          Login
-        </button>
+        <Button text="Login" color="green" wide={true} tall={true}></Button>
       </form>
     </div>
   );

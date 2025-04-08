@@ -1,7 +1,7 @@
 const Manager = () => {
   return (
     <div className="container">
-      <div className="middle-column-container flex-start">
+      <div className="middle-column-container">
         <h1>manager</h1>
       </div>
     </div>
