@@ -5,7 +5,7 @@ export interface ILocation {
   staffMembers?: StaffMember[];
 }
 
-interface StaffMember {
+export interface StaffMember {
   id: string;
   name: string;
   role: string;

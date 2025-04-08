@@ -13,7 +13,7 @@ export type RouterContext = {
   };
 };
 
-const router = createRouter({
+export const router = createRouter({
   routeTree,
   context: {} as RouterContext,
 });

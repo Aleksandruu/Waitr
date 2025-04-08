@@ -1,6 +1,7 @@
 import { useNavigate } from "@tanstack/react-router";
 import { useAuth } from "../../../hooks/AuthProvider";
-import "./navbar.scss";
+import styles from "./Navbar.module.scss";
+import Button from "../../../base_components/button/Button";
 
 function Navbar() {
   const auth = useAuth();
@@ -8,19 +9,18 @@ function Navbar() {
 
   return (
     <>
-      <nav>
+      <nav className={styles.nav}>
         <p>Hello, {auth?.getUsername()}!</p>
-        <button
+        <Button
           onClick={() => {
             auth?.logOut();
             navigate({ to: "/login" });
           }}
-          className="btn"
-        >
-          Logout
-        </button>
+          text="Logout"
+          color="green"
+        ></Button>
       </nav>
-      <div className="nav-filler"></div>
+      <div className={styles.navFiller}></div>
     </>
   );
 }

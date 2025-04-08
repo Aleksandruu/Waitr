@@ -16,25 +16,11 @@ code {
 
 .container {
   width: 100%;
-  min-height: 100svh;
+  min-height: calc(100vh - 80px);
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-}
-
-.btn {
-  background-color: $primary-color;
-  border: none;
-  color: white;
-  width: 200px;
-  height: 2.5rem;
-  text-align: center;
-  text-decoration: none;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 1.5rem;
-  font-weight: 600;
 }
 
 .input-txt {
@@ -56,18 +42,18 @@ code {
 .middle-column-container {
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
-  justify-content: center;
   background-color: $gray-background;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
-  min-height: 100svh;
+  min-height: calc(100vh - 80px);
   width: 600px;
   padding-bottom: 2rem;
   gap: 1rem;
 }
 
-.flex-start {
-  justify-content: flex-start;
+.justify-center {
+  justify-content: center;
 }
 
 @media screen and (max-width: 600px) {

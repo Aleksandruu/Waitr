@@ -1,23 +1,23 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import Admin from "./Admin";
-import * as LocationStories from "./locationCard/LocationCard.stories";
+import { ILocation } from "../../../models/location.model";
 
-const locations = [
+const locations: ILocation[] = [
   {
-    id: 123,
+    id: "123",
     slug: "The Restaurant",
     name: "Alexandru",
   },
 ];
 
 const meta = {
-  title: "Admin/Admin Page",
+  title: "Dashboard/Admin/Admin Page",
   component: Admin,
   tags: ["autodocs"],
   parameters: {
     layout: "fullscreen",
   },
-  args: { ...LocationStories.LocationCardStory },
+  args: { locations: [] },
 } satisfies Meta<typeof Admin>;
 
 export default meta;

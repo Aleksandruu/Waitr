@@ -1,19 +1,19 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import Navbar from "./Navbar";
+import StaffCard from "./StaffCard";
 
 const meta = {
-  title: "Dashboard/Navbar",
-  component: Navbar,
+  title: "Admin/Staff Card",
+  component: StaffCard,
   tags: ["autodocs"],
   parameters: {
     layout: "fullscreen",
   },
   args: {},
-};
+} satisfies Meta<typeof StaffCard>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const NavbarStory: Story = {
+export const AdminStory: Story = {
   args: {},
 };
