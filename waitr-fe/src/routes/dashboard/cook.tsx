@@ -1,11 +1,11 @@
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
-import { RouterContext } from "../..";
+import { store } from "../../store";
 
 export const Route = createFileRoute("/dashboard/cook")({
   component: RouteComponent,
-  beforeLoad: async (route) => {
-    const context = route.context as RouterContext;
-    if (context.auth.getRole() !== "cook") {
+  beforeLoad: async () => {
+    const role = store.getState().auth.user?.role;
+    if (role !== "cook") {
       throw redirect({
         to: "/dashboard",
       });

@@ -1,12 +1,13 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import Login from "../pages/login/Login";
-import { RouterContext } from "..";
+import { store } from "../store";
 
 export const Route = createFileRoute("/login")({
   component: Login,
-  beforeLoad: async (route) => {
-    const context = route.context as RouterContext;
-    if (context.auth.token) {
+  beforeLoad: async () => {
+    const token = store.getState().auth.token;
+    console.log(token);
+    if (token) {
       throw redirect({
         to: "/dashboard",
       });

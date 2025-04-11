@@ -8,16 +8,18 @@ interface ButtonProps {
   wide?: boolean;
   tall?: boolean;
   disabled?: boolean;
+  loading?: boolean;
 }
 
-function Button({
+const Button = ({
   text,
   onClick = () => {},
   color = "green",
   wide = false,
   tall = false,
   disabled = false,
-}: ButtonProps) {
+  loading = false,
+}: ButtonProps) => {
   return (
     <button
       className={classNames(
@@ -26,12 +28,12 @@ function Button({
         wide ? styles.wide : "",
         tall ? styles.tall : ""
       )}
-      disabled={disabled}
+      disabled={disabled || loading}
       onClick={onClick}
     >
-      {text}
+      {loading ? "Loading..." : text}
     </button>
   );
-}
+};
 
 export default Button;

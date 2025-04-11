@@ -4,19 +4,18 @@ import { ILocation } from "../../../../models/location.model";
 import { useEffect, useState } from "react";
 import StaffCard from "./staffCard/StaffCard";
 import styles from "./LocationPage.module.scss";
+import { useGetLocationByIdQuery } from "../../../../api/adminApi";
 
 function LocationPage() {
   const { locationId } = useParams({ strict: false });
 
-  const [location, setLocation] = useState<ILocation | undefined>(undefined);
+  const {
+    data: location,
+    isLoading,
+    isError,
+  } = useGetLocationByIdQuery(locationId!);
 
   const clientUrl = import.meta.env.VITE_APP_CLIENT_URL;
-
-  useEffect(() => {
-    getLocation(locationId!).then((location) => {
-      setLocation(location);
-    });
-  }, [locationId]);
 
   return (
     <div className="container">
