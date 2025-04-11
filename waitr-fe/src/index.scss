@@ -23,22 +23,6 @@ code {
   flex-direction: column;
 }
 
-.input-txt {
-  width: 200px;
-  height: 2rem;
-  border-radius: 1rem;
-  outline: none;
-  border: 1px solid rgb(173, 173, 173);
-  box-sizing: border-box;
-  padding: 0 0.7rem;
-}
-
-.input-label {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
 .middle-column-container {
   display: flex;
   flex-direction: column;

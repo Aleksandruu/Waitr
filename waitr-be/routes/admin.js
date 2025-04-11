@@ -35,7 +35,7 @@ router.get(
 );
 
 router.get(
-  "/location/:locationId",
+  "/locations/:locationId",
   authenticateToken,
   checkAdminRole,
   async (req, res) => {

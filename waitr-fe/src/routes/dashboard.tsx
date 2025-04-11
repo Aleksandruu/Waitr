@@ -1,19 +1,25 @@
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
-import { RouterContext } from "..";
 import Navbar from "../pages/dashboard/navbar/Navbar";
+import { store } from "../store";
 
 export const Route = createFileRoute("/dashboard")({
   component: RouteComponent,
   beforeLoad: async (route) => {
-    const context = route.context as RouterContext;
-    if (!context.auth.token) {
+    const token = store.getState().auth.token;
+    const user = store.getState().auth.user;
+    const role = user?.role;
+
+    console.log(token);
+    console.log(user);
+
+    if (!token) {
       return redirect({
         to: "/login",
         search: { redirectTo: "/dashboard" },
       });
     }
     if (route.location.href === "/dashboard") {
-      switch (context.auth.getRole()) {
+      switch (role) {
         case "admin":
           throw redirect({
             to: "/dashboard/admin",

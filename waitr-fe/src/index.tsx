@@ -3,8 +3,9 @@ import reportWebVitals from "./reportWebVitals";
 import { RouterProvider, createRouter } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen";
 import ReactDOM from "react-dom/client";
-import { AuthProvider, useAuth } from "./hooks/AuthProvider";
 import React from "react";
+import { store } from "./store";
+import { Provider } from "react-redux";
 
 export type RouterContext = {
   auth: {
@@ -25,15 +26,14 @@ declare module "@tanstack/react-router" {
 }
 
 function InnerApp() {
-  const auth = useAuth();
-  return <RouterProvider router={router} context={{ auth }} />;
+  return <RouterProvider router={router} />;
 }
 
 function App() {
   return (
-    <AuthProvider>
+    <Provider store={store}>
       <InnerApp />
-    </AuthProvider>
+    </Provider>
   );
 }
 

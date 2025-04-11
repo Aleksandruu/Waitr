@@ -1,19 +1,19 @@
 import { useNavigate } from "@tanstack/react-router";
-import { useAuth } from "../../../hooks/AuthProvider";
 import styles from "./Navbar.module.scss";
 import Button from "../../../base_components/button/Button";
+import { useDispatch } from "react-redux";
+import { authActions } from "../../login/Auth.slice";
 
 function Navbar() {
-  const auth = useAuth();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   return (
     <>
       <nav className={styles.nav}>
-        <p>Hello, {auth?.getUsername()}!</p>
         <Button
           onClick={() => {
-            auth?.logOut();
+            dispatch(authActions.logout());
             navigate({ to: "/login" });
           }}
           text="Logout"
