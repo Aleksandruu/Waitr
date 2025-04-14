@@ -2,7 +2,7 @@ export interface ILocation {
   id: string;
   slug: string;
   name: string;
-  staffMembers?: StaffMember[];
+  staff?: StaffMember[];
 }
 
 export interface StaffMember {

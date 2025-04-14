@@ -17,12 +17,12 @@ const meta = {
   parameters: {
     layout: "fullscreen",
   },
-  args: { locations: [] },
+  args: { data: [] },
 } satisfies Meta<typeof Admin>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const AdminStory: Story = {
-  args: { locations },
+  args: { data: locations },
 };

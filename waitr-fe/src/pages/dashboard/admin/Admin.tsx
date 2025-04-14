@@ -5,19 +5,24 @@ import styles from "./Admin.module.scss";
 import { useGetLocationsQuery } from "../../../api/adminApi";
 
 type AdminProps = {
-  locations?: ILocation[];
+  data?: ILocation[];
 };
 
-const Admin = ({ locations: propsLocations }: AdminProps) => {
-  const { data, refetch, isFetching } = useGetLocationsQuery();
+const Admin = ({ data: propsLocations }: AdminProps) => {
+  const { data } = useGetLocationsQuery();
+  const skeletonLocations = [1, 2, 3];
 
   return (
     <div className="container">
       <div className="middle-column-container">
         <h1>Admin</h1>
-        {data?.map((location) => (
-          <LocationCard key={location.id} location={location} />
-        ))}
+        {data
+          ? data.map((location) => (
+              <LocationCard key={location.id} location={location} />
+            ))
+          : skeletonLocations.map((index) => (
+              <LocationCard key={index} isLoading={true} />
+            ))}
         <Link
           to="/dashboard/admin/location/create"
           className={styles.addNewLocation}
