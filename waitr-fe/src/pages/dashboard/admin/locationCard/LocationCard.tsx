@@ -1,19 +1,38 @@
 import { ILocation } from "../../../../models/location.model";
 import { Link } from "@tanstack/react-router";
 import styles from "./LocationCard.module.scss";
+import cardStyles from "../../card.module.scss";
 
-function LocationCard({ location }: { location: ILocation }) {
+interface LocationCardProps {
+  location?: ILocation;
+  isLoading?: boolean;
+}
+
+function LocationCard({ location, isLoading }: LocationCardProps) {
   const clientUrl = import.meta.env.VITE_APP_CLIENT_URL;
 
   return (
     <Link
-      className={styles.card}
+      className={cardStyles.card}
       to="/dashboard/admin/location/$locationId"
-      params={{ locationId: location.id }}
+      params={{ locationId: location ? location.id : "" }}
     >
-      <h2>{location.name}</h2>
-      <p>Id: {location.id}</p>
-      <p>Website: {clientUrl + "/" + location.slug}</p>
+      {location ? (
+        <>
+          <h2>{location.name}</h2>
+          <p>Id: {location.id}</p>
+          <p>Website: {clientUrl + "/" + location.slug}</p>
+        </>
+      ) : (
+        ""
+      )}
+      {isLoading ? (
+        <div className={cardStyles.loading}>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      ) : null}
     </Link>
   );
 }

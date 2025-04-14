@@ -7,7 +7,7 @@ import TextInput from "../../base_components/textInput/TextInput";
 
 const Login = () => {
   const navigate = useNavigate();
-  const [login, { isLoading }] = useLoginMutation();
+  const [login, { isLoading, isError }] = useLoginMutation();
 
   const [formState, setFormState] = useState<LoginRequest>({
     username: "",
@@ -23,16 +23,18 @@ const Login = () => {
   return (
     <div className="container">
       <form className="middle-column-container justify-center">
+        {isLoading ? "asdad" : ""}
+        {isError ? "fdas" : ""}
         <TextInput
           label="Username"
           onChange={handleChange}
-          error={false}
+          error={isError}
         ></TextInput>
         <TextInput
           label="Password"
           type="password"
           onChange={handleChange}
-          error={false}
+          error={isError}
         ></TextInput>
         <Button
           text="Login"
@@ -41,11 +43,8 @@ const Login = () => {
           tall={true}
           loading={isLoading}
           onClick={async () => {
-            try {
-              const data = await login(formState).unwrap();
-              console.log(data);
-              navigate({ to: "/dashboard" });
-            } catch (err) {}
+            await login(formState);
+            navigate({ to: "/dashboard" });
           }}
         ></Button>
       </form>

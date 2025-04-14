@@ -14,11 +14,9 @@ const baseQuery = fetchBaseQuery({
   },
 });
 
-const baseQueryWithRetry = retry(baseQuery, { maxRetries: 6 });
-
 export const api = createApi({
   reducerPath: "splitApi",
-  baseQuery: baseQueryWithRetry,
+  baseQuery: baseQuery,
   tagTypes: ["auth", "admin"],
   endpoints: () => ({}),
 });
