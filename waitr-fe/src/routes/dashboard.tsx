@@ -9,9 +9,6 @@ export const Route = createFileRoute("/dashboard")({
     const user = store.getState().auth.user;
     const role = user?.role;
 
-    console.log(token);
-    console.log(user);
-
     if (!token) {
       return redirect({
         to: "/login",

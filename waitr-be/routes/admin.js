@@ -77,25 +77,31 @@ router.get(
   }
 );
 
-router.post("/manager", authenticateToken, checkAdminRole, async (req, res) => {
-  try {
-    const { name, password, location, slug } = req.body;
-    const hashedPassword = await bcrypt.hash(password, 10);
+router.post(
+  "/locations",
+  authenticateToken,
+  checkAdminRole,
+  async (req, res) => {
+    try {
+      const { locationName, locationSlug, managerUsername, managerPassword } =
+        req.body;
+      const hashedPassword = await bcrypt.hash(managerPassword, 10);
 
-    const locationId = await pool.query(
-      "INSERT INTO public.Location (name, slug) VALUES ($1, $2) RETURNING id ",
-      [location, slug]
-    );
+      const locationId = await pool.query(
+        "INSERT INTO public.Location (name, slug) VALUES ($1, $2) RETURNING id ",
+        [locationName, locationSlug]
+      );
 
-    await pool.query(
-      "INSERT INTO public.User (name, role, password, location_id) VALUES ($1, $2, $3, $4)",
-      [name, Roles.MANAGER, hashedPassword, locationId.rows[0].id]
-    );
-  } catch (error) {
-    return res.status(500).json({ error: error.message });
+      await pool.query(
+        "INSERT INTO public.User (name, role, password, location_id) VALUES ($1, $2, $3, $4)",
+        [managerUsername, Roles.MANAGER, hashedPassword, locationId.rows[0].id]
+      );
+    } catch (error) {
+      return res.status(500).json({ error: error.message });
+    }
+
+    return res.status(201).json({ message: "Manager created." });
   }
-
-  return res.status(201).json({ message: "Manager created." });
-});
+);
 
 module.exports = router;

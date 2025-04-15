@@ -4,6 +4,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@hookform/resolvers": "^5.0.1",
     "@jest/globals": "^29.7.0",
     "@reduxjs/toolkit": "^2.6.1",
     "@tanstack/react-router": "^1.114.29",
@@ -20,12 +21,14 @@
     "jwt-decode": "^4.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-hook-form": "^7.55.0",
     "react-redux": "^9.2.0",
     "typescript": "^4.9.5",
     "vite": "^6.2.4",
     "vite-tsconfig-paths": "^5.1.4",
     "waitr-fe": "file:",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "yup": "^1.6.1"
   },
   "scripts": {
     "start": "vite",

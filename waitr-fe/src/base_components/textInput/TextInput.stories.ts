@@ -18,9 +18,5 @@ export const username: Story = {
   args: {
     label: "Username",
     placeholder: "Enter your username",
-    error: false,
-    onChange: (e) => {
-      console.log(e.target.value);
-    },
   },
 };

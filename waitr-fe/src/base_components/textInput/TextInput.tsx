@@ -4,9 +4,10 @@ import styles from "./TextInput.module.scss";
 interface TextInputProps {
   placeholder?: string;
   label?: string;
-  error?: boolean;
+  error?: string | null;
   type?: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  register?: any;
 }
 
 const toCammelCase = (str: string) => {
@@ -20,9 +21,10 @@ const toCammelCase = (str: string) => {
 const TextInput = ({
   placeholder = "",
   label = "",
-  error = false,
+  error = undefined,
   type = "text",
   onChange = () => {},
+  register = null,
 }: TextInputProps) => {
   const labelId = toCammelCase(label);
 
@@ -36,8 +38,13 @@ const TextInput = ({
         name={labelId}
         onChange={onChange}
         type={type}
-        className={classNames(styles.inputTxt, error ? styles.error : "")}
+        className={classNames(
+          styles.inputTxt,
+          error !== undefined ? styles.error : ""
+        )}
+        {...register}
       />
+      {!!error && <span className={styles.errorMessage}>{error}</span>}
     </div>
   );
 };

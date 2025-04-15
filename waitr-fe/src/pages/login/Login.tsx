@@ -46,6 +46,7 @@ const Login = () => {
             await login(formState);
             navigate({ to: "/dashboard" });
           }}
+          submit={true}
         ></Button>
       </form>
     </div>
