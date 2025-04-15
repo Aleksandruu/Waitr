@@ -26,7 +26,6 @@ export const adminSlice = createSlice({
         adminApi.endpoints.getLocations.matchFulfilled,
         (state, { payload }) => {
           state.locations = payload;
-          console.log(payload);
           state.loading = false;
         }
       )
