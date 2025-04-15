@@ -10,3 +10,10 @@ export interface StaffMember {
   name: string;
   role: string;
 }
+
+export interface ILocationForm {
+  locationName: string;
+  locationSlug: string;
+  managerUsername: string;
+  managerPassword: string;
+}

@@ -9,6 +9,7 @@ interface ButtonProps {
   tall?: boolean;
   disabled?: boolean;
   loading?: boolean;
+  submit?: boolean;
 }
 
 const Button = ({
@@ -19,6 +20,7 @@ const Button = ({
   tall = false,
   disabled = false,
   loading = false,
+  submit = false,
 }: ButtonProps) => {
   return (
     <button
@@ -30,6 +32,7 @@ const Button = ({
       )}
       disabled={disabled || loading}
       onClick={onClick}
+      type={submit ? "submit" : "button"}
     >
       {loading ? "Loading..." : text}
     </button>
