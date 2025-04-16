@@ -5,6 +5,7 @@ export const adminApi = api.injectEndpoints({
   endpoints: (build) => ({
     getLocations: build.query<ILocation[], void>({
       query: () => "admin/locations",
+      providesTags: ["Locations"],
     }),
     getLocationById: build.query<ILocation, string>({
       query: (id) => `admin/locations/${id}`,
@@ -15,6 +16,7 @@ export const adminApi = api.injectEndpoints({
         method: "POST",
         body: location,
       }),
+      invalidatesTags: ["Locations"],
     }),
   }),
 });

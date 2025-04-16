@@ -1,9 +1,9 @@
 import type { StoryObj } from "@storybook/react";
-import TextInput from "./TextInput";
+import Input from "./Input";
 
 const meta = {
-  title: "TextInput",
-  component: TextInput,
+  title: "Input",
+  component: Input,
   tags: ["autodocs"],
   parameters: {
     layout: "fullscreen",

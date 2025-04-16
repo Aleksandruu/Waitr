@@ -6,7 +6,6 @@ export const Route = createFileRoute("/login")({
   component: Login,
   beforeLoad: async () => {
     const token = store.getState().auth.token;
-    console.log(token);
     if (token) {
       throw redirect({
         to: "/dashboard",

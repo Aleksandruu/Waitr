@@ -1,10 +1,11 @@
 INSERT INTO
-    public.Location (id, slug, name)
+    public.Location (id, slug, name, color)
 VALUES
     (
         '82f68e6f-3ddb-43cd-a916-83bf5e043b52',
         'admin',
-        'AdminLocation'
+        'AdminLocation',
+        '#086400'
     );
 
 INSERT INTO
@@ -18,12 +19,13 @@ VALUES
     );
 
 INSERT INTO
-    public.Location (id, slug, name)
+    public.Location (id, slug, name, color)
 VALUES
     (
         '3f371f7a-0669-4587-a180-f6d815b58521',
         'the-caffe',
-        'The Caffe'
+        'The Caffe',
+        '#086400'
     );
 
 INSERT INTO
@@ -37,12 +39,13 @@ VALUES
     );
 
 INSERT INTO
-    public.Location (id, slug, name)
+    public.Location (id, slug, name, color)
 VALUES
     (
         'd0707c7f-b03d-4194-8ac0-8f21d37af90b',
         'the-bar',
-        'The Bar'
+        'The Bar',
+        '#086400'
     );
 
 INSERT INTO
@@ -56,12 +59,13 @@ VALUES
     );
 
 INSERT INTO
-    public.Location (id, slug, name)
+    public.Location (id, slug, name, color)
 VALUES
     (
         'cd4c6978-d519-463d-ae98-55c6fec6a322',
         'the-bistro',
-        'The Bistro'
+        'The Bistro',
+        '#086400'
     );
 
 INSERT INTO

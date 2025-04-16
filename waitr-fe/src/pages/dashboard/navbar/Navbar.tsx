@@ -1,6 +1,6 @@
 import { useNavigate } from "@tanstack/react-router";
 import styles from "./Navbar.module.scss";
-import Button from "../../../base_components/button/Button";
+import Button from "../../../base_components/Button/Button";
 import { useDispatch } from "react-redux";
 import { authActions } from "../../login/Auth.slice";
 

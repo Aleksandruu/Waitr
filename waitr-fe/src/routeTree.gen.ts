@@ -29,6 +29,7 @@ import { Route as DashboardManagerProductIndexImport } from './routes/dashboard/
 import { Route as DashboardManagerStaffCreateImport } from './routes/dashboard/manager/staff.create'
 import { Route as DashboardManagerProductCreateImport } from './routes/dashboard/manager/product/create'
 import { Route as DashboardManagerProductProductIdImport } from './routes/dashboard/manager/product/$productId'
+import { Route as DashboardManagerLocationSetupImport } from './routes/dashboard/manager/location.setup'
 import { Route as DashboardAdminLocationCreateImport } from './routes/dashboard/admin/location/create'
 import { Route as DashboardAdminLocationLocationIdImport } from './routes/dashboard/admin/location/$locationId'
 import { Route as DashboardManagerProductEditProductIdImport } from './routes/dashboard/manager/product/edit.$productId'
@@ -148,6 +149,13 @@ const DashboardManagerProductProductIdRoute =
   DashboardManagerProductProductIdImport.update({
     id: '/product/$productId',
     path: '/product/$productId',
+    getParentRoute: () => DashboardManagerRoute,
+  } as any)
+
+const DashboardManagerLocationSetupRoute =
+  DashboardManagerLocationSetupImport.update({
+    id: '/location/setup',
+    path: '/location/setup',
     getParentRoute: () => DashboardManagerRoute,
   } as any)
 
@@ -288,6 +296,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardAdminLocationCreateImport
       parentRoute: typeof DashboardAdminImport
     }
+    '/dashboard/manager/location/setup': {
+      id: '/dashboard/manager/location/setup'
+      path: '/location/setup'
+      fullPath: '/dashboard/manager/location/setup'
+      preLoaderRoute: typeof DashboardManagerLocationSetupImport
+      parentRoute: typeof DashboardManagerImport
+    }
     '/dashboard/manager/product/$productId': {
       id: '/dashboard/manager/product/$productId'
       path: '/product/$productId'
@@ -346,6 +361,7 @@ const DashboardAdminRouteWithChildren = DashboardAdminRoute._addFileChildren(
 
 interface DashboardManagerRouteChildren {
   DashboardManagerIndexRoute: typeof DashboardManagerIndexRoute
+  DashboardManagerLocationSetupRoute: typeof DashboardManagerLocationSetupRoute
   DashboardManagerProductProductIdRoute: typeof DashboardManagerProductProductIdRoute
   DashboardManagerProductCreateRoute: typeof DashboardManagerProductCreateRoute
   DashboardManagerStaffCreateRoute: typeof DashboardManagerStaffCreateRoute
@@ -355,6 +371,7 @@ interface DashboardManagerRouteChildren {
 
 const DashboardManagerRouteChildren: DashboardManagerRouteChildren = {
   DashboardManagerIndexRoute: DashboardManagerIndexRoute,
+  DashboardManagerLocationSetupRoute: DashboardManagerLocationSetupRoute,
   DashboardManagerProductProductIdRoute: DashboardManagerProductProductIdRoute,
   DashboardManagerProductCreateRoute: DashboardManagerProductCreateRoute,
   DashboardManagerStaffCreateRoute: DashboardManagerStaffCreateRoute,
@@ -401,6 +418,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/manager/': typeof DashboardManagerIndexRoute
   '/dashboard/admin/location/$locationId': typeof DashboardAdminLocationLocationIdRoute
   '/dashboard/admin/location/create': typeof DashboardAdminLocationCreateRoute
+  '/dashboard/manager/location/setup': typeof DashboardManagerLocationSetupRoute
   '/dashboard/manager/product/$productId': typeof DashboardManagerProductProductIdRoute
   '/dashboard/manager/product/create': typeof DashboardManagerProductCreateRoute
   '/dashboard/manager/staff/create': typeof DashboardManagerStaffCreateRoute
@@ -423,6 +441,7 @@ export interface FileRoutesByTo {
   '/dashboard/manager': typeof DashboardManagerIndexRoute
   '/dashboard/admin/location/$locationId': typeof DashboardAdminLocationLocationIdRoute
   '/dashboard/admin/location/create': typeof DashboardAdminLocationCreateRoute
+  '/dashboard/manager/location/setup': typeof DashboardManagerLocationSetupRoute
   '/dashboard/manager/product/$productId': typeof DashboardManagerProductProductIdRoute
   '/dashboard/manager/product/create': typeof DashboardManagerProductCreateRoute
   '/dashboard/manager/staff/create': typeof DashboardManagerStaffCreateRoute
@@ -448,6 +467,7 @@ export interface FileRoutesById {
   '/dashboard/manager/': typeof DashboardManagerIndexRoute
   '/dashboard/admin/location/$locationId': typeof DashboardAdminLocationLocationIdRoute
   '/dashboard/admin/location/create': typeof DashboardAdminLocationCreateRoute
+  '/dashboard/manager/location/setup': typeof DashboardManagerLocationSetupRoute
   '/dashboard/manager/product/$productId': typeof DashboardManagerProductProductIdRoute
   '/dashboard/manager/product/create': typeof DashboardManagerProductCreateRoute
   '/dashboard/manager/staff/create': typeof DashboardManagerStaffCreateRoute
@@ -474,6 +494,7 @@ export interface FileRouteTypes {
     | '/dashboard/manager/'
     | '/dashboard/admin/location/$locationId'
     | '/dashboard/admin/location/create'
+    | '/dashboard/manager/location/setup'
     | '/dashboard/manager/product/$productId'
     | '/dashboard/manager/product/create'
     | '/dashboard/manager/staff/create'
@@ -495,6 +516,7 @@ export interface FileRouteTypes {
     | '/dashboard/manager'
     | '/dashboard/admin/location/$locationId'
     | '/dashboard/admin/location/create'
+    | '/dashboard/manager/location/setup'
     | '/dashboard/manager/product/$productId'
     | '/dashboard/manager/product/create'
     | '/dashboard/manager/staff/create'
@@ -518,6 +540,7 @@ export interface FileRouteTypes {
     | '/dashboard/manager/'
     | '/dashboard/admin/location/$locationId'
     | '/dashboard/admin/location/create'
+    | '/dashboard/manager/location/setup'
     | '/dashboard/manager/product/$productId'
     | '/dashboard/manager/product/create'
     | '/dashboard/manager/staff/create'
@@ -602,6 +625,7 @@ export const routeTree = rootRoute
       "parent": "/dashboard",
       "children": [
         "/dashboard/manager/",
+        "/dashboard/manager/location/setup",
         "/dashboard/manager/product/$productId",
         "/dashboard/manager/product/create",
         "/dashboard/manager/staff/create",
@@ -643,6 +667,10 @@ export const routeTree = rootRoute
     "/dashboard/admin/location/create": {
       "filePath": "dashboard/admin/location/create.tsx",
       "parent": "/dashboard/admin"
+    },
+    "/dashboard/manager/location/setup": {
+      "filePath": "dashboard/manager/location.setup.tsx",
+      "parent": "/dashboard/manager"
     },
     "/dashboard/manager/product/$productId": {
       "filePath": "dashboard/manager/product/$productId.tsx",

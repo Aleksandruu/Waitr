@@ -4,3 +4,9 @@ export interface User {
   role: string;
   location: string;
 }
+
+export interface StaffMemberRequest {
+  username: string;
+  password: string;
+  role: string;
+}
