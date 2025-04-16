@@ -4,7 +4,11 @@ CREATE TABLE
     IF NOT EXISTS public.Location (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid (),
         slug VARCHAR(255) UNIQUE NOT NULL,
-        name VARCHAR(255) NOT NULL
+        name VARCHAR(255) NOT NULL,
+        logo BYTEA,
+        logo_mime TEXT,
+        color VARCHAR(255) NOT NULL,
+        active BOOLEAN NOT NULL DEFAULT FALSE
     );
 
 CREATE TABLE

@@ -1,7 +1,7 @@
 import { useState } from "react";
-import TextInput from "../../../../base_components/textInput/TextInput";
+import Input from "../../../../base_components/Input/Input";
 import styles from "./CreateLocation.module.scss";
-import Button from "../../../../base_components/button/Button";
+import Button from "../../../../base_components/Button/Button";
 import { useCreateLocationMutation } from "../../../../api/adminApi";
 import { useNavigate } from "@tanstack/react-router";
 import * as yup from "yup";
@@ -52,12 +52,8 @@ const CreateLocation = ({}: CreateLocationProps) => {
   });
 
   const onSubmit: SubmitHandler<FormData> = async (data: FormData) => {
-    try {
-      await createLocation(data).unwrap();
-      navigate({ to: "/dashboard/admin" });
-    } catch (error) {
-      console.error("Error creating location:", error);
-    }
+    await createLocation(data).unwrap();
+    navigate({ to: "/dashboard/admin" });
   };
 
   return (
@@ -67,27 +63,27 @@ const CreateLocation = ({}: CreateLocationProps) => {
         onSubmit={handleSubmit(onSubmit)}
       >
         <h1>Create a new location</h1>
-        <TextInput
+        <Input
           label="Location name"
-          register={{ ...register("locationName") }}
+          register={register("locationName")}
           error={isDirty ? errors.locationName?.message : undefined}
-        ></TextInput>
-        <TextInput
+        ></Input>
+        <Input
           label="Location slug"
-          register={{ ...register("locationSlug") }}
+          register={register("locationSlug")}
           error={isDirty ? errors.locationSlug?.message : undefined}
-        ></TextInput>
-        <TextInput
+        ></Input>
+        <Input
           label="Manager username"
-          register={{ ...register("managerUsername") }}
+          register={register("managerUsername")}
           error={isDirty ? errors.managerUsername?.message : undefined}
-        ></TextInput>
-        <TextInput
+        ></Input>
+        <Input
           label="Manager password"
           type="password"
-          register={{ ...register("managerPassword") }}
+          register={register("managerPassword")}
           error={isDirty ? errors.managerPassword?.message : undefined}
-        ></TextInput>
+        ></Input>
         <Button
           text="Create Location"
           wide={true}

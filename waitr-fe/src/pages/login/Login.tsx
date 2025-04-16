@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
-import Button from "../../base_components/button/Button";
+import Button from "../../base_components/Button/Button";
 import { useLoginMutation } from "../../api/authApi";
 import { LoginRequest } from "../../models/login.model";
-import TextInput from "../../base_components/textInput/TextInput";
+import Input from "../../base_components/Input/Input";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -23,19 +23,17 @@ const Login = () => {
   return (
     <div className="container">
       <form className="middle-column-container justify-center">
-        {isLoading ? "asdad" : ""}
-        {isError ? "fdas" : ""}
-        <TextInput
+        <Input
           label="Username"
           onChange={handleChange}
-          error={isError}
-        ></TextInput>
-        <TextInput
+          error={isError ? "" : undefined}
+        ></Input>
+        <Input
           label="Password"
           type="password"
           onChange={handleChange}
-          error={isError}
-        ></TextInput>
+          error={isError ? "Username or password are wrong" : undefined}
+        ></Input>
         <Button
           text="Login"
           color="green"

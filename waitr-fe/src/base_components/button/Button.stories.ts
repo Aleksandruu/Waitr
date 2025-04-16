@@ -17,9 +17,7 @@ type Story = StoryObj<typeof meta>;
 export const Logout: Story = {
   args: {
     text: "Logout",
-    onClick: () => {
-      console.log("Logout clicked");
-    },
+    onClick: () => {},
     color: "red",
   },
 };

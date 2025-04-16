@@ -5,7 +5,8 @@ import type {
 } from "@reduxjs/toolkit";
 import { configureStore } from "@reduxjs/toolkit";
 import auth from "./pages/login/Auth.slice";
-import admin from "./pages/dashboard/admin/Admin.slice";
+import admin from "./pages/dashboard/Admin/Admin.slice";
+import location from "./pages/Location.slice";
 import { api } from "./api/baseApi";
 
 export const createStore = (
@@ -16,6 +17,7 @@ export const createStore = (
       [api.reducerPath]: api.reducer,
       auth,
       admin,
+      location,
     },
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware().concat(api.middleware),

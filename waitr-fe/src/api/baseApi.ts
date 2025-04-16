@@ -15,9 +15,8 @@ const baseQuery = fetchBaseQuery({
 });
 
 export const api = createApi({
-  reducerPath: "splitApi",
   baseQuery: baseQuery,
-  tagTypes: ["auth", "admin"],
+  tagTypes: ["Locations", "Staff"],
   endpoints: () => ({}),
 });
 

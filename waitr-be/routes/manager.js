@@ -257,7 +257,48 @@ router.post(
       return res.status(500).json({ error: error.message });
     }
 
-    res.sendStatus(201);
+    return res.status(201).json({ message: "Employee created." });
+  }
+);
+
+router.get(
+  "/employee",
+  authenticateToken,
+  checkManagerRole,
+  async (req, res) => {
+    try {
+      const locationId = getLocationFromRequest(req);
+
+      const employees = await pool.query(
+        "SELECT id, name, role FROM public.User WHERE location_id = $1 AND role != 'manager'",
+        [locationId]
+      );
+
+      return res.status(200).json(employees.rows);
+    } catch (error) {
+      return res.status(500).json({ error: error.message });
+    }
+  }
+);
+
+//location
+router.get(
+  "/location",
+  authenticateToken,
+  checkManagerRole,
+  async (req, res) => {
+    try {
+      const locationId = getLocationFromRequest(req);
+
+      const locations = await pool.query(
+        "SELECT * FROM public.Location WHERE id = $1",
+        [locationId]
+      );
+
+      return res.status(200).json(locations.rows[0]);
+    } catch (error) {
+      return res.status(500).json({ error: error.message });
+    }
   }
 );
 
