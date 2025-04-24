@@ -1,4 +1,5 @@
-import { ILocation, ILocationForm } from "../models/location.model";
+import { ILocation } from "shared/models/location.response.model";
+import { ILocationRequest } from "shared/models/location.request.model";
 import { api } from "./baseApi";
 
 export const adminApi = api.injectEndpoints({
@@ -10,7 +11,7 @@ export const adminApi = api.injectEndpoints({
     getLocationById: build.query<ILocation, string>({
       query: (id) => `admin/locations/${id}`,
     }),
-    createLocation: build.mutation<ILocation, ILocationForm>({
+    createLocation: build.mutation<ILocation, ILocationRequest>({
       query: (location) => ({
         url: "admin/locations",
         method: "POST",

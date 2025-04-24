@@ -1,6 +1,5 @@
 import { useParams } from "@tanstack/react-router";
 import StaffCard from "./StaffCard/StaffCard";
-import styles from "./LocationPage.module.scss";
 import { useGetLocationByIdQuery } from "../../../../api/adminApi";
 
 function LocationPage() {

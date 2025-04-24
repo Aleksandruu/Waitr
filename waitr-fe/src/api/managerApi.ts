@@ -1,6 +1,6 @@
-import { ILocation, StaffMember } from "../models/location.model";
-import { StaffMemberRequest } from "../models/user.model";
-import { getLocation } from "../service/adminService";
+import { StaffMember } from "shared/models/staffMember.model";
+import { StaffMemberRequest } from "shared/models/staffMember.request.model";
+import { ILocation } from "shared/models/location.response.model";
 import { api } from "./baseApi";
 
 export const managerApi = api.injectEndpoints({

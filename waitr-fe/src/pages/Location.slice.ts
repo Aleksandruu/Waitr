@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { jwtDecode } from "jwt-decode";
 import { generateSetterReducers } from "../helpers/reduxReducerGenerator";
 import { managerApi } from "../api/managerApi";
 import { generateColorVars } from "../helpers/generateColorVars";

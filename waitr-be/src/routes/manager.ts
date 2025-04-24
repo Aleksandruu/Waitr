@@ -1,23 +1,25 @@
-const express = require("express");
-const router = express.Router();
-const bcrypt = require("bcrypt");
-const { authenticateToken } = require("../middleware/authMiddleware");
-const { checkManagerRole } = require("../middleware/roleMiddleware");
-const {
+import express, { Request, Response } from "express";
+import bcrypt from "bcrypt";
+import { authenticateToken } from "../middleware/authMiddleware";
+import { checkManagerRole } from "../middleware/roleMiddleware";
+import {
   getLocationFromRequest,
   checkCategoryExistsById,
   checkCategoryExistsByName,
-} = require("../middleware/managerMiddleware");
-const { validateFields } = require("../middleware/commonMiddleware");
+} from "../middleware/managerMiddleware";
+import { validateFields } from "../middleware/commonMiddleware";
+import { Pool } from "pg";
+import { Category } from "shared/models/category.response.model";
+import { ProductRequest } from "shared/models/product.request.model";
+import { ProductsResponse } from "shared/models/products.response.model";
 
-const { Pool } = require("pg");
-
+const router = express.Router();
 const pool = new Pool({
   user: process.env.DB_USER,
   host: process.env.DB_HOST,
   database: process.env.DB_DB,
   password: process.env.DB_PASS,
-  port: process.env.DB_PORT,
+  port: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : undefined,
 });
 
 //categories
@@ -26,7 +28,7 @@ router.post(
   "/category",
   authenticateToken,
   checkManagerRole,
-  async (req, res) => {
+  async (req: Request, res: Response) => {
     const { name } = req.body;
 
     try {
@@ -35,7 +37,9 @@ router.post(
       const locationId = getLocationFromRequest(req);
 
       if (await checkCategoryExistsByName(pool, name, locationId)) {
-        return res.status(400).json({ error: "Category already exists." });
+        res.status(400).json({ error: "Category already exists." });
+        res.send();
+        return;
       }
 
       await pool.query(
@@ -43,10 +47,15 @@ router.post(
         [name, locationId]
       );
     } catch (error) {
-      return res.status(500).json({ error: error.message });
+      if (error instanceof Error) {
+        res.status(500).json({ error: error.message });
+        res.send();
+      }
+      return;
     }
 
-    return res.status(201).json({ message: "Category created." });
+    res.status(201).json({ message: "Category created." });
+    res.send();
   }
 );
 
@@ -54,7 +63,7 @@ router.delete(
   "/category/:id",
   authenticateToken,
   checkManagerRole,
-  async (req, res) => {
+  async (req: Request, res: Response) => {
     const id = req.params.id;
 
     try {
@@ -66,18 +75,25 @@ router.delete(
       const productCount = parseInt(result.rows[0].count, 10);
 
       if (productCount > 0) {
-        return res.status(400).json({
+        res.status(400).json({
           error:
             "Cannot delete category. There are products contained in this category.",
         });
+        res.send();
+        return;
       }
 
       await pool.query("DELETE FROM public.Category WHERE id = $1", [id]);
     } catch (error) {
-      return res.status(500).json({ error: error.message });
+      if (error instanceof Error) {
+        res.status(500).json({ error: error.message });
+        res.send();
+      }
+      return;
     }
 
-    return res.status(200).json({ message: "Category deleted." });
+    res.status(200).json({ message: "Category deleted." });
+    res.send();
   }
 );
 
@@ -85,17 +101,22 @@ router.get(
   "/category",
   authenticateToken,
   checkManagerRole,
-  async (req, res) => {
+  async (req: Request, res: Response) => {
     try {
       const locationId = getLocationFromRequest(req);
 
-      const categories = await pool.query(
+      const categoriesQuerry = await pool.query(
         "SELECT * FROM public.Category WHERE location_id = $1",
         [locationId]
       );
-      return res.status(200).json(categories.rows);
-    } catch (err) {
-      return res.status(500).json({ error: err.message });
+      const categories: Category[] = categoriesQuerry.rows;
+      res.status(200).json(categories);
+      res.send();
+    } catch (error) {
+      if (error instanceof Error) {
+        res.status(500).json({ error: error.message });
+        res.send();
+      }
     }
   }
 );
@@ -106,36 +127,40 @@ router.post(
   "/product",
   authenticateToken,
   checkManagerRole,
-  async (req, res) => {
-    const {
-      name,
-      ingredients,
-      nutrients,
-      allergens,
-      price,
-      category_id,
-      ready,
-    } = req.body;
+  async (req: Request, res: Response) => {
+    const productRequest: ProductRequest = req.body;
 
     try {
-      validateFields(
-        { name, ingredients, nutrients, allergens, price, category_id, ready },
-        req.body
-      );
+      validateFields({ ...productRequest }, req.body);
 
-      if (!(await checkCategoryExistsById(pool, category_id))) {
-        return res.status(400).json({ error: "Category does not exist." });
+      if (!(await checkCategoryExistsById(pool, productRequest.category_id))) {
+        res.status(400).json({ error: "Category does not exist." });
+        res.send();
+        return;
       }
 
       await pool.query(
         "INSERT INTO public.Product (name, ingredients, nutrients, allergens, price, category_id, ready) VALUES ($1, $2, $3, $4, $5, $6, $7)",
-        [name, ingredients, nutrients, allergens, price, category_id, ready]
+        [
+          productRequest.name,
+          productRequest.ingredients,
+          productRequest.nutrients,
+          productRequest.allergens,
+          productRequest.price,
+          productRequest.category_id,
+          productRequest.ready,
+        ]
       );
     } catch (error) {
-      return res.status(500).json({ error: error.message });
+      if (error instanceof Error) {
+        res.status(500).json({ error: error.message });
+        res.send();
+      }
+      return;
     }
 
-    return res.status(201).json({ message: "Product created." });
+    res.status(201).json({ message: "Product created." });
+    res.send();
   }
 );
 
@@ -143,7 +168,7 @@ router.put(
   "/product/:id",
   authenticateToken,
   checkManagerRole,
-  async (req, res) => {
+  async (req: Request, res: Response) => {
     const id = req.params.id;
     const {
       name,
@@ -153,7 +178,7 @@ router.put(
       price,
       category_id,
       ready,
-    } = req.body;
+    }: ProductRequest = req.body;
 
     try {
       validateFields(
@@ -162,7 +187,9 @@ router.put(
       );
 
       if (!(await checkCategoryExistsById(pool, category_id))) {
-        return res.status(400).json({ error: "Category does not exist." });
+        res.status(400).json({ error: "Category does not exist." });
+        res.send();
+        return;
       }
 
       await pool.query(
@@ -170,10 +197,15 @@ router.put(
         [name, ingredients, nutrients, allergens, price, category_id, ready, id]
       );
     } catch (error) {
-      return res.status(500).json({ error: error.message });
+      if (error instanceof Error) {
+        res.status(500).json({ error: error.message });
+        res.send();
+      }
+      return;
     }
 
-    return res.status(200).json({ message: "Product updated." });
+    res.status(200).json({ message: "Product updated." });
+    res.send();
   }
 );
 
@@ -181,25 +213,33 @@ router.delete(
   "/product/:id",
   authenticateToken,
   checkManagerRole,
-  async (req, res) => {
+  async (req: Request, res: Response) => {
     const id = req.params.id;
 
     try {
       await pool.query("DELETE FROM public.Product WHERE id = $1", [id]);
     } catch (error) {
-      return res.status(500).json({ error: error.message });
+      if (error instanceof Error) {
+        res.status(500).json({ error: error.message });
+        res.send();
+      }
+      return;
     }
 
-    return res.status(200).json({ message: "Product deleted." });
+    res.status(200).json({ message: "Product deleted." });
+    res.send();
   }
 );
 
-router.get("/product", authenticateToken, async (req, res) => {
-  try {
-    const locationId = getLocationFromRequest(req);
+router.get(
+  "/product",
+  authenticateToken,
+  async (req: Request, res: Response) => {
+    try {
+      const locationId = getLocationFromRequest(req);
 
-    const categories = await pool.query(
-      `
+      const categoriesWithProductsQuerry = await pool.query(
+        `
         SELECT 
             c.id AS category_id,
             c.name AS category_name,
@@ -227,13 +267,20 @@ router.get("/product", authenticateToken, async (req, res) => {
         GROUP BY 
             c.id, c.name, c.location_id;
         `,
-      [locationId]
-    );
-    return res.status(200).json(categories.rows);
-  } catch (error) {
-    return res.status(500).json({ error: error.message });
+        [locationId]
+      );
+      const categoriesWithProducts: ProductsResponse[] =
+        categoriesWithProductsQuerry.rows;
+      res.status(200).json(categoriesWithProducts);
+      res.send();
+    } catch (error) {
+      if (error instanceof Error) {
+        res.status(500).json({ error: error.message });
+        res.send();
+      }
+    }
   }
-});
+);
 
 //employee
 
@@ -241,7 +288,7 @@ router.post(
   "/employee",
   authenticateToken,
   checkManagerRole,
-  async (req, res) => {
+  async (req: Request, res: Response) => {
     const { username, role, password } = req.body;
 
     try {
@@ -254,10 +301,15 @@ router.post(
         [username, role, hashedPassword, locationId]
       );
     } catch (error) {
-      return res.status(500).json({ error: error.message });
+      if (error instanceof Error) {
+        res.status(500).json({ error: error.message });
+        res.send();
+      }
+      return;
     }
 
-    return res.status(201).json({ message: "Employee created." });
+    res.status(201).json({ message: "Employee created." });
+    res.send();
   }
 );
 
@@ -265,7 +317,7 @@ router.get(
   "/employee",
   authenticateToken,
   checkManagerRole,
-  async (req, res) => {
+  async (req: Request, res: Response) => {
     try {
       const locationId = getLocationFromRequest(req);
 
@@ -274,9 +326,13 @@ router.get(
         [locationId]
       );
 
-      return res.status(200).json(employees.rows);
+      res.status(200).json(employees.rows);
+      res.send();
     } catch (error) {
-      return res.status(500).json({ error: error.message });
+      if (error instanceof Error) {
+        res.status(500).json({ error: error.message });
+        res.send();
+      }
     }
   }
 );
@@ -286,7 +342,7 @@ router.get(
   "/location",
   authenticateToken,
   checkManagerRole,
-  async (req, res) => {
+  async (req: Request, res: Response) => {
     try {
       const locationId = getLocationFromRequest(req);
 
@@ -295,11 +351,15 @@ router.get(
         [locationId]
       );
 
-      return res.status(200).json(locations.rows[0]);
+      res.status(200).json(locations.rows[0]);
+      res.send();
     } catch (error) {
-      return res.status(500).json({ error: error.message });
+      if (error instanceof Error) {
+        res.status(500).json({ error: error.message });
+        res.send();
+      }
     }
   }
 );
 
-module.exports = router;
+export default router;

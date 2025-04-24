@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@shared/*": ["shared/*"]
+    }
+  },
+  "references": [
+    { "path": "waitr-be" },
+    { "path": "waitr-fe" },
+    { "path": "shared" }
+  ]
+}

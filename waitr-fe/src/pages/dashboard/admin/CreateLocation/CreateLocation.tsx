@@ -1,6 +1,4 @@
-import { useState } from "react";
 import Input from "../../../../base_components/Input/Input";
-import styles from "./CreateLocation.module.scss";
 import Button from "../../../../base_components/Button/Button";
 import { useCreateLocationMutation } from "../../../../api/adminApi";
 import { useNavigate } from "@tanstack/react-router";

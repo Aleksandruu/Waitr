@@ -1,4 +1,3 @@
-import styles from "./CreateStaff.module.scss";
 import * as yup from "yup";
 import Input from "../../../../base_components/Input/Input";
 import Select from "../../../../base_components/Select/Select";
@@ -7,6 +6,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import Button from "../../../../base_components/Button/Button";
 import { useCreateStaffMutation } from "../../../../api/managerApi";
 import { useNavigate } from "@tanstack/react-router";
+import { Role } from "shared/models/role.model";
+
+const roles: Role[] = ["waiter", "cook", "barman", "barista"];
 
 const staffSchema = yup.object({
   username: yup
@@ -23,10 +25,7 @@ const staffSchema = yup.object({
     .string()
     .required("Confirm password is required")
     .oneOf([yup.ref("password")], "Passwords must match"),
-  role: yup
-    .string()
-    .required("Role is required")
-    .oneOf(["waiter", "cook", "barman", "barista"]),
+  role: yup.string().required("Role is required").oneOf(roles),
 });
 
 type FormData = yup.InferType<typeof staffSchema>;
