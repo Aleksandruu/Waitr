@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import Button from "../../base_components/Button/Button";
 import { useLoginMutation } from "../../api/authApi";
-import { LoginRequest } from "../../models/login.model";
 import Input from "../../base_components/Input/Input";
+import { LoginRequest } from "shared/models/login.request.model";
 
 const Login = () => {
   const navigate = useNavigate();

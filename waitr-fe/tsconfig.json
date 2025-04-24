@@ -1,11 +1,8 @@
 {
+  "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    "target": "ESNext",    
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "target": "ESNext",
+    "lib": ["dom", "dom.iterable", "esnext"],
     "types": ["vite/client"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -19,9 +16,10 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "paths": {
+      "@shared/*": ["../shared/*"]
+    }
   },
-  "include": [
-    "src" ]
+  "include": ["src"]
 }
-

@@ -1,4 +1,4 @@
-import { ILocation } from "../../../../models/location.model";
+import { ILocation } from "shared/models/location.response.model";
 import { Link } from "@tanstack/react-router";
 import styles from "./LocationCard.module.scss";
 import cardStyles from "../../card.module.scss";
