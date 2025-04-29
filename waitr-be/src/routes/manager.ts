@@ -12,6 +12,9 @@ import { Pool } from "pg";
 import { Category } from "shared/models/category.response.model";
 import { ProductRequest } from "shared/models/product.request.model";
 import { ProductsResponse } from "shared/models/products.response.model";
+import multer from "multer";
+
+const upload = multer();
 
 const router = express.Router();
 const pool = new Pool({
@@ -21,6 +24,82 @@ const pool = new Pool({
   password: process.env.DB_PASS,
   port: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : undefined,
 });
+
+interface UploadRequest extends Request {
+  body: {
+    slug: string;
+    name: string;
+    logoMime: string;
+    color: string;
+  };
+  file?: Express.Multer.File;
+}
+
+//location
+
+router.get(
+  "/location/settings",
+  authenticateToken,
+  checkManagerRole,
+  async (req: Request, res: Response) => {
+    try {
+      const locationId = getLocationFromRequest(req);
+
+      const settingsQuery = await pool.query(
+        "SELECT slug, name, color, logo, logo_mime FROM public.Location WHERE id = $1",
+        [locationId]
+      );
+
+      if (settingsQuery.rows.length === 0) {
+        res.status(404).json({ error: "Location not found" });
+        res.send();
+        return;
+      }
+
+      const settings = settingsQuery.rows[0];
+      res.status(200).json(settings);
+      res.send();
+    } catch (error) {
+      if (error instanceof Error) {
+        res.status(500).json({ error: error.message });
+        res.send();
+      }
+    }
+  }
+);
+
+router.patch(
+  "/location/settings",
+  authenticateToken,
+  checkManagerRole,
+  upload.single("logo"),
+  async (req: UploadRequest, res: Response) => {
+    const { slug, name, color } = req.body;
+    const file = req.file;
+
+    try {
+      pool.query(
+        "UPDATE public.Location SET slug = $1, name = $2, logo = $3, logo_mime = $4, color = $5 WHERE id = $6",
+        [
+          slug,
+          name,
+          file?.buffer,
+          file?.mimetype,
+          color,
+          getLocationFromRequest(req),
+        ]
+      );
+      res.status(200).json({ message: "Location updated." });
+      res.send();
+      return;
+    } catch (error) {
+      if (error instanceof Error) {
+        res.status(500).json({ error: error.message });
+        res.send();
+      }
+    }
+  }
+);
 
 //categories
 

@@ -1,0 +1,26 @@
+.logo {
+  height: 60px;
+}
+
+.input {
+  display: none;
+}
+
+.add-image {
+  font-size: 30px;
+  border: 3px solid gray;
+  color: gray;
+  border-radius: 5px;
+  width: 50px;
+  aspect-ratio: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+label {
+  max-width: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
