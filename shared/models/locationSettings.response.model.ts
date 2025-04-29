@@ -1,7 +1,5 @@
-import { StaffMember } from "./staffMember.model";
-
-export interface ILocation {
-  id: string;
+export interface LocationSettingsResponse {
+  id?: string;
   slug: string;
   name: string;
   logo?:
@@ -10,7 +8,6 @@ export interface ILocation {
         data: number[] | Uint8Array;
       }
     | undefined;
-  logoMime: string;
+  logoMime?: string;
   color: string;
-  staff?: StaffMember[];
 }
