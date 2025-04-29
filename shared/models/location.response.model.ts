@@ -10,7 +10,7 @@ export interface ILocation {
         data: number[] | Uint8Array;
       }
     | undefined;
-  logoMime: string;
-  color: string;
+  logoMime?: string;
+  color?: string;
   staff?: StaffMember[];
 }
