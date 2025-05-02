@@ -25,15 +25,18 @@ const Input = ({
   return (
     <InputWrapper label={label} error={error}>
       <input
+        {...register}
         placeholder={placeholder}
         name={labelId}
-        onChange={onChange}
+        onChange={(e) => {
+          register?.onChange?.(e);
+          onChange?.(e);
+        }}
         type={type}
         className={classNames(
           styles.input,
           error !== undefined ? styles.error : ""
         )}
-        {...register}
       />
     </InputWrapper>
   );

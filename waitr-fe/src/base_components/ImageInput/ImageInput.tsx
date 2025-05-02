@@ -9,25 +9,6 @@ type ImageInputProps = {
   small?: string;
 };
 
-const bufferToDataURL = (buffer: {
-  type: "Buffer";
-  data: number[] | Uint8Array;
-}) => {
-  try {
-    // Creează un Uint8Array din datele buffer
-    const uint8Array = new Uint8Array(buffer.data);
-
-    // Creează un Blob din array-ul de bytes
-    const blob = new Blob([uint8Array], { type: "image/jpeg" }); // sau 'image/png' după caz
-
-    // Generează un URL pentru Blob
-    return URL.createObjectURL(blob);
-  } catch (error) {
-    console.error("Eroare la conversia bufferului:", error);
-    return null;
-  }
-};
-
 const ImageInput = ({
   name,
   onChange,
@@ -51,7 +32,6 @@ const ImageInput = ({
 
   useEffect(() => {
     if (initialImage) {
-      console.log(initialImage);
       const previewUrl = URL.createObjectURL(initialImage);
       setImagePreview(previewUrl);
     }
