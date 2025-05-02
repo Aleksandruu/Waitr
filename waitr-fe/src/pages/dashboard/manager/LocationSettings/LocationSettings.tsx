@@ -6,8 +6,11 @@ import Input from "waitr-fe/src/base_components/Input/Input";
 import ColorSliders from "waitr-fe/src/base_components/ColorSlider/ColorSlider";
 import Button from "waitr-fe/src/base_components/Button/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { locationActions } from "waitr-fe/src/pages/Location.slice";
-import { useEffect, useRef, useState } from "react";
+import {
+  locationActions,
+  LocationState,
+} from "waitr-fe/src/pages/Location.slice";
+import { useEffect, useState } from "react";
 import {
   useGetLocationSettingsQuery,
   useUpdateSettingsMutation,
@@ -37,13 +40,11 @@ const LocationSettings = ({}: LocationSettingsProps) => {
   const { data } = useGetLocationSettingsQuery();
   const [updateSettings, { isLoading }] = useUpdateSettingsMutation();
 
-  const initialColor = useSelector((state: RootState) => state.location.color);
-  const [selectedColor, setSelectedColor] = useState(initialColor);
+  const settings = useSelector((state: RootState) => {
+    return state.location as LocationState;
+  });
+
   const [selectedLogo, setSelectedLogo] = useState<File | undefined>(undefined);
-  const [locationSettings, setLocationSettings] = useState<
-    LocationSettingsModel | undefined
-  >();
-  const savedRef = useRef(false);
 
   const {
     register,
@@ -56,38 +57,29 @@ const LocationSettings = ({}: LocationSettingsProps) => {
   });
 
   useEffect(() => {
-    const currentData = data;
-    return () => {
-      dispatch(
-        locationActions.changeColorFromSettings(
-          localStorage.getItem("locationColor")!
-        )
-      );
-      if (currentData?.logo && !savedRef.current) {
-        dispatch(locationActions.changeLogoBuffer(currentData?.logo));
-        dispatch(locationActions.changeLogoMime(currentData?.logoMime!));
-      }
-    };
+    dispatch(locationActions.saveInitialState());
   }, [dispatch, data]);
 
   useEffect(() => {
+    return () => {
+      dispatch(locationActions.goBackToInitialState());
+    };
+  }, []);
+
+  useEffect(() => {
     if (data) {
-      setLocationSettings({
-        color: data.color,
-        name: data.name,
-        slug: data.slug,
-        logo: data.logo ? bufferToFile(data.logo!, data.logoMime!) : undefined,
-      });
+      setSelectedLogo(
+        data.logo ? bufferToFile(data.logo!, data.logoMime!) : undefined
+      );
       reset({
         name: data.name ?? "",
         slug: data.slug ?? "",
-        color: selectedColor,
+        color: settings.color,
       });
     }
   }, [data, reset]);
 
   const changeColor = (color: string) => {
-    setSelectedColor(color);
     dispatch(locationActions.changeColorFromSettings(color));
   };
 
@@ -105,15 +97,13 @@ const LocationSettings = ({}: LocationSettingsProps) => {
     dispatch(locationActions.changeLogoMime(logo.type));
   };
 
-  const onSubmit = (data: FormData) => {
-    data.color = selectedColor!;
-    savedRef.current = true;
-    const settings: LocationSettingsModel = {
-      ...data,
+  const onSubmit = () => {
+    const finalSettings: LocationSettingsModel = {
+      ...settings,
       logo: selectedLogo,
     };
-    updateSettings(settings).unwrap();
-    localStorage.setItem("locationColor", selectedColor!);
+    updateSettings(finalSettings).unwrap();
+    localStorage.setItem("locationColor", settings.color!);
     navigate({ to: "/dashboard/manager" });
   };
 
@@ -128,6 +118,10 @@ const LocationSettings = ({}: LocationSettingsProps) => {
             placeholder="Location name"
             register={register("name")}
             error={errors.name?.message}
+            onChange={(event) => {
+              register("name").onChange(event);
+              dispatch(locationActions.setName(event.target.value));
+            }}
           />
           <Input
             label="Slug"
@@ -135,15 +129,17 @@ const LocationSettings = ({}: LocationSettingsProps) => {
             placeholder="Location slug"
             register={register("slug")}
             error={errors.slug?.message}
+            onChange={(event) => {
+              register("slug").onChange(event);
+              dispatch(locationActions.setSlug(event.target.value));
+            }}
           />
-          <ColorSliders setColor={changeColor} color={initialColor!} />
-          {!!locationSettings ? (
+          <ColorSliders setColor={changeColor} color={settings.color!} />
+          {!!settings ? (
             <ImageInput
               name="Logo"
               onChange={changeLogo}
-              initialImage={
-                locationSettings!.logo ? locationSettings!.logo : undefined
-              }
+              initialImage={selectedLogo}
               small="Here you can upload or update your logo. We recommend uploading an image with a transparent background for the best results!"
             ></ImageInput>
           ) : (

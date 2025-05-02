@@ -52,17 +52,15 @@ router.get(
 
       if (settingsQuery.rows.length === 0) {
         res.status(404).json({ error: "Location not found" });
-        res.send();
+
         return;
       }
 
       const settings = settingsQuery.rows[0];
       res.status(200).json(settings);
-      res.send();
     } catch (error) {
       if (error instanceof Error) {
         res.status(500).json({ error: error.message });
-        res.send();
       }
     }
   }
@@ -90,12 +88,11 @@ router.patch(
         ]
       );
       res.status(200).json({ message: "Location updated." });
-      res.send();
+
       return;
     } catch (error) {
       if (error instanceof Error) {
         res.status(500).json({ error: error.message });
-        res.send();
       }
     }
   }
@@ -117,7 +114,7 @@ router.post(
 
       if (await checkCategoryExistsByName(pool, name, locationId)) {
         res.status(400).json({ error: "Category already exists." });
-        res.send();
+
         return;
       }
 
@@ -128,13 +125,11 @@ router.post(
     } catch (error) {
       if (error instanceof Error) {
         res.status(500).json({ error: error.message });
-        res.send();
       }
       return;
     }
 
     res.status(201).json({ message: "Category created." });
-    res.send();
   }
 );
 
@@ -158,7 +153,7 @@ router.delete(
           error:
             "Cannot delete category. There are products contained in this category.",
         });
-        res.send();
+
         return;
       }
 
@@ -166,13 +161,11 @@ router.delete(
     } catch (error) {
       if (error instanceof Error) {
         res.status(500).json({ error: error.message });
-        res.send();
       }
       return;
     }
 
     res.status(200).json({ message: "Category deleted." });
-    res.send();
   }
 );
 
@@ -190,11 +183,9 @@ router.get(
       );
       const categories: Category[] = categoriesQuerry.rows;
       res.status(200).json(categories);
-      res.send();
     } catch (error) {
       if (error instanceof Error) {
         res.status(500).json({ error: error.message });
-        res.send();
       }
     }
   }
@@ -214,7 +205,7 @@ router.post(
 
       if (!(await checkCategoryExistsById(pool, productRequest.category_id))) {
         res.status(400).json({ error: "Category does not exist." });
-        res.send();
+
         return;
       }
 
@@ -233,13 +224,11 @@ router.post(
     } catch (error) {
       if (error instanceof Error) {
         res.status(500).json({ error: error.message });
-        res.send();
       }
       return;
     }
 
     res.status(201).json({ message: "Product created." });
-    res.send();
   }
 );
 
@@ -267,7 +256,7 @@ router.put(
 
       if (!(await checkCategoryExistsById(pool, category_id))) {
         res.status(400).json({ error: "Category does not exist." });
-        res.send();
+
         return;
       }
 
@@ -278,13 +267,11 @@ router.put(
     } catch (error) {
       if (error instanceof Error) {
         res.status(500).json({ error: error.message });
-        res.send();
       }
       return;
     }
 
     res.status(200).json({ message: "Product updated." });
-    res.send();
   }
 );
 
@@ -300,13 +287,11 @@ router.delete(
     } catch (error) {
       if (error instanceof Error) {
         res.status(500).json({ error: error.message });
-        res.send();
       }
       return;
     }
 
     res.status(200).json({ message: "Product deleted." });
-    res.send();
   }
 );
 
@@ -351,11 +336,9 @@ router.get(
       const categoriesWithProducts: ProductsResponse[] =
         categoriesWithProductsQuerry.rows;
       res.status(200).json(categoriesWithProducts);
-      res.send();
     } catch (error) {
       if (error instanceof Error) {
         res.status(500).json({ error: error.message });
-        res.send();
       }
     }
   }
@@ -382,13 +365,11 @@ router.post(
     } catch (error) {
       if (error instanceof Error) {
         res.status(500).json({ error: error.message });
-        res.send();
       }
       return;
     }
 
     res.status(201).json({ message: "Employee created." });
-    res.send();
   }
 );
 
@@ -406,11 +387,9 @@ router.get(
       );
 
       res.status(200).json(employees.rows);
-      res.send();
     } catch (error) {
       if (error instanceof Error) {
         res.status(500).json({ error: error.message });
-        res.send();
       }
     }
   }
@@ -431,11 +410,9 @@ router.get(
       );
 
       res.status(200).json(locations.rows[0]);
-      res.send();
     } catch (error) {
       if (error instanceof Error) {
         res.status(500).json({ error: error.message });
-        res.send();
       }
     }
   }
