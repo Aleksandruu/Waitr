@@ -1,6 +1,5 @@
 import express from "express";
 import bodyParser from "body-parser";
-// import http from "http";
 import { Pool } from "pg";
 import cors from "cors";
 import authRouter from "./routes/auth";
@@ -8,14 +7,24 @@ import adminRouter from "./routes/admin";
 import managerRouter from "./routes/manager";
 import customerRoutes from "./routes/customer";
 import dotenv from "dotenv";
+import http from "http";
+import { initSocket } from "./sockets";
+
 dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
-// const server = http.createServer(app);
-// initSocket(server);
 
-app.use(cors());
+const server = http.createServer(app);
+initSocket(server);
+
+app.use(
+  cors({
+    origin: "http://localhost:3000", // Your frontend origin
+    methods: ["GET", "POST"],
+    credentials: true,
+  })
+);
 
 app.use(bodyParser.json());
 app.use(
@@ -37,6 +46,6 @@ app.use("/admin", adminRouter);
 app.use("/manager", managerRouter);
 app.use("/customer", customerRoutes);
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`App running on port ${port}.`);
 });
