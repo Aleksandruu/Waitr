@@ -1,6 +1,5 @@
 import express, { Request, Response } from "express";
 import { Pool } from "pg";
-// import { getIo } from "../middleware/socket";
 import { Product } from "shared/models/product.model";
 import { getLocationIdFromSlug } from "../middleware/customerMiddleware";
 
@@ -13,53 +12,47 @@ const pool = new Pool({
   port: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : undefined,
 });
 
-// let io;
-// setTimeout(() => {
-//   io = getIo();
-// });
-
 router.get("/:locationSlug/product", async (req: Request, res: Response) => {
   try {
     const locationSlug = req.params.locationSlug;
     const locationId = await getLocationIdFromSlug(pool, locationSlug);
     const categories = await pool.query(
       `
-        SELECT 
-            c.id AS category_id,
-            c.name AS category_name,
-            COALESCE(
-                JSON_AGG(
-                    JSON_BUILD_OBJECT(
-                        'id', p.id,
-                        'name', p.name,
-                        'ingredients', p.ingredients,
-                        'nutrients', p.nutrients,
-                        'allergens', p.allergens,
-                        'price', p.price
-                    )
-                ) FILTER (WHERE p.id IS NOT NULL), 
-                '[]'
-            ) AS products
-        FROM 
-            public.Category c
-        LEFT JOIN 
-            public.Product p
-        ON 
-            c.id = p.category_id
-        WHERE 
-            c.location_id = $1
-        GROUP BY 
-            c.id, c.name, c.location_id;
+       SELECT 
+    c.id AS "categoryId",
+    c.name AS "categoryName",
+    COALESCE(
+        JSON_AGG(
+            JSON_BUILD_OBJECT(
+                'id', p.id,
+                'name', p.name,
+                'ingredients', p.ingredients,
+                'nutrients', p.nutrients,
+                'allergens', p.allergens,
+                'price', p.price
+            )
+        ) FILTER (WHERE p.id IS NOT NULL), 
+        '[]'
+    ) AS "products"
+FROM 
+    public.Category c
+LEFT JOIN 
+    public.Product p
+ON 
+    c.id = p.category_id
+WHERE 
+    c.location_id = $1
+GROUP BY 
+    c.id, c.name, c.location_id;
+
         `,
       [locationId]
     );
     res.status(200).json(categories.rows);
-    res.send();
     return;
   } catch (error) {
     if (error instanceof Error) {
       res.status(500).json({ error: error.message });
-      res.send();
     }
   }
 });
@@ -98,7 +91,6 @@ router.post(
             error: "Invalid product IDs",
             invalidProductIds,
           });
-          res.send();
           return;
         }
       }
@@ -123,12 +115,11 @@ router.post(
     } catch (error) {
       if (error instanceof Error) {
         res.status(500).json({ error: error.message });
-        res.send();
+
         return;
       }
     }
     res.status(200).json({ message: "Order created." });
-    res.send();
   }
 );
 
