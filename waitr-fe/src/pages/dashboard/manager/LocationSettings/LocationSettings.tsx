@@ -20,6 +20,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { LocationSettings as LocationSettingsModel } from "shared/models/locationSettings.model";
 import ImageInput from "waitr-fe/src/base_components/ImageInput/ImageInput";
 import { bufferToFile } from "waitr-fe/src/helpers/byteArrayToFile";
+import { FileBuffer } from "shared/models/fileBuffer.model";
 
 type LocationSettingsProps = {
   // props here
@@ -86,10 +87,7 @@ const LocationSettings = ({}: LocationSettingsProps) => {
   const changeLogo = async (logo: File) => {
     setSelectedLogo(logo);
     const arrayBuffer = await logo.arrayBuffer();
-    const buffer: {
-      type: "Buffer";
-      data: number[] | Uint8Array;
-    } = {
+    const buffer: FileBuffer = {
       type: "Buffer",
       data: Array.from(new Uint8Array(arrayBuffer)),
     };

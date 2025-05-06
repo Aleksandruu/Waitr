@@ -2,7 +2,7 @@ export interface LocationSettings {
   id?: string;
   slug: string;
   name: string;
-  logo?: File | undefined;
+  logo?: File;
   logoMime?: string;
-  color: string | undefined;
+  color?: string;
 }
