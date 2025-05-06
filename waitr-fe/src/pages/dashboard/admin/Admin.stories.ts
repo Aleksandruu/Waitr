@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import Admin from "./Admin";
-import { ILocation } from "../../../models/location.model";
+import { ILocation } from "shared/models/location.response.model";
 
 const locations: ILocation[] = [
   {
