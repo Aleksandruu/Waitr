@@ -6,6 +6,7 @@ interface ButtonProps {
   onClick?: () => void;
   color?: "green" | "yellow" | "red";
   wide?: boolean;
+  wider?: boolean;
   tall?: boolean;
   disabled?: boolean;
   loading?: boolean;
@@ -17,6 +18,7 @@ const Button = ({
   onClick = () => {},
   color = "green",
   wide = false,
+  wider = false,
   tall = false,
   disabled = false,
   loading = false,
@@ -28,6 +30,7 @@ const Button = ({
         styles.btn,
         styles[color],
         wide ? styles.wide : "",
+        wider ? styles.wider : "",
         tall ? styles.tall : ""
       )}
       disabled={disabled || loading}

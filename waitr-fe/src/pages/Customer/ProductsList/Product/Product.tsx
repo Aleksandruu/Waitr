@@ -23,8 +23,13 @@ const Product = ({ product }: ProductProps) => {
   });
 
   const addToCart = () => {
-    console.log(product.id);
-    dispatch(orderActions.addProductToOrder({ productId: product.id }));
+    dispatch(
+      orderActions.addProductToOrder({
+        productId: product.id,
+        productName: product.name,
+        productPrice: product.price,
+      })
+    );
   };
 
   const increment = () => {

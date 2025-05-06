@@ -9,6 +9,7 @@ import admin from "./pages/dashboard/Admin/Admin.slice";
 import location from "./pages/Location.slice";
 import order from "./pages/Customer/Customer.slice";
 import { api } from "./api/baseApi";
+import { persistOrderProducts } from "./helpers/localstoragePersistenceMiddleware";
 
 export const createStore = (
   options?: ConfigureStoreOptions["preloadedState"] | undefined
@@ -22,7 +23,7 @@ export const createStore = (
       order,
     },
     middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().concat(api.middleware),
+      getDefaultMiddleware().concat(api.middleware, persistOrderProducts),
     ...options,
   });
 
