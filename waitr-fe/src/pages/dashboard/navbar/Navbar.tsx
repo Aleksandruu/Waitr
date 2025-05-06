@@ -1,12 +1,29 @@
 import { useNavigate } from "@tanstack/react-router";
 import styles from "./Navbar.module.scss";
 import Button from "../../../base_components/Button/Button";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../login/Auth.slice";
+import { RootState } from "waitr-fe/src/store";
+import { bufferToFile } from "waitr-fe/src/helpers/byteArrayToFile";
+import { useEffect, useState } from "react";
 
 function Navbar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const buffer = useSelector((state: RootState) => state.location.logoBuffer);
+  const mime = useSelector((state: RootState) => state.location.logoMime);
+  const [logoUrl, setLogoUrl] = useState<string | undefined>("");
+
+  useEffect(() => {
+    const file = bufferToFile(buffer, mime);
+    setLogoUrl(!!file ? URL.createObjectURL(file!) : undefined);
+    return () => {
+      if (logoUrl) {
+        URL.revokeObjectURL(logoUrl);
+      }
+    };
+  }, [buffer, mime]);
 
   return (
     <>
@@ -17,8 +34,9 @@ function Navbar() {
             navigate({ to: "/login" });
           }}
           text="Logout"
-          color="green"
+          color="brand-light"
         ></Button>
+        {logoUrl && <img className={styles.logo} src={logoUrl} alt="logo" />}
       </nav>
       <div className={styles.navFiller}></div>
     </>
