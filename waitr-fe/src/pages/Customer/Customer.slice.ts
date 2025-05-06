@@ -1,12 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { generateSetterReducers } from "../../helpers/reduxReducerGenerator";
-import { ProductOrderRequest } from "shared/models/order.request.model";
+import { OrderItem } from "shared/models/productOrderWithNameAndPrice.model";
+
 export interface OrderState {
   table: number;
   locationId: string;
   orderTime: Date | undefined;
   comments: string;
-  products: ProductOrderRequest[];
+  products: OrderItem[];
+  status: "empty" | "products" | "checkout";
+}
+
+const savedProducts = localStorage.getItem("orderProducts");
+let parsedProducts: OrderItem[] = [];
+
+try {
+  parsedProducts = savedProducts ? JSON.parse(savedProducts) : [];
+} catch (e) {
+  console.warn("Failed to parse order products from localStorage", e);
 }
 
 const initialState: OrderState = {
@@ -14,18 +25,24 @@ const initialState: OrderState = {
   locationId: "",
   orderTime: undefined,
   comments: "",
-  products: [],
+  products: parsedProducts,
+  status: parsedProducts.length ? "products" : "empty",
 };
 
 export const orderSlice = createSlice({
   name: "order",
   initialState,
   reducers: {
-    // ...generateSetterReducers<OrderState>(initialState),
+    ...generateSetterReducers<OrderState>(initialState),
     addProductToOrder: (state, action) => {
-      const { productId } = action.payload;
-      state.products.push({ id: productId, quantity: 1 });
-      console.log(productId);
+      const { productId, productName, productPrice } = action.payload;
+      state.products.push({
+        id: productId,
+        quantity: 1,
+        name: productName,
+        price: productPrice,
+      });
+      state.status = "products";
     },
     increaseQuantityForProduct: (state, action) => {
       const { productId } = action.payload;
@@ -48,6 +65,9 @@ export const orderSlice = createSlice({
         state.products = state.products.filter(
           (product) => product.id !== productId
         );
+      }
+      if (!state.products.length) {
+        state.status = "empty";
       }
     },
   },

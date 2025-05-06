@@ -13,6 +13,7 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as LoginImport } from './routes/login'
 import { Route as DashboardImport } from './routes/dashboard'
+import { Route as LocationSlugImport } from './routes/$locationSlug'
 import { Route as IndexImport } from './routes/index'
 import { Route as LocationSlugIndexImport } from './routes/$locationSlug/index'
 import { Route as DashboardWaiterImport } from './routes/dashboard/waiter'
@@ -48,6 +49,12 @@ const DashboardRoute = DashboardImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const LocationSlugRoute = LocationSlugImport.update({
+  id: '/$locationSlug',
+  path: '/$locationSlug',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
@@ -55,9 +62,9 @@ const IndexRoute = IndexImport.update({
 } as any)
 
 const LocationSlugIndexRoute = LocationSlugIndexImport.update({
-  id: '/$locationSlug/',
-  path: '/$locationSlug/',
-  getParentRoute: () => rootRoute,
+  id: '/',
+  path: '/',
+  getParentRoute: () => LocationSlugRoute,
 } as any)
 
 const DashboardWaiterRoute = DashboardWaiterImport.update({
@@ -98,30 +105,30 @@ const DashboardAdminIndexRoute = DashboardAdminIndexImport.update({
 
 const LocationSlugTableNumberIndexRoute =
   LocationSlugTableNumberIndexImport.update({
-    id: '/$locationSlug/$tableNumber/',
-    path: '/$locationSlug/$tableNumber/',
-    getParentRoute: () => rootRoute,
+    id: '/$tableNumber/',
+    path: '/$tableNumber/',
+    getParentRoute: () => LocationSlugRoute,
   } as any)
 
 const LocationSlugTableNumberPlaceOrderRoute =
   LocationSlugTableNumberPlaceOrderImport.update({
-    id: '/$locationSlug/$tableNumber/place-order',
-    path: '/$locationSlug/$tableNumber/place-order',
-    getParentRoute: () => rootRoute,
+    id: '/$tableNumber/place-order',
+    path: '/$tableNumber/place-order',
+    getParentRoute: () => LocationSlugRoute,
   } as any)
 
 const LocationSlugTableNumberOrderRoute =
   LocationSlugTableNumberOrderImport.update({
-    id: '/$locationSlug/$tableNumber/order',
-    path: '/$locationSlug/$tableNumber/order',
-    getParentRoute: () => rootRoute,
+    id: '/$tableNumber/order',
+    path: '/$tableNumber/order',
+    getParentRoute: () => LocationSlugRoute,
   } as any)
 
 const LocationSlugTableNumberFeedbackRoute =
   LocationSlugTableNumberFeedbackImport.update({
-    id: '/$locationSlug/$tableNumber/feedback',
-    path: '/$locationSlug/$tableNumber/feedback',
-    getParentRoute: () => rootRoute,
+    id: '/$tableNumber/feedback',
+    path: '/$tableNumber/feedback',
+    getParentRoute: () => LocationSlugRoute,
   } as any)
 
 const DashboardManagerProductIndexRoute =
@@ -191,6 +198,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/$locationSlug': {
+      id: '/$locationSlug'
+      path: '/$locationSlug'
+      fullPath: '/$locationSlug'
+      preLoaderRoute: typeof LocationSlugImport
+      parentRoute: typeof rootRoute
+    }
     '/dashboard': {
       id: '/dashboard'
       path: '/dashboard'
@@ -235,38 +249,38 @@ declare module '@tanstack/react-router' {
     }
     '/$locationSlug/': {
       id: '/$locationSlug/'
-      path: '/$locationSlug'
-      fullPath: '/$locationSlug'
+      path: '/'
+      fullPath: '/$locationSlug/'
       preLoaderRoute: typeof LocationSlugIndexImport
-      parentRoute: typeof rootRoute
+      parentRoute: typeof LocationSlugImport
     }
     '/$locationSlug/$tableNumber/feedback': {
       id: '/$locationSlug/$tableNumber/feedback'
-      path: '/$locationSlug/$tableNumber/feedback'
+      path: '/$tableNumber/feedback'
       fullPath: '/$locationSlug/$tableNumber/feedback'
       preLoaderRoute: typeof LocationSlugTableNumberFeedbackImport
-      parentRoute: typeof rootRoute
+      parentRoute: typeof LocationSlugImport
     }
     '/$locationSlug/$tableNumber/order': {
       id: '/$locationSlug/$tableNumber/order'
-      path: '/$locationSlug/$tableNumber/order'
+      path: '/$tableNumber/order'
       fullPath: '/$locationSlug/$tableNumber/order'
       preLoaderRoute: typeof LocationSlugTableNumberOrderImport
-      parentRoute: typeof rootRoute
+      parentRoute: typeof LocationSlugImport
     }
     '/$locationSlug/$tableNumber/place-order': {
       id: '/$locationSlug/$tableNumber/place-order'
-      path: '/$locationSlug/$tableNumber/place-order'
+      path: '/$tableNumber/place-order'
       fullPath: '/$locationSlug/$tableNumber/place-order'
       preLoaderRoute: typeof LocationSlugTableNumberPlaceOrderImport
-      parentRoute: typeof rootRoute
+      parentRoute: typeof LocationSlugImport
     }
     '/$locationSlug/$tableNumber/': {
       id: '/$locationSlug/$tableNumber/'
-      path: '/$locationSlug/$tableNumber'
+      path: '/$tableNumber'
       fullPath: '/$locationSlug/$tableNumber'
       preLoaderRoute: typeof LocationSlugTableNumberIndexImport
-      parentRoute: typeof rootRoute
+      parentRoute: typeof LocationSlugImport
     }
     '/dashboard/admin/': {
       id: '/dashboard/admin/'
@@ -343,6 +357,27 @@ declare module '@tanstack/react-router' {
 
 // Create and export the route tree
 
+interface LocationSlugRouteChildren {
+  LocationSlugIndexRoute: typeof LocationSlugIndexRoute
+  LocationSlugTableNumberFeedbackRoute: typeof LocationSlugTableNumberFeedbackRoute
+  LocationSlugTableNumberOrderRoute: typeof LocationSlugTableNumberOrderRoute
+  LocationSlugTableNumberPlaceOrderRoute: typeof LocationSlugTableNumberPlaceOrderRoute
+  LocationSlugTableNumberIndexRoute: typeof LocationSlugTableNumberIndexRoute
+}
+
+const LocationSlugRouteChildren: LocationSlugRouteChildren = {
+  LocationSlugIndexRoute: LocationSlugIndexRoute,
+  LocationSlugTableNumberFeedbackRoute: LocationSlugTableNumberFeedbackRoute,
+  LocationSlugTableNumberOrderRoute: LocationSlugTableNumberOrderRoute,
+  LocationSlugTableNumberPlaceOrderRoute:
+    LocationSlugTableNumberPlaceOrderRoute,
+  LocationSlugTableNumberIndexRoute: LocationSlugTableNumberIndexRoute,
+}
+
+const LocationSlugRouteWithChildren = LocationSlugRoute._addFileChildren(
+  LocationSlugRouteChildren,
+)
+
 interface DashboardAdminRouteChildren {
   DashboardAdminIndexRoute: typeof DashboardAdminIndexRoute
   DashboardAdminLocationLocationIdRoute: typeof DashboardAdminLocationLocationIdRoute
@@ -403,13 +438,14 @@ const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/$locationSlug': typeof LocationSlugRouteWithChildren
   '/dashboard': typeof DashboardRouteWithChildren
   '/login': typeof LoginRoute
   '/dashboard/admin': typeof DashboardAdminRouteWithChildren
   '/dashboard/cook': typeof DashboardCookRoute
   '/dashboard/manager': typeof DashboardManagerRouteWithChildren
   '/dashboard/waiter': typeof DashboardWaiterRoute
-  '/$locationSlug': typeof LocationSlugIndexRoute
+  '/$locationSlug/': typeof LocationSlugIndexRoute
   '/$locationSlug/$tableNumber/feedback': typeof LocationSlugTableNumberFeedbackRoute
   '/$locationSlug/$tableNumber/order': typeof LocationSlugTableNumberOrderRoute
   '/$locationSlug/$tableNumber/place-order': typeof LocationSlugTableNumberPlaceOrderRoute
@@ -452,6 +488,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/$locationSlug': typeof LocationSlugRouteWithChildren
   '/dashboard': typeof DashboardRouteWithChildren
   '/login': typeof LoginRoute
   '/dashboard/admin': typeof DashboardAdminRouteWithChildren
@@ -479,13 +516,14 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/$locationSlug'
     | '/dashboard'
     | '/login'
     | '/dashboard/admin'
     | '/dashboard/cook'
     | '/dashboard/manager'
     | '/dashboard/waiter'
-    | '/$locationSlug'
+    | '/$locationSlug/'
     | '/$locationSlug/$tableNumber/feedback'
     | '/$locationSlug/$tableNumber/order'
     | '/$locationSlug/$tableNumber/place-order'
@@ -525,6 +563,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/$locationSlug'
     | '/dashboard'
     | '/login'
     | '/dashboard/admin'
@@ -551,25 +590,16 @@ export interface FileRouteTypes {
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  LocationSlugRoute: typeof LocationSlugRouteWithChildren
   DashboardRoute: typeof DashboardRouteWithChildren
   LoginRoute: typeof LoginRoute
-  LocationSlugIndexRoute: typeof LocationSlugIndexRoute
-  LocationSlugTableNumberFeedbackRoute: typeof LocationSlugTableNumberFeedbackRoute
-  LocationSlugTableNumberOrderRoute: typeof LocationSlugTableNumberOrderRoute
-  LocationSlugTableNumberPlaceOrderRoute: typeof LocationSlugTableNumberPlaceOrderRoute
-  LocationSlugTableNumberIndexRoute: typeof LocationSlugTableNumberIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  LocationSlugRoute: LocationSlugRouteWithChildren,
   DashboardRoute: DashboardRouteWithChildren,
   LoginRoute: LoginRoute,
-  LocationSlugIndexRoute: LocationSlugIndexRoute,
-  LocationSlugTableNumberFeedbackRoute: LocationSlugTableNumberFeedbackRoute,
-  LocationSlugTableNumberOrderRoute: LocationSlugTableNumberOrderRoute,
-  LocationSlugTableNumberPlaceOrderRoute:
-    LocationSlugTableNumberPlaceOrderRoute,
-  LocationSlugTableNumberIndexRoute: LocationSlugTableNumberIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -583,17 +613,23 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/$locationSlug",
         "/dashboard",
-        "/login",
+        "/login"
+      ]
+    },
+    "/": {
+      "filePath": "index.tsx"
+    },
+    "/$locationSlug": {
+      "filePath": "$locationSlug.tsx",
+      "children": [
         "/$locationSlug/",
         "/$locationSlug/$tableNumber/feedback",
         "/$locationSlug/$tableNumber/order",
         "/$locationSlug/$tableNumber/place-order",
         "/$locationSlug/$tableNumber/"
       ]
-    },
-    "/": {
-      "filePath": "index.tsx"
     },
     "/dashboard": {
       "filePath": "dashboard.tsx",
@@ -638,19 +674,24 @@ export const routeTree = rootRoute
       "parent": "/dashboard"
     },
     "/$locationSlug/": {
-      "filePath": "$locationSlug/index.tsx"
+      "filePath": "$locationSlug/index.tsx",
+      "parent": "/$locationSlug"
     },
     "/$locationSlug/$tableNumber/feedback": {
-      "filePath": "$locationSlug/$tableNumber/feedback.tsx"
+      "filePath": "$locationSlug/$tableNumber/feedback.tsx",
+      "parent": "/$locationSlug"
     },
     "/$locationSlug/$tableNumber/order": {
-      "filePath": "$locationSlug/$tableNumber/order.tsx"
+      "filePath": "$locationSlug/$tableNumber/order.tsx",
+      "parent": "/$locationSlug"
     },
     "/$locationSlug/$tableNumber/place-order": {
-      "filePath": "$locationSlug/$tableNumber/place-order.tsx"
+      "filePath": "$locationSlug/$tableNumber/place-order.tsx",
+      "parent": "/$locationSlug"
     },
     "/$locationSlug/$tableNumber/": {
-      "filePath": "$locationSlug/$tableNumber/index.tsx"
+      "filePath": "$locationSlug/$tableNumber/index.tsx",
+      "parent": "/$locationSlug"
     },
     "/dashboard/admin/": {
       "filePath": "dashboard/admin/index.tsx",

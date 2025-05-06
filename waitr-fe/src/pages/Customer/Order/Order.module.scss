@@ -1,0 +1,23 @@
+.container {
+  width: 100vw;
+  min-height: calc(100vh - 100px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.notepad {
+  background-color: white;
+  box-shadow: 5px 5px 10px gray;
+  width: 90%;
+  height: 65vh;
+  margin-top: 4rem;
+}
+
+.frame {
+  position: relative;
+  bottom: 17px;
+  left: 1rem;
+  width: 90%;
+}
