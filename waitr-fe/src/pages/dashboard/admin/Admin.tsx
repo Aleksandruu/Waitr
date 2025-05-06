@@ -3,7 +3,6 @@ import LocationCard from "./LocationCard/LocationCard";
 import { Link } from "@tanstack/react-router";
 import styles from "./Admin.module.scss";
 import { useGetLocationsQuery } from "../../../api/adminApi";
-import { store } from "../../../store";
 
 type AdminProps = {
   data?: ILocation[];

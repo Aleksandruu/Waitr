@@ -94,6 +94,7 @@ const CreateStaff = ({}: CreateStaffProps) => {
           submit={true}
           loading={isLoading}
           disabled={!isValid}
+          color="brand"
         ></Button>
       </form>
     </div>
