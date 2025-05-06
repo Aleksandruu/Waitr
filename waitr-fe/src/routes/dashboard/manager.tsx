@@ -1,5 +1,6 @@
 import { createFileRoute, redirect, Outlet } from "@tanstack/react-router";
 import { store } from "../../store";
+import { useGetLocationQuery } from "waitr-fe/src/api/managerApi";
 
 export const Route = createFileRoute("/dashboard/manager")({
   component: RouteComponent,
@@ -14,5 +15,7 @@ export const Route = createFileRoute("/dashboard/manager")({
 });
 
 function RouteComponent() {
+  useGetLocationQuery();
+
   return <Outlet />;
 }
