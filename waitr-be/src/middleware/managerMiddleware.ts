@@ -1,5 +1,4 @@
 import jwt from "jsonwebtoken";
-import { User } from "../../../shared/models/user.model";
 import { Pool } from "pg";
 
 const secretKey = process.env.JWT_SECRET_KEY;
@@ -21,7 +20,7 @@ export const getLocationFromRequest = (
     if (err) {
       throw new Error("Invalid token");
     }
-    const user = decoded as User;
+    const user = decoded as { locationId: string };
     locationId = user.locationId;
   });
   return locationId;

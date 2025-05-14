@@ -1,5 +1,5 @@
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
-import Navbar from "../pages/dashboard/navbar/Navbar";
+import Navbar from "../pages/Dashboard/navbar/Navbar";
 import { store } from "../store";
 
 export const Route = createFileRoute("/dashboard")({

@@ -1,8 +1,9 @@
 import express, { Request, Response } from "express";
-import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
-import { LoginRequest } from "../../../shared/models/login.request.model";
 import { Pool } from "pg";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import { LoginRequest, UserModel } from "shared";
+
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -17,41 +18,37 @@ export const pool = new Pool({
 });
 
 router.post("/login", async (req: Request, res: Response) => {
-  const { username, password } = req.body as LoginRequest;
+  const { username, password }: LoginRequest = req.body;
   try {
-    const user = await pool.query("SELECT * FROM public.User WHERE name = $1", [
-      username,
-    ]);
+    const userQuery = await pool.query(
+      "SELECT * FROM public.User WHERE username = $1",
+      [username]
+    );
 
-    if (user.rows.length > 0) {
-      const validPassword = await bcrypt.compare(
-        password,
-        user.rows[0].password
-      );
+    if (userQuery.rows.length > 0) {
+      const user: UserModel = userQuery.rows[0];
+      const validPassword = await bcrypt.compare(password, user.password!);
       if (validPassword) {
         const accessToken = jwt.sign(
           {
             name: username,
-            role: user.rows[0].role,
-            locationId: user.rows[0].location_id,
+            role: user.role,
+            locationId: user.location_id,
           },
           process.env.JWT_SECRET_KEY!
         );
         res.status(200).json({ accessToken });
-        res.send();
         return;
       }
     }
   } catch (err) {
     if (err instanceof Error) {
       res.status(500).json({ error: err.message });
-      res.send();
       return;
     }
   }
 
   res.status(403).json({ message: "Invalid username or password" });
-  res.send();
 });
 
 export default router;

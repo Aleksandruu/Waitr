@@ -3,7 +3,7 @@
   "compilerOptions": {
     "composite": true,
     "outDir": "./dist",
-    "rootDir": "./models",
+    "rootDir": "./",
     "target": "es2016"
   },
   "include": ["**/*.ts"]

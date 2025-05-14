@@ -8,13 +8,14 @@ CREATE TABLE
         logo BYTEA,
         logo_mime TEXT,
         color VARCHAR(255) NOT NULL,
-        active BOOLEAN NOT NULL DEFAULT FALSE
+        active BOOLEAN NOT NULL DEFAULT FALSE,
+        tables INTEGER NOT NULL
     );
 
 CREATE TABLE
     IF NOT EXISTS public.User (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid (),
-        name VARCHAR(255) NOT NULL,
+        username VARCHAR(255) NOT NULL,
         role VARCHAR(255) NOT NULL,
         password VARCHAR(255) NOT NULL,
         location_id UUID NOT NULL
@@ -36,7 +37,7 @@ CREATE TABLE
         allergens TEXT,
         price DECIMAL(10, 2) NOT NULL,
         category_id UUID REFERENCES public.Category (id),
-        ready VARCHAR(255) NOT NULL
+        initial_status VARCHAR(255) NOT NULL
     );
 
 CREATE TABLE
@@ -45,15 +46,16 @@ CREATE TABLE
         table_number INTEGER NOT NULL,
         waiter_id UUID REFERENCES public.User (id),
         location_id UUID NOT NULL,
-        order_time TIMESTAMP DEFAULT NOW (),
-        preferences TEXT
+        order_time TIMESTAMP DEFAULT NOW ()
     );
 
 CREATE TABLE
     IF NOT EXISTS public.ProductOrder (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid (),
         order_id UUID REFERENCES public.Order (id),
         product_id UUID REFERENCES public.Product (id),
+        created_at TIMESTAMP NOT NULL DEFAULT NOW(),
         quantity INTEGER NOT NULL,
         status VARCHAR(255) NOT NULL,
-        PRIMARY KEY (order_id, product_id)
+        preferences TEXT
     );

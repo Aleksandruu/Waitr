@@ -1,10 +1,6 @@
-export const bufferToFile = (
-  buffer: {
-    type: "Buffer";
-    data: number[] | Uint8Array;
-  },
-  mime: string
-) => {
+import { FileBuffer } from "shared";
+
+export const bufferToFile = (buffer: FileBuffer, mime: string) => {
   if (buffer) {
     const uint8Array = new Uint8Array(buffer.data);
 

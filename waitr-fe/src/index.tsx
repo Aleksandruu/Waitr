@@ -3,9 +3,11 @@ import reportWebVitals from "./reportWebVitals";
 import { RouterProvider, createRouter } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen";
 import ReactDOM from "react-dom/client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { store } from "./store";
 import { Provider } from "react-redux";
+import { socket } from "./socket";
+import { generateColorVars } from "./helpers/generateColorVars";
 
 export type RouterContext = {
   auth: {
@@ -30,9 +32,32 @@ function InnerApp() {
 }
 
 function App() {
+  const [isConnected, setIsConnected] = useState(socket.connected);
+
+  useEffect(() => {
+    generateColorVars(localStorage.getItem("locationColor")!);
+
+    function onConnect() {
+      setIsConnected(true);
+    }
+
+    function onDisconnect() {
+      setIsConnected(false);
+    }
+
+    socket.on("connect", onConnect);
+    socket.on("disconnect", onDisconnect);
+
+    return () => {
+      socket.off("connect", onConnect);
+      socket.off("disconnect", onDisconnect);
+    };
+  }, []);
+
   return (
     <Provider store={store}>
       <InnerApp />
+      {isConnected}
     </Provider>
   );
 }

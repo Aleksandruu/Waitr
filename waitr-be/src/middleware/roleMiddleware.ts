@@ -1,5 +1,4 @@
-import { User } from "../../../shared/models/user.model";
-import { Role } from "../../../shared/models/role.model";
+import { Role, UserModel } from "shared";
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
@@ -8,12 +7,11 @@ export const checkAdminRole = (
   res: Response,
   next: NextFunction
 ) => {
-  const user: User = jwt.decode(
+  const user: UserModel = jwt.decode(
     req.headers.authorization!.split(" ")[1]
-  ) as User;
+  ) as UserModel;
   if (user.role !== "admin") {
     res.status(403).json({ error: "Unauthorized." });
-    res.send();
   }
   next();
 };
@@ -23,12 +21,25 @@ export const checkManagerRole = (
   res: Response,
   next: NextFunction
 ) => {
-  const user: User = jwt.decode(
+  const user: UserModel = jwt.decode(
     req.headers.authorization!.split(" ")[1]
-  ) as User;
+  ) as UserModel;
   if (user.role !== "manager") {
     res.status(403).json({ error: "Unauthorized." });
-    res.send();
+  }
+  next();
+};
+
+export const checkWaiterRole = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const user: UserModel = jwt.decode(
+    req.headers.authorization!.split(" ")[1]
+  ) as UserModel;
+  if (user.role !== "waiter") {
+    res.status(403).json({ error: "Unauthorized." });
   }
   next();
 };
