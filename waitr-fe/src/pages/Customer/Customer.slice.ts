@@ -1,32 +1,31 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { generateSetterReducers } from "../../helpers/reduxReducerGenerator";
-import { OrderItem } from "shared/models/productOrderWithNameAndPrice.model";
+import { CartItemDto } from "shared";
+import { customerApi } from "waitr-fe/src/api/customerApi";
 
 export interface OrderState {
-  table: number;
-  locationId: string;
-  orderTime: Date | undefined;
-  comments: string;
-  products: OrderItem[];
-  status: "empty" | "products" | "checkout";
+  currentOrder: CartItemDto[];
+  orderTime?: Date;
+  preferences: string;
+  products: CartItemDto[];
+  status: "empty" | "products" | "checkout" | "placed";
 }
 
-const savedProducts = localStorage.getItem("orderProducts");
-let parsedProducts: OrderItem[] = [];
+const savedProducts = sessionStorage.getItem("orderProducts");
+let parsedProducts: CartItemDto[] = [];
 
 try {
   parsedProducts = savedProducts ? JSON.parse(savedProducts) : [];
 } catch (e) {
-  console.warn("Failed to parse order products from localStorage", e);
+  console.warn("Failed to parse order products from sessionStorage", e);
 }
 
 const initialState: OrderState = {
-  table: 0,
-  locationId: "",
   orderTime: undefined,
-  comments: "",
+  preferences: "",
   products: parsedProducts,
   status: parsedProducts.length ? "products" : "empty",
+  currentOrder: [],
 };
 
 export const orderSlice = createSlice({
@@ -37,7 +36,7 @@ export const orderSlice = createSlice({
     addProductToOrder: (state, action) => {
       const { productId, productName, productPrice } = action.payload;
       state.products.push({
-        id: productId,
+        productId: productId,
         quantity: 1,
         name: productName,
         price: productPrice,
@@ -46,8 +45,9 @@ export const orderSlice = createSlice({
     },
     increaseQuantityForProduct: (state, action) => {
       const { productId } = action.payload;
+
       const product = state.products.find(
-        (product) => product.id === productId
+        (product) => product.productId === productId
       );
       if (product) {
         product.quantity += 1;
@@ -56,20 +56,35 @@ export const orderSlice = createSlice({
     decreaseQuantityForProduct: (state, action) => {
       const { productId } = action.payload;
       const product = state.products.find(
-        (product) => product.id === productId
+        (product) => product.productId === productId
       );
       if (product) {
         product.quantity -= 1;
       }
       if (product?.quantity === 0) {
         state.products = state.products.filter(
-          (product) => product.id !== productId
+          (product) => product.productId !== productId
         );
       }
       if (!state.products.length) {
         state.status = "empty";
       }
     },
+  },
+  extraReducers: (builder) => {
+    builder.addMatcher(
+      customerApi.endpoints.getCurrentOrder.matchFulfilled,
+      (state, { payload }) => {
+        state.currentOrder = payload;
+      }
+    );
+    builder.addMatcher(
+      customerApi.endpoints.createOrder.matchFulfilled,
+      (state) => {
+        state.products = [];
+        state.status = "placed";
+      }
+    );
   },
 });
 

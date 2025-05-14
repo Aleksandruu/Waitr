@@ -1,17 +1,16 @@
-import { ILocation } from "shared/models/location.response.model";
-import { ILocationRequest } from "shared/models/location.request.model";
+import { CreateLocationDto, LocationResponseDto } from "shared";
 import { api } from "./baseApi";
 
 export const adminApi = api.injectEndpoints({
   endpoints: (build) => ({
-    getLocations: build.query<ILocation[], void>({
+    getLocations: build.query<LocationResponseDto[], void>({
       query: () => "admin/locations",
       providesTags: ["Locations"],
     }),
-    getLocationById: build.query<ILocation, string>({
+    getLocationById: build.query<LocationResponseDto, string>({
       query: (id) => `admin/locations/${id}`,
     }),
-    createLocation: build.mutation<ILocation, ILocationRequest>({
+    createLocation: build.mutation<LocationResponseDto, CreateLocationDto>({
       query: (location) => ({
         url: "admin/locations",
         method: "POST",

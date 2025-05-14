@@ -7,6 +7,7 @@ import React, { useEffect, useState } from "react";
 import { store } from "./store";
 import { Provider } from "react-redux";
 import { socket } from "./socket";
+import { generateColorVars } from "./helpers/generateColorVars";
 
 export type RouterContext = {
   auth: {
@@ -32,9 +33,10 @@ function InnerApp() {
 
 function App() {
   const [isConnected, setIsConnected] = useState(socket.connected);
-  const [fooEvents, setFooEvents] = useState([]);
 
   useEffect(() => {
+    generateColorVars(localStorage.getItem("locationColor")!);
+
     function onConnect() {
       setIsConnected(true);
     }

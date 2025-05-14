@@ -32,12 +32,14 @@ const locationSchema = yup.object({
     .min(8, "Manager password must be at least 8 characters")
     .max(50, "Manager password must be at most 50 characters"),
 });
+
 type FormData = yup.InferType<typeof locationSchema>;
 
 type CreateLocationProps = {};
 
 const CreateLocation = ({}: CreateLocationProps) => {
   const [createLocation, { isLoading }] = useCreateLocationMutation();
+
   const navigate = useNavigate();
 
   const {

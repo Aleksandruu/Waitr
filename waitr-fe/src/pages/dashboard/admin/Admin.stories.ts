@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import Admin from "./Admin";
-import { ILocation } from "shared/models/location.response.model";
+import { LocationResponseDto } from "shared";
 
-const locations: ILocation[] = [
+const locations: LocationResponseDto[] = [
   {
     id: "123",
     slug: "The Restaurant",

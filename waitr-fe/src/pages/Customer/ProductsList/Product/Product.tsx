@@ -1,4 +1,4 @@
-import { ProductResponse } from "shared/models/product.response.model";
+import { ProductResponseDto } from "shared";
 import styles from "./Product.module.scss";
 import { useState } from "react";
 import { orderActions } from "../../Customer.slice";
@@ -7,17 +7,19 @@ import { RootState } from "waitr-fe/src/store";
 import AddToCartButton from "waitr-fe/src/base_components/AddToCartButton/AddToCartButton";
 
 type ProductProps = {
-  product: ProductResponse;
+  product: ProductResponseDto;
 };
 
 const Product = ({ product }: ProductProps) => {
   const [expanded, setExpanded] = useState(false);
+
   const dispatch = useDispatch();
 
   const quantity = useSelector((state: RootState) => {
     return (
       state.order.products.find(
-        (p: { id: string; quantity: number }) => p.id === product.id
+        (p: { productId: string; quantity: number }) =>
+          p.productId === product.id
       )?.quantity || 0
     );
   });

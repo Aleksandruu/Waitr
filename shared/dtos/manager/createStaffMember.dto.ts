@@ -1,4 +1,4 @@
-import { Role } from "./role.model";
+import { Role } from "../../models/role.model";
 
 export interface StaffMemberRequest {
   username: string;

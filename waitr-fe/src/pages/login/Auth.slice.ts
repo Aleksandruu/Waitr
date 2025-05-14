@@ -1,19 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { jwtDecode } from "jwt-decode";
-import { User } from "shared/models/user.model";
+import { UserModel } from "shared";
 import { authApi } from "../../api/authApi";
 import { generateSetterReducers } from "../../helpers/reduxReducerGenerator";
 
 export interface AuthState {
   token: string | null;
-  user: User | null;
+  user: UserModel | null;
   loading: boolean;
   error: boolean;
 }
 
 const initialState: AuthState = {
   user: localStorage.getItem("waitr_token")
-    ? (jwtDecode(localStorage.getItem("waitr_token")!) as User)
+    ? (jwtDecode(localStorage.getItem("waitr_token")!) as UserModel)
     : null,
   token: localStorage.getItem("waitr_token") || null,
   loading: false,
@@ -39,7 +39,7 @@ export const authSlice = createSlice({
           state.token = payload.accessToken;
           const token = state.token;
           if (token) {
-            state.user = jwtDecode(payload.accessToken) as User;
+            state.user = jwtDecode(payload.accessToken) as UserModel;
             localStorage.setItem("waitr_token", payload.accessToken);
           }
           state.loading = false;
