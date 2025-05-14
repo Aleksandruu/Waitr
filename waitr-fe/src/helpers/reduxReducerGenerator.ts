@@ -42,9 +42,9 @@ export const generateSetterReducers = <T>(
         break;
       case "array":
         //@ts-ignore
-        toRet["set" + capKey] = this.arrSetter<boolean>(key);
+        toRet["set" + capKey] = arrSetter<boolean>(key);
         //@ts-ignore
-        toRet["set" + capKey + "inArray"] = this.inArrSetter<boolean>(key);
+        toRet["set" + capKey + "inArray"] = inArrSetter<boolean>(key);
         break;
       case "object":
         //@ts-ignore
@@ -57,6 +57,25 @@ export const generateSetterReducers = <T>(
       default:
         throw new Error(`Not implemented ${type} ${key}`);
     }
+  }
+
+  function arrSetter<T>(key: string) {
+    return (state: any, action: PayloadAction<T[]>) => {
+      state[key] = action.payload;
+    };
+  }
+
+  function inArrSetter<T>(key: string) {
+    return (state: any, action: PayloadAction<T>) => {
+      const currentArr = state[key] as T[];
+      const index = currentArr.findIndex((item) => item === action.payload);
+
+      if (index === -1) {
+        currentArr.push(action.payload);
+      } else {
+        currentArr.splice(index, 1);
+      }
+    };
   }
 
   toRet["setAll"] = (

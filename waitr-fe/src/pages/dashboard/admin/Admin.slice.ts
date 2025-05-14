@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { adminApi } from "../../../api/adminApi";
-import { ILocation } from "shared/models/location.response.model";
+import { LocationResponseDto } from "shared";
 
 export interface AdminState {
-  locations: ILocation[];
+  locations: LocationResponseDto[];
 }
 
 const initialState: AdminState = {

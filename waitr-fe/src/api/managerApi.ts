@@ -1,10 +1,11 @@
-import { StaffMember } from "shared/models/staffMember.model";
-import { StaffMemberRequest } from "shared/models/staffMember.request.model";
-import { ILocation } from "shared/models/location.response.model";
+import {
+  StaffMember,
+  UpdateLocationSettingsDto,
+  LocationSettingsDto,
+  LocationResponseDto,
+  StaffMemberRequest,
+} from "shared";
 import { api } from "./baseApi";
-import { LocationSettings } from "shared/models/locationSettings.model";
-import { LocationSettingsResponse } from "shared/models/locationSettings.response.model";
-import { bufferToFile } from "../helpers/byteArrayToFile";
 
 export const managerApi = api.injectEndpoints({
   endpoints: (build) => ({
@@ -20,16 +21,16 @@ export const managerApi = api.injectEndpoints({
       }),
       invalidatesTags: ["Staff"],
     }),
-    getLocation: build.query<ILocation, void>({
+    getLocation: build.query<LocationResponseDto, void>({
       query: () => "manager/location",
       providesTags: ["Settings"],
     }),
-    getLocationSettings: build.query<LocationSettingsResponse, void>({
-      query: () => "manager/location/settings",
+    getLocationSettings: build.query<LocationSettingsDto, void>({
+      query: () => "common/location/settings",
       providesTags: ["Settings"],
     }),
-    updateSettings: build.mutation<void, LocationSettings>({
-      query: (settings: LocationSettings) => {
+    updateSettings: build.mutation<void, UpdateLocationSettingsDto>({
+      query: (settings: UpdateLocationSettingsDto) => {
         const formData = new FormData();
         formData.append("name", settings.name);
         formData.append("slug", settings.slug);

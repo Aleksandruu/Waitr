@@ -9,9 +9,12 @@ import {
 } from "../middleware/managerMiddleware";
 import { validateFields } from "../middleware/commonMiddleware";
 import { Pool } from "pg";
-import { Category } from "shared/models/category.response.model";
-import { ProductRequest } from "shared/models/product.request.model";
-import { ProductsResponse } from "shared/models/products.response.model";
+import {
+  CategoryModel,
+  CreateProductDto,
+  CategoryWithProductsDto,
+  LocationSettingsDto,
+} from "shared";
 import multer from "multer";
 
 const upload = multer();
@@ -35,44 +38,13 @@ interface UploadRequest extends Request {
   file?: Express.Multer.File;
 }
 
-//location
-
-router.get(
-  "/location/settings",
-  authenticateToken,
-  checkManagerRole,
-  async (req: Request, res: Response) => {
-    try {
-      const locationId = getLocationFromRequest(req);
-
-      const settingsQuery = await pool.query(
-        "SELECT slug, name, color, logo, logo_mime FROM public.Location WHERE id = $1",
-        [locationId]
-      );
-
-      if (settingsQuery.rows.length === 0) {
-        res.status(404).json({ error: "Location not found" });
-
-        return;
-      }
-
-      const settings = settingsQuery.rows[0];
-      res.status(200).json(settings);
-    } catch (error) {
-      if (error instanceof Error) {
-        res.status(500).json({ error: error.message });
-      }
-    }
-  }
-);
-
 router.patch(
   "/location/settings",
   authenticateToken,
   checkManagerRole,
   upload.single("logo"),
   async (req: UploadRequest, res: Response) => {
-    const { slug, name, color } = req.body;
+    const { slug, name, color }: LocationSettingsDto = req.body;
     const file = req.file;
 
     try {
@@ -88,11 +60,11 @@ router.patch(
         ]
       );
       res.status(200).json({ message: "Location updated." });
-
       return;
     } catch (error) {
       if (error instanceof Error) {
         res.status(500).json({ error: error.message });
+        return;
       }
     }
   }
@@ -114,7 +86,6 @@ router.post(
 
       if (await checkCategoryExistsByName(pool, name, locationId)) {
         res.status(400).json({ error: "Category already exists." });
-
         return;
       }
 
@@ -125,11 +96,12 @@ router.post(
     } catch (error) {
       if (error instanceof Error) {
         res.status(500).json({ error: error.message });
+        return;
       }
-      return;
     }
 
     res.status(201).json({ message: "Category created." });
+    return;
   }
 );
 
@@ -141,19 +113,20 @@ router.delete(
     const id = req.params.id;
 
     try {
-      const result = await pool.query(
+      const resultQuery = await pool.query(
         "SELECT COUNT(*) FROM public.Product WHERE category_id = $1",
         [id]
       );
 
-      const productCount = parseInt(result.rows[0].count, 10);
+      const result: string = resultQuery.rows[0].count;
+
+      const productCount = parseInt(result, 10);
 
       if (productCount > 0) {
         res.status(400).json({
           error:
             "Cannot delete category. There are products contained in this category.",
         });
-
         return;
       }
 
@@ -166,6 +139,7 @@ router.delete(
     }
 
     res.status(200).json({ message: "Category deleted." });
+    return;
   }
 );
 
@@ -177,15 +151,17 @@ router.get(
     try {
       const locationId = getLocationFromRequest(req);
 
-      const categoriesQuerry = await pool.query(
+      const categoriesQuery = await pool.query(
         "SELECT * FROM public.Category WHERE location_id = $1",
         [locationId]
       );
-      const categories: Category[] = categoriesQuerry.rows;
+      const categories: CategoryModel[] = categoriesQuery.rows;
       res.status(200).json(categories);
+      return;
     } catch (error) {
       if (error instanceof Error) {
         res.status(500).json({ error: error.message });
+        return;
       }
     }
   }
@@ -198,27 +174,26 @@ router.post(
   authenticateToken,
   checkManagerRole,
   async (req: Request, res: Response) => {
-    const productRequest: ProductRequest = req.body;
+    const productRequest: CreateProductDto = req.body;
 
     try {
       validateFields({ ...productRequest }, req.body);
 
-      if (!(await checkCategoryExistsById(pool, productRequest.category_id))) {
+      if (!(await checkCategoryExistsById(pool, productRequest.categoryId))) {
         res.status(400).json({ error: "Category does not exist." });
-
         return;
       }
 
       await pool.query(
-        "INSERT INTO public.Product (name, ingredients, nutrients, allergens, price, category_id, ready) VALUES ($1, $2, $3, $4, $5, $6, $7)",
+        "INSERT INTO public.Product (name, ingredients, nutrients, allergens, price, category_id, initial_status) VALUES ($1, $2, $3, $4, $5, $6, $7)",
         [
           productRequest.name,
           productRequest.ingredients,
           productRequest.nutrients,
           productRequest.allergens,
           productRequest.price,
-          productRequest.category_id,
-          productRequest.ready,
+          productRequest.categoryId,
+          productRequest.initialStatus,
         ]
       );
     } catch (error) {
@@ -229,6 +204,7 @@ router.post(
     }
 
     res.status(201).json({ message: "Product created." });
+    return;
   }
 );
 
@@ -244,25 +220,41 @@ router.put(
       nutrients,
       allergens,
       price,
-      category_id,
-      ready,
-    }: ProductRequest = req.body;
+      categoryId,
+      initialStatus,
+    }: CreateProductDto = req.body;
 
     try {
       validateFields(
-        { name, ingredients, nutrients, allergens, price, category_id, ready },
+        {
+          name,
+          ingredients,
+          nutrients,
+          allergens,
+          price,
+          categoryId,
+          initialStatus,
+        },
         req.body
       );
 
-      if (!(await checkCategoryExistsById(pool, category_id))) {
+      if (!(await checkCategoryExistsById(pool, categoryId))) {
         res.status(400).json({ error: "Category does not exist." });
-
         return;
       }
 
       await pool.query(
-        "UPDATE public.Product SET name = $1, ingredients = $2, nutrients = $3, allergens = $4, price = $5, category_id = $6, ready = $7 WHERE id = $8",
-        [name, ingredients, nutrients, allergens, price, category_id, ready, id]
+        "UPDATE public.Product SET name = $1, ingredients = $2, nutrients = $3, allergens = $4, price = $5, category_id = $6, initial_status = $7 WHERE id = $8",
+        [
+          name,
+          ingredients,
+          nutrients,
+          allergens,
+          price,
+          categoryId,
+          initialStatus,
+          id,
+        ]
       );
     } catch (error) {
       if (error instanceof Error) {
@@ -272,6 +264,7 @@ router.put(
     }
 
     res.status(200).json({ message: "Product updated." });
+    return;
   }
 );
 
@@ -292,6 +285,7 @@ router.delete(
     }
 
     res.status(200).json({ message: "Product deleted." });
+    return;
   }
 );
 
@@ -302,7 +296,7 @@ router.get(
     try {
       const locationId = getLocationFromRequest(req);
 
-      const categoriesWithProductsQuerry = await pool.query(
+      const categoriesWithProductsQuery = await pool.query(
         `
         SELECT 
             c.id AS category_id,
@@ -315,7 +309,8 @@ router.get(
                         'ingredients', p.ingredients,
                         'nutrients', p.nutrients,
                         'allergens', p.allergens,
-                        'price', p.price
+                        'price', p.price,
+                        'initial_status', p.initial_status
                     )
                 ) FILTER (WHERE p.id IS NOT NULL), 
                 '[]'
@@ -333,13 +328,15 @@ router.get(
         `,
         [locationId]
       );
-      const categoriesWithProducts: ProductsResponse[] =
-        categoriesWithProductsQuerry.rows;
+      const categoriesWithProducts: CategoryWithProductsDto[] =
+        categoriesWithProductsQuery.rows;
       res.status(200).json(categoriesWithProducts);
+      return;
     } catch (error) {
       if (error instanceof Error) {
         res.status(500).json({ error: error.message });
       }
+      return;
     }
   }
 );
@@ -359,7 +356,7 @@ router.post(
       const hashedPassword = await bcrypt.hash(password, 10);
 
       await pool.query(
-        "INSERT INTO public.User (name, role, password, location_id) VALUES ($1, $2, $3, $4)",
+        "INSERT INTO public.User (username, role, password, location_id) VALUES ($1, $2, $3, $4)",
         [username, role, hashedPassword, locationId]
       );
     } catch (error) {
@@ -370,6 +367,7 @@ router.post(
     }
 
     res.status(201).json({ message: "Employee created." });
+    return;
   }
 );
 
@@ -382,15 +380,17 @@ router.get(
       const locationId = getLocationFromRequest(req);
 
       const employees = await pool.query(
-        "SELECT id, name, role FROM public.User WHERE location_id = $1 AND role != 'manager'",
+        "SELECT id, username, role FROM public.User WHERE location_id = $1 AND role != 'manager'",
         [locationId]
       );
 
       res.status(200).json(employees.rows);
+      return;
     } catch (error) {
       if (error instanceof Error) {
         res.status(500).json({ error: error.message });
       }
+      return;
     }
   }
 );
@@ -404,15 +404,19 @@ router.get(
     try {
       const locationId = getLocationFromRequest(req);
 
-      const locations = await pool.query(
+      const locationsQuery = await pool.query(
         "SELECT * FROM public.Location WHERE id = $1",
         [locationId]
       );
 
-      res.status(200).json(locations.rows[0]);
+      const location = locationsQuery.rows[0];
+
+      res.status(200).json(location);
+      return;
     } catch (error) {
       if (error instanceof Error) {
         res.status(500).json({ error: error.message });
+        return;
       }
     }
   }

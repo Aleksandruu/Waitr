@@ -2,26 +2,31 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { generateSetterReducers } from "../helpers/reduxReducerGenerator";
 import { managerApi } from "../api/managerApi";
 import { generateColorVars } from "../helpers/generateColorVars";
-import { bufferToFile } from "../helpers/byteArrayToFile";
+import { FileBuffer } from "shared/models/fileBuffer.model";
+import * as jwtDecode from "jwt-decode";
 
 export interface LocationState {
-  initialState: LocationState | undefined;
+  initialState?: LocationState;
   id: string;
   slug: string;
   name: string;
-  color: string | undefined;
-  logoBuffer:
-    | {
-        type: "Buffer";
-        data: number[] | Uint8Array;
-      }
-    | undefined;
+  color?: string;
+  logoBuffer?: FileBuffer;
   logoMime?: string;
 }
 
+const getLocationIdFromToken = () => {
+  const token = localStorage.getItem("waitr_token");
+  if (token) {
+    const decodedToken = jwtDecode.jwtDecode<{ locationId: string }>(token);
+    return decodedToken.locationId;
+  }
+  return "";
+};
+
 const initialState: LocationState = {
   initialState: undefined,
-  id: "",
+  id: getLocationIdFromToken(),
   slug: "",
   name: "",
   color: localStorage.getItem("locationColor") || undefined,

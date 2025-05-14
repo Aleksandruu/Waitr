@@ -1,5 +1,4 @@
-import { LoginRequest } from "shared/models/login.request.model";
-import { LoginResponse } from "shared/models/login.response.model";
+import { LoginRequest, LoginResponse } from "shared";
 import { api } from "./baseApi";
 
 export const authApi = api.injectEndpoints({

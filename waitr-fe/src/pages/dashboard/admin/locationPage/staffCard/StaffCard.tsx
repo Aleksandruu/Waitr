@@ -1,5 +1,5 @@
 import styles from "./StaffCard.module.scss";
-import { StaffMember } from "../../../../../models/location.model";
+import { StaffMember } from "shared";
 import cardStyles from "../../../card.module.scss";
 
 interface StaffCardProps {

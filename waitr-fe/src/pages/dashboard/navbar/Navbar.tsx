@@ -2,7 +2,7 @@ import { useNavigate } from "@tanstack/react-router";
 import styles from "./Navbar.module.scss";
 import Button from "../../../base_components/Button/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { authActions } from "../../login/Auth.slice";
+import { authActions } from "../../Login/Auth.slice";
 import { RootState } from "waitr-fe/src/store";
 import { bufferToFile } from "waitr-fe/src/helpers/byteArrayToFile";
 import { useEffect, useState } from "react";
@@ -16,7 +16,7 @@ function Navbar() {
   const [logoUrl, setLogoUrl] = useState<string | undefined>("");
 
   useEffect(() => {
-    const file = bufferToFile(buffer, mime);
+    const file = buffer && mime ? bufferToFile(buffer, mime) : undefined;
     setLogoUrl(!!file ? URL.createObjectURL(file!) : undefined);
     return () => {
       if (logoUrl) {
