@@ -1,10 +1,10 @@
-import { ILocation } from "shared/models/location.response.model";
+import { LocationResponseDto } from "shared";
 import { Link } from "@tanstack/react-router";
 import styles from "./LocationCard.module.scss";
 import cardStyles from "../../card.module.scss";
 
 interface LocationCardProps {
-  location?: ILocation;
+  location?: LocationResponseDto;
   isLoading?: boolean;
 }
 

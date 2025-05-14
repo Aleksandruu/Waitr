@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { useGetLocationQuery, useGetStaffQuery } from "../../../api/managerApi";
+import { useGetStaffQuery } from "../../../api/managerApi";
 import StaffCard from "../Admin/LocationPage/StaffCard/StaffCard";
 import styles from "./Manager.module.scss";
 import cardStyles from "../card.module.scss";

@@ -1,30 +1,33 @@
-import { useProductsQuery } from "waitr-fe/src/api/customerApi";
+import { useGetProductsQuery } from "waitr-fe/src/api/customerApi";
 import styles from "./ProductsList.module.scss";
 import { useEffect } from "react";
 import { Route } from "waitr-fe/src/routes/$locationSlug/$tableNumber/index";
 import Product from "./Product/Product";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { orderActions } from "../Customer.slice";
-import { RootState } from "waitr-fe/src/store";
+import { useGetLocationSettingsQuery } from "waitr-fe/src/api/managerApi";
+import { useAppSelector } from "waitr-fe/src/helpers/app.hooks";
 
 type CustomerProps = {
   // props here
 };
 
 const Customer = ({}: CustomerProps) => {
+  const { products, currentOrder } = useAppSelector((state) => state.order);
+
   const { locationSlug } = Route.useParams();
-  const { data } = useProductsQuery(locationSlug);
-  const state = useSelector(
-    (state: RootState) =>
-      state.order.status as "empty" | "products" | "checkout"
-  );
+
+  const { data } = useGetProductsQuery(locationSlug);
+
+  useGetLocationSettingsQuery();
+
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (state === "checkout") {
-      dispatch(orderActions.setStatus("products"));
-    }
-  }, []);
+    if (products.length === 0 && currentOrder.length === 0) {
+      dispatch(orderActions.setStatus("empty"));
+    } else dispatch(orderActions.setStatus("products"));
+  }, [products, currentOrder]);
 
   return (
     <div className={styles.products}>

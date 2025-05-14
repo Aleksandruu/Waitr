@@ -3,19 +3,54 @@ import styles from "./BottomBar.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "waitr-fe/src/store";
 import { useNavigate, useParams } from "@tanstack/react-router";
-import { orderActions } from "../Customer.slice";
+import { orderActions, OrderState } from "../Customer.slice";
+import {
+  useCreateOrderMutation,
+  useGetCurrentOrderQuery,
+} from "waitr-fe/src/api/customerApi";
+import { CartItemDto, CreateOrderDto, ProductQuantityDto } from "shared";
+import { useAppSelector } from "waitr-fe/src/helpers/app.hooks";
 
 type BottomBarProps = {};
 
 const BottomBar = ({}: BottomBarProps) => {
-  const state = useSelector(
-    (state: RootState) =>
-      state.order.status as "empty" | "products" | "checkout"
-  );
+  const { products, status } = useAppSelector((state) => state.order);
+
+  const { locationSlug, tableNumber } = useParams({ strict: false });
+
+  const { data: currentOrder, refetch } = useGetCurrentOrderQuery({
+    locationSlug: locationSlug!,
+    table: parseInt(tableNumber!, 10),
+  });
+
+  const [createOrder, { isLoading: isCreating }] = useCreateOrderMutation();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { locationSlug, tableNumber } = useParams({ strict: false });
+
+  const placeOrder = () => {
+    const orderObject: CreateOrderDto = {
+      orderTime: new Date(),
+      products: mapCartItemToProductQuantityDto(products),
+    };
+
+    createOrder({
+      order: orderObject,
+      locationSlug: locationSlug!,
+      tableNumber: parseInt(tableNumber!, 10),
+    });
+
+    setTimeout(() => {
+      navigate({
+        to: "/$locationSlug/$tableNumber",
+        params: {
+          locationSlug: locationSlug!,
+          tableNumber: tableNumber!,
+        },
+      });
+      refetch();
+    }, 2000);
+  };
 
   const seeOrder = () => {
     dispatch(orderActions.setStatus("checkout"));
@@ -32,22 +67,55 @@ const BottomBar = ({}: BottomBarProps) => {
     <>
       <div className={styles.bottomFiller}></div>
       <div className={styles.bottomBar}>
-        {state === "empty" ? (
-          <Button text="Cheamă un ospătar" wider tall color="red"></Button>
-        ) : state === "products" ? (
+        {status === "empty" ? (
+          <Button text="Cheamă ospătar" wider tall color="brand"></Button>
+        ) : status === "products" ? (
+          <>
+            <Button text="Cheamă ospătar" tall color="brand"></Button>
+            <Button
+              onClick={seeOrder}
+              text="Vezi comanda"
+              tall
+              color="brand"
+            ></Button>
+          </>
+        ) : currentOrder?.length ? (
           <Button
-            onClick={seeOrder}
-            text="Vezi comanda"
+            onClick={placeOrder}
+            text="Adauga la comanda"
             wider
             tall
-            color="red"
+            color="brand"
+            loading={isCreating}
+            disabled={status === "placed"}
           ></Button>
         ) : (
-          <Button text="Plasează comanda" wider tall color="red"></Button>
+          <Button
+            onClick={placeOrder}
+            text="Plasează comanda"
+            wider
+            tall
+            color="brand"
+            loading={isCreating}
+            disabled={status === "placed"}
+          ></Button>
         )}
       </div>
     </>
   );
+};
+
+const mapCartItemToProductQuantityDto = (
+  cartItems: CartItemDto[]
+): ProductQuantityDto[] => {
+  const orderItems: ProductQuantityDto[] = cartItems.map((product) => {
+    return {
+      id: product.productId,
+      quantity: product.quantity,
+      preferences: "",
+    };
+  });
+  return orderItems;
 };
 
 export default BottomBar;

@@ -9,9 +9,9 @@ export const persistOrderProducts: Middleware<{}, RootState> =
     const products = state.order.products;
 
     try {
-      localStorage.setItem("orderProducts", JSON.stringify(products));
+      sessionStorage.setItem("orderProducts", JSON.stringify(products));
     } catch (e) {
-      console.error("Error saving products to localStorage:", e);
+      console.error("Error saving products to sessionStorage:", e);
     }
 
     return result;

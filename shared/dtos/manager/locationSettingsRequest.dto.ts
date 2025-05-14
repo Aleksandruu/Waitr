@@ -1,4 +1,4 @@
-export interface LocationSettings {
+export interface UpdateLocationSettingsDto {
   id?: string;
   slug: string;
   name: string;

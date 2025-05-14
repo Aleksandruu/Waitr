@@ -1,5 +1,5 @@
-export interface OrderItem {
-  id: string;
+export interface CartItemDto {
+  productId: string;
   quantity: number;
   name: string;
   price: number;

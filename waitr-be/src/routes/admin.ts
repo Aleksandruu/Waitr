@@ -1,9 +1,9 @@
 import express, { Request, Response } from "express";
+import { Pool } from "pg";
+import bcrypt from "bcrypt";
 import { checkAdminRole } from "../middleware/roleMiddleware";
 import { authenticateToken } from "../middleware/authMiddleware";
-import bcrypt from "bcrypt";
-import { ILocation } from "shared/models/location.response.model";
-import { Pool } from "pg";
+import { LocationResponseDto, TableQueueJsonModel } from "shared";
 
 const pool = new Pool({
   user: process.env.DB_USER,
@@ -21,25 +21,24 @@ router.get(
   checkAdminRole,
   async (req: Request, res: Response) => {
     try {
-      const locationsQuerry = await pool.query(
-        "SELECT * FROM public.Location WHERE name != 'AdminLocation'"
+      const locationsQuery = await pool.query(
+        "SELECT id, slug, name FROM public.Location WHERE name != 'AdminLocation'"
       );
-      const locations: ILocation[] = locationsQuerry.rows;
+
+      const locations: LocationResponseDto[] = locationsQuery.rows;
+
       if (locations.length > 0) {
         res.status(200).json(locations);
-        res.send();
         return;
       }
     } catch (err) {
       if (err instanceof Error) {
         res.status(500).json({ error: err.message });
-        res.send();
         return;
       }
     }
 
     res.status(403).json({ message: "No locations found" });
-    res.send();
   }
 );
 
@@ -50,7 +49,8 @@ router.get(
   async (req: Request, res: Response) => {
     try {
       const { locationId } = req.params;
-      const locationQuerry = await pool.query(
+
+      const locationQuery = await pool.query(
         `SELECT 
           l.id AS id,
           l.name AS name,
@@ -75,22 +75,19 @@ router.get(
           l.id;`,
         [locationId]
       );
-      const location: ILocation = locationQuerry.rows[0];
+      const location: LocationResponseDto = locationQuery.rows[0];
       if (location) {
         res.status(200).json(location);
-        res.send();
         return;
       }
     } catch (err) {
       if (err instanceof Error) {
         res.status(500).json({ error: err.message });
-        res.send();
         return;
       }
     }
 
     res.status(403).json({ message: "No location found with this id" });
-    res.send();
   }
 );
 
@@ -100,13 +97,25 @@ router.post(
   checkAdminRole,
   async (req, res) => {
     try {
-      const { locationName, locationSlug, managerUsername, managerPassword } =
-        req.body;
+      const {
+        locationName,
+        locationSlug,
+        managerUsername,
+        managerPassword,
+        tables,
+      } = req.body;
       const hashedPassword = await bcrypt.hash(managerPassword, 10);
 
+      const initialQueue: TableQueueJsonModel = {
+        ready: [],
+        preparing: [],
+        delivered: [],
+        payed: Array.from({ length: tables }, (_, i) => i + 1),
+      };
+
       const locationId = await pool.query(
-        "INSERT INTO public.Location (name, slug) VALUES ($1, $2) RETURNING id ",
-        [locationName, locationSlug]
+        "INSERT INTO public.Location (name, slug, tables, tables_queue) VALUES ($1, $2, $3, $4) RETURNING id ",
+        [locationName, locationSlug, tables, initialQueue]
       );
 
       await pool.query(
@@ -116,13 +125,11 @@ router.post(
     } catch (error) {
       if (error instanceof Error) {
         res.status(500).json({ error: error.message });
-        res.send();
         return;
       }
     }
 
     res.status(201).json({ message: "Manager created." });
-    res.send();
   }
 );
 

@@ -1,11 +1,12 @@
-import { ILocation } from "shared/models/location.response.model";
+import { LocationResponseDto } from "shared";
 import LocationCard from "./LocationCard/LocationCard";
 import { Link } from "@tanstack/react-router";
 import styles from "./Admin.module.scss";
+import cardStyles from "../card.module.scss";
 import { useGetLocationsQuery } from "../../../api/adminApi";
 
 type AdminProps = {
-  data?: ILocation[];
+  data?: LocationResponseDto[];
 };
 
 const Admin = ({ data: propsLocations }: AdminProps) => {
@@ -23,10 +24,7 @@ const Admin = ({ data: propsLocations }: AdminProps) => {
           : skeletonLocations.map((index) => (
               <LocationCard key={index} isLoading={true} />
             ))}
-        <Link
-          to="/dashboard/admin/location/create"
-          className={styles.addNewLocation}
-        >
+        <Link to="/dashboard/admin/location/create" className={cardStyles.card}>
           Add a new location
         </Link>
       </div>

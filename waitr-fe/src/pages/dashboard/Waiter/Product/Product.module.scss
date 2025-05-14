@@ -1,0 +1,43 @@
+.product {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  min-height: 55px;
+  height: fit-content;
+  width: 90%;
+  border-left: 16px solid;
+  box-sizing: border-box;
+
+  div {
+    padding-left: 1rem;
+    h2 {
+      margin-top: 0;
+      margin-bottom: 3px;
+      font-size: 20px;
+      font-weight: 500;
+    }
+
+    p {
+      margin: 0;
+      font-size: 18px;
+      color: #595959;
+    }
+  }
+}
+
+.ready {
+  border-color: red;
+}
+
+.preparing {
+  border-color: orange;
+}
+
+.delivered {
+  border-color: yellow;
+}
+
+.payed {
+  border-color: green;
+}

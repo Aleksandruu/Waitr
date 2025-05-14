@@ -1,4 +1,4 @@
-export interface ILocationRequest {
+export interface CreateLocationDto {
   locationName: string;
   locationSlug: string;
   managerUsername: string;

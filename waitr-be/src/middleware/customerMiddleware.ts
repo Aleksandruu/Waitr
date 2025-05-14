@@ -3,7 +3,7 @@ import { Pool } from "pg";
 export const getLocationIdFromSlug = async (
   pool: Pool,
   slug: string
-): Promise<number> => {
+): Promise<string> => {
   const result = await pool.query(
     "SELECT * FROM public.Location WHERE slug = $1",
     [slug]

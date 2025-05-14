@@ -9,7 +9,7 @@ export const initSocket = (server: HttpServer) => {
       origin: "http://localhost:3000",
       credentials: true,
     },
-    transports: ["websocket", "polling"], // Explicitly enable both
+    transports: ["websocket", "polling"],
   });
   return io;
 };

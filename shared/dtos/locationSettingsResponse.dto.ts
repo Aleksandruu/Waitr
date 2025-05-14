@@ -1,6 +1,6 @@
-import { FileBuffer } from "./fileBuffer.model";
+import { FileBuffer } from "../models/fileBuffer.model";
 
-export interface LocationSettingsResponse {
+export interface LocationSettingsDto {
   id?: string;
   slug: string;
   name: string;

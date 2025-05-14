@@ -1,4 +1,4 @@
-import { ApiError } from "./error.model";
+import { ApiError } from "../models/error.model";
 
 export interface ApiSuccess<T = unknown> {
   data: T;
