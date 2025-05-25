@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "private": true,
-  "packageManager": "npm@10.5.0",
+  "packageManager": "pnpm@10.11.0",
   "workspaces": [
     "waitr-fe",
     "waitr-be",
@@ -18,7 +18,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "turbo run dev --parallel",
-    "build": "turbo run build",
+    "build-all": "turbo run build",
     "lint": "turbo run lint"
+  },
+  "dependencies": {
+    "pnpm": "^10.11.0"
   }
 }

@@ -47,5 +47,5 @@ app.use("/customer", customer_1.default);
 app.use("/waiter", waiter_1.default);
 app.use("/common", common_1.default);
 server.listen(port, () => {
-    console.log(`App runningg on port ${port}.`);
+    console.log(`App running on port ${port}.`);
 });
