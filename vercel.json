@@ -1,0 +1,10 @@
+{
+  "buildCommand": "pnpm install && pnpm run build-all",
+  "installCommand": "corepack enable && corepack prepare pnpm@10.11.0 --activate && pnpm install",
+  "outputDirectory": "waitr-fe/dist",
+  "build": {
+    "env": {
+      "TURBO_TELEMETRY_DISABLED": "1"
+    }
+  }
+}

@@ -20,8 +20,5 @@
     "dev": "turbo run dev --parallel",
     "build-all": "turbo run build",
     "lint": "turbo run lint"
-  },
-  "dependencies": {
-    "pnpm": "^10.11.0"
   }
 }
