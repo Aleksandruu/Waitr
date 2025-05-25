@@ -18,15 +18,15 @@ const secretKey = process.env.JWT_SECRET_KEY;
 const getLocationFromRequest = (req) => {
     const authHeader = req.headers["authorization"];
     const token = authHeader && authHeader.split(" ")[1];
-    let location = "";
+    let locationId = "";
     jsonwebtoken_1.default.verify(token, secretKey, (err, decoded) => {
         if (err) {
             throw new Error("Invalid token");
         }
         const user = decoded;
-        location = user.location;
+        locationId = user.locationId;
     });
-    return location;
+    return locationId;
 };
 exports.getLocationFromRequest = getLocationFromRequest;
 const checkCategoryExistsByName = (pool, name, locationId) => __awaiter(void 0, void 0, void 0, function* () {

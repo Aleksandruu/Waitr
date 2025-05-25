@@ -64,28 +64,32 @@ const CreateLocation = ({}: CreateLocationProps) => {
       >
         <h1>Create a new location</h1>
         <Input
-          label="Location name"
+          name="locationName"
+          label="Nume locatie"
           register={register("locationName")}
           error={isDirty ? errors.locationName?.message : undefined}
         ></Input>
         <Input
-          label="Location slug"
+          name="locationSlug"
+          label="Slug locatie (website URL)"
           register={register("locationSlug")}
           error={isDirty ? errors.locationSlug?.message : undefined}
         ></Input>
         <Input
-          label="Manager username"
+          name="managerUsername"
+          label="Nume utilizator manager"
           register={register("managerUsername")}
           error={isDirty ? errors.managerUsername?.message : undefined}
         ></Input>
         <Input
-          label="Manager password"
+          name="managerPassword"
+          label="Parola manager"
           type="password"
           register={register("managerPassword")}
           error={isDirty ? errors.managerPassword?.message : undefined}
         ></Input>
         <Button
-          text="Create Location"
+          text="Creaza locatie"
           wide={true}
           tall={true}
           submit={true}

@@ -37,7 +37,8 @@ CREATE TABLE
         allergens TEXT,
         price DECIMAL(10, 2) NOT NULL,
         category_id UUID REFERENCES public.Category (id),
-        initial_status VARCHAR(255) NOT NULL
+        initial_status VARCHAR(255) NOT NULL,
+        photo_url VARCHAR(255)
     );
 
 CREATE TABLE

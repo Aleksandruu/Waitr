@@ -4,6 +4,7 @@ import InputWrapper from "../InputWrapper/InputWrapper";
 import { toCammelCase } from "../../helpers/toCammelCase";
 
 type SelectProps = {
+  name: string;
   placeholder?: string;
   label?: string;
   error?: string | undefined;
@@ -13,6 +14,7 @@ type SelectProps = {
 };
 
 const Select = ({
+  name = "",
   placeholder = "",
   label = "",
   error = undefined,
@@ -20,12 +22,11 @@ const Select = ({
   onChange = () => {},
   register = null,
 }: SelectProps) => {
-  const labelId = toCammelCase(label);
   return (
     <InputWrapper label={label} error={error}>
       <select
-        name={labelId}
-        id={labelId}
+        name={name}
+        id={name}
         className={inputStyles.input}
         {...register}
         onChange={onChange}

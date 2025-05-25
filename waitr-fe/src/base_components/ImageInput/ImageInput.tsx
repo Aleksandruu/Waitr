@@ -17,7 +17,7 @@ const ImageInput = ({
 }: ImageInputProps) => {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
 
-  const handleLogoChange = async (
+  const handlePhotoChange = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const file = event.target.files?.[0];
@@ -39,22 +39,22 @@ const ImageInput = ({
 
   return (
     <>
-      <label htmlFor="logo" className={styles.label}>
+      <label htmlFor="photo" className={styles.label}>
         <p>{name}:</p>
         <small>{small}</small>
         <br />
         {imagePreview ? (
-          <img className={styles.logo} src={imagePreview} alt="Preview" />
+          <img className={styles.photo} src={imagePreview} alt="Preview" />
         ) : (
           <div className={styles.addImage}>+</div>
         )}{" "}
       </label>
       <input
         className={styles.input}
-        id="logo"
-        name="logo"
+        id="photo"
+        name="photo"
         type="file"
-        onChange={handleLogoChange}
+        onChange={handlePhotoChange}
       />
     </>
   );

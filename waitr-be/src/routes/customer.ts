@@ -1,5 +1,4 @@
 import express, { Request, Response } from "express";
-import { Pool } from "pg";
 import { getLocationIdFromSlug } from "../middleware/customerMiddleware";
 import {
   CreateOrderDto,
@@ -10,16 +9,9 @@ import {
   CategoryWithProductsDto,
 } from "shared";
 import { getIo } from "../sockets";
+import pool from "../db";
 
 const router = express.Router();
-
-const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_DB,
-  password: process.env.DB_PASS,
-  port: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : undefined,
-});
 
 router.get("/:locationSlug/product", async (req: Request, res: Response) => {
   try {
@@ -39,7 +31,8 @@ router.get("/:locationSlug/product", async (req: Request, res: Response) => {
                 'ingredients', p.ingredients,
                 'nutrients', p.nutrients,
                 'allergens', p.allergens,
-                'price', p.price
+                'price', p.price,
+                'photoUrl', p.photo_url
                 )
               ) FILTER (WHERE p.id IS NOT NULL), 
             '[]'
@@ -59,14 +52,17 @@ router.get("/:locationSlug/product", async (req: Request, res: Response) => {
       [locationId]
     );
 
+
     const categoriesWithProducts: CategoryWithProductsDto[] =
       categoriesWithProductsQuery.rows;
+
 
     res.status(200).json(categoriesWithProducts);
     return;
   } catch (error) {
     if (error instanceof Error) {
       res.status(500).json({ error: error.message });
+      console.error("Error fetching products:", error);
     }
   }
 });
@@ -150,6 +146,7 @@ router.post(
     } catch (error) {
       if (error instanceof Error) {
         res.status(500).json({ error: error.message });
+
         return;
       }
     }

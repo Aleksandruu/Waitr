@@ -38,7 +38,7 @@ const LocationSettings = ({}: LocationSettingsProps) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { data } = useGetLocationSettingsQuery();
+  const { data } = useGetLocationSettingsQuery(undefined);
   const [updateSettings, { isLoading }] = useUpdateSettingsMutation();
 
   const settings = useSelector((state: RootState) => {
@@ -111,6 +111,7 @@ const LocationSettings = ({}: LocationSettingsProps) => {
         <h1>Location Settings</h1>
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
           <Input
+            name="name"
             label="Name"
             type="text"
             placeholder="Location name"
@@ -122,6 +123,7 @@ const LocationSettings = ({}: LocationSettingsProps) => {
             }}
           />
           <Input
+            name="slug"
             label="Slug"
             type="text"
             placeholder="Location slug"

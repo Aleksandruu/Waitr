@@ -4,6 +4,7 @@ import InputWrapper from "../InputWrapper/InputWrapper";
 import styles from "../Input.module.scss";
 
 interface InputProps {
+  name: string;
   placeholder?: string;
   label?: string;
   error?: string | undefined;
@@ -13,6 +14,7 @@ interface InputProps {
 }
 
 const Input = ({
+  name = "",
   placeholder = "",
   label = "",
   error = undefined,
@@ -20,14 +22,13 @@ const Input = ({
   onChange = () => {},
   register = null,
 }: InputProps) => {
-  const labelId = toCammelCase(label);
-
   return (
     <InputWrapper label={label} error={error}>
       <input
+        id={name}
         {...register}
         placeholder={placeholder}
-        name={labelId}
+        name={name}
         onChange={(e) => {
           register?.onChange?.(e);
           onChange?.(e);

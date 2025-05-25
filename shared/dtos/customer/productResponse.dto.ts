@@ -5,4 +5,5 @@ export interface ProductResponseDto {
   nutrients: string;
   allergens: string;
   price: number;
+  photoUrl?: string;
 }

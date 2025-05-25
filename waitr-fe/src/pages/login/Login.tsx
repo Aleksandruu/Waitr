@@ -24,11 +24,13 @@ const Login = () => {
     <div className="container">
       <form className="middle-column-container justify-center">
         <Input
+          name="username"
           label="Username"
           onChange={handleChange}
           error={isError ? "" : undefined}
         ></Input>
         <Input
+          name="password"
           label="Password"
           type="password"
           onChange={handleChange}

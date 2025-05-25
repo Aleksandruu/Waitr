@@ -6,4 +6,5 @@ export interface CreateProductDto {
   price: number;
   categoryId: string;
   initialStatus: "cook" | "barman" | "barista" | "ready";
+  photo?: File;
 }

@@ -60,23 +60,27 @@ const CreateStaff = ({}: CreateStaffProps) => {
       >
         <h1>Add new member</h1>
         <Input
+          name="username"
           label="Username"
           register={register("username")}
           error={isDirty ? errors.username?.message : undefined}
         ></Input>
         <Input
+          name="password"
           label="Password"
           register={register("password")}
           type="password"
           error={isDirty ? errors.password?.message : undefined}
         ></Input>
         <Input
+          name="confirmPassword"
           label="Confirm Password"
           register={register("confirmPassword")}
           type="password"
           error={isDirty ? errors.confirmPassword?.message : undefined}
         ></Input>
         <Select
+          name="role"
           label="Role"
           options={[
             { value: "waiter", label: "Waiter" },

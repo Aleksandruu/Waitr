@@ -6,13 +6,15 @@ import { authActions } from "../../Login/Auth.slice";
 import { RootState } from "waitr-fe/src/store";
 import { bufferToFile } from "waitr-fe/src/helpers/byteArrayToFile";
 import { useEffect, useState } from "react";
+import { useAppSelector } from "waitr-fe/src/helpers/app.hooks";
 
 function Navbar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const buffer = useSelector((state: RootState) => state.location.logoBuffer);
-  const mime = useSelector((state: RootState) => state.location.logoMime);
+  const { logoBuffer: buffer, logoMime: mime } = useAppSelector(
+    (state) => state.location
+  );
   const [logoUrl, setLogoUrl] = useState<string | undefined>("");
 
   useEffect(() => {

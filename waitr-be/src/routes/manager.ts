@@ -2,33 +2,27 @@ import express, { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import { authenticateToken } from "../middleware/authMiddleware";
 import { checkManagerRole } from "../middleware/roleMiddleware";
+import { addPhotoToCloud } from "../middleware/addPhotoToCloud";
 import {
   getLocationFromRequest,
   checkCategoryExistsById,
   checkCategoryExistsByName,
 } from "../middleware/managerMiddleware";
 import { validateFields } from "../middleware/commonMiddleware";
-import { Pool } from "pg";
 import {
   CategoryModel,
   CreateProductDto,
-  CategoryWithProductsDto,
   LocationSettingsDto,
+  ManagerProductResponseDto,
 } from "shared";
 import multer from "multer";
+import pool from "../db";
 
 const upload = multer();
 
 const router = express.Router();
-const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_DB,
-  password: process.env.DB_PASS,
-  port: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : undefined,
-});
 
-interface UploadRequest extends Request {
+interface UploadLocationSettingsRequest extends Request {
   body: {
     slug: string;
     name: string;
@@ -38,12 +32,21 @@ interface UploadRequest extends Request {
   file?: Express.Multer.File;
 }
 
+interface Body {
+  [key: string]: string | number | boolean | File;
+}
+
+interface UploadProductRequest extends Request {
+  body: CreateProductDto;
+  file?: Express.Multer.File;
+}
+
 router.patch(
   "/location/settings",
   authenticateToken,
   checkManagerRole,
   upload.single("logo"),
-  async (req: UploadRequest, res: Response) => {
+  async (req: UploadLocationSettingsRequest, res: Response) => {
     const { slug, name, color }: LocationSettingsDto = req.body;
     const file = req.file;
 
@@ -173,19 +176,33 @@ router.post(
   "/product",
   authenticateToken,
   checkManagerRole,
-  async (req: Request, res: Response) => {
-    const productRequest: CreateProductDto = req.body;
+  upload.single("photo"),
+  async (req: UploadProductRequest, res: Response) => {
+    const productRequest = req.body;
 
     try {
-      validateFields({ ...productRequest }, req.body);
+      validateFields(
+        {
+          name: productRequest.name,
+          ingredients: productRequest.ingredients,
+          nutrients: productRequest.nutrients,
+          allergens: productRequest.allergens,
+          price: productRequest.price,
+          categoryId: productRequest.categoryId,
+          initialStatus: productRequest.initialStatus,
+        },
+        req.body as unknown as Body
+      );
 
       if (!(await checkCategoryExistsById(pool, productRequest.categoryId))) {
         res.status(400).json({ error: "Category does not exist." });
         return;
       }
 
+      const publicUrl = await addPhotoToCloud(req.file!);
+
       await pool.query(
-        "INSERT INTO public.Product (name, ingredients, nutrients, allergens, price, category_id, initial_status) VALUES ($1, $2, $3, $4, $5, $6, $7)",
+        "INSERT INTO public.Product (name, ingredients, nutrients, allergens, price, category_id, initial_status, photo_url) VALUES ($1, $2, $3, $4, $5, $6, $7,  $8)",
         [
           productRequest.name,
           productRequest.ingredients,
@@ -194,6 +211,7 @@ router.post(
           productRequest.price,
           productRequest.categoryId,
           productRequest.initialStatus,
+          publicUrl,
         ]
       );
     } catch (error) {
@@ -299,36 +317,22 @@ router.get(
       const categoriesWithProductsQuery = await pool.query(
         `
         SELECT 
-            c.id AS category_id,
-            c.name AS category_name,
-            COALESCE(
-                JSON_AGG(
-                    JSON_BUILD_OBJECT(
-                        'id', p.id,
-                        'name', p.name,
-                        'ingredients', p.ingredients,
-                        'nutrients', p.nutrients,
-                        'allergens', p.allergens,
-                        'price', p.price,
-                        'initial_status', p.initial_status
-                    )
-                ) FILTER (WHERE p.id IS NOT NULL), 
-                '[]'
-            ) AS products
+          p.id AS "productId",
+          p.name AS "productName",
+          c.id AS "categoryId",
+          c.name AS "categoryName"
         FROM 
-            public.Category c
-        LEFT JOIN 
-            public.Product p
+          public.Product p
+        JOIN 
+          public.Category c
         ON 
-            c.id = p.category_id
+          p.category_id = c.id
         WHERE 
-            c.location_id = $1
-        GROUP BY 
-            c.id, c.name, c.location_id;
+          c.location_id = $1;
         `,
         [locationId]
       );
-      const categoriesWithProducts: CategoryWithProductsDto[] =
+      const categoriesWithProducts: ManagerProductResponseDto[] =
         categoriesWithProductsQuery.rows;
       res.status(200).json(categoriesWithProducts);
       return;

@@ -1,6 +1,5 @@
 import express from "express";
 import bodyParser from "body-parser";
-import { Pool } from "pg";
 import cors from "cors";
 import authRouter from "./routes/auth";
 import adminRouter from "./routes/admin";
@@ -38,7 +37,7 @@ io.on("connection", (socket) => {
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: process.env.CORS_ORIGIN || "http://localhost:3000",
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true,
   })
@@ -50,14 +49,6 @@ app.use(
     extended: true,
   })
 );
-
-export const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_DB,
-  password: process.env.DB_PASS,
-  port: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : undefined,
-});
 
 app.use("/auth", authRouter);
 app.use("/admin", adminRouter);

@@ -1,0 +1,6 @@
+{
+  "zencoder.enableRepoIndexing": true,
+  "appService.zipIgnorePattern": ["node_modules{,/**}", ".vscode{,/**}"],
+  "appService.defaultWebAppToDeploy": "/subscriptions/258d6534-23cd-4ff0-b041-a07f85642eaf/resourceGroups/Waitr_group/providers/Microsoft.Web/sites/Waitr",
+  "appService.deploySubpath": "."
+}

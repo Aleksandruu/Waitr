@@ -1,5 +1,9 @@
 import { Link } from "@tanstack/react-router";
-import { useGetStaffQuery } from "../../../api/managerApi";
+import {
+  useGetAllProductsQuery,
+  useGetCategoriesQuery,
+  useGetStaffQuery,
+} from "../../../api/managerApi";
 import StaffCard from "../Admin/LocationPage/StaffCard/StaffCard";
 import styles from "./Manager.module.scss";
 import cardStyles from "../card.module.scss";
@@ -7,7 +11,9 @@ import cardStyles from "../card.module.scss";
 type ManagerProps = {};
 
 const Manager = ({}: ManagerProps) => {
-  const { data } = useGetStaffQuery();
+  const { data: staff } = useGetStaffQuery();
+  const { data: categories } = useGetCategoriesQuery();
+  const { data: products } = useGetAllProductsQuery();
 
   return (
     <div className="container">
@@ -19,9 +25,10 @@ const Manager = ({}: ManagerProps) => {
         >
           Location Settings
         </Link>
+
         <h2>Staff</h2>
-        {data?.map((staffMember) => (
-          <StaffCard staff={staffMember} key={staffMember.id}></StaffCard>
+        {staff?.map((staffMember, index) => (
+          <StaffCard staff={staffMember} key={index}></StaffCard>
         ))}
         <Link
           to="/dashboard/manager/staff/create"
@@ -30,7 +37,32 @@ const Manager = ({}: ManagerProps) => {
           Add new staff member
         </Link>
 
+        <h2>Categories</h2>
+        {categories?.map((category, index) => (
+          <div className={cardStyles.card} key={index}>
+            <strong>{category.name}</strong>
+          </div>
+        ))}
+        <Link
+          to="/dashboard/manager/category/create"
+          className={cardStyles.addNewCard}
+        >
+          Add new category
+        </Link>
+
         <h2>Products</h2>
+        {products?.map((product, index) => (
+          <div className={cardStyles.card} key={index}>
+            <strong>{product.productName}</strong>
+            <p>{product.categoryName}</p>
+          </div>
+        ))}
+        <Link
+          to="/dashboard/manager/product/create"
+          className={cardStyles.addNewCard}
+        >
+          Add new product
+        </Link>
       </div>
     </div>
   );

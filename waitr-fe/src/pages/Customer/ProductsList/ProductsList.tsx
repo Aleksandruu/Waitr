@@ -19,8 +19,6 @@ const Customer = ({}: CustomerProps) => {
 
   const { data } = useGetProductsQuery(locationSlug);
 
-  useGetLocationSettingsQuery();
-
   const dispatch = useDispatch();
 
   useEffect(() => {

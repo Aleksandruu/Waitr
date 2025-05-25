@@ -4,6 +4,9 @@ import {
   LocationSettingsDto,
   LocationResponseDto,
   StaffMemberRequest,
+  CategoryModel,
+  CreateProductDto,
+  ManagerProductResponseDto,
 } from "shared";
 import { api } from "./baseApi";
 
@@ -21,12 +24,22 @@ export const managerApi = api.injectEndpoints({
       }),
       invalidatesTags: ["Staff"],
     }),
+    createCategory: build.mutation<void, { name: string }>({
+      query: (category) => ({
+        url: "manager/category",
+        method: "POST",
+        body: category,
+      }),
+    }),
+    getCategories: build.query<CategoryModel[], void>({
+      query: () => "manager/category",
+    }),
     getLocation: build.query<LocationResponseDto, void>({
       query: () => "manager/location",
       providesTags: ["Settings"],
     }),
-    getLocationSettings: build.query<LocationSettingsDto, void>({
-      query: () => "common/location/settings",
+    getLocationSettings: build.query<LocationSettingsDto, string | undefined>({
+      query: (slug?) => `common/location/settings/${slug}`,
       providesTags: ["Settings"],
     }),
     updateSettings: build.mutation<void, UpdateLocationSettingsDto>({
@@ -47,13 +60,42 @@ export const managerApi = api.injectEndpoints({
       },
       invalidatesTags: ["Settings"],
     }),
+    getAllProducts: build.query<ManagerProductResponseDto[], void>({
+      query: () => "manager/product",
+    }),
+    createProduct: build.mutation<void, CreateProductDto>({
+      query: (product) => {
+        const formData = new FormData();
+        formData.append("name", product.name);
+        formData.append("ingredients", product.ingredients);
+        formData.append("nutrients", product.nutrients);
+        formData.append("allergens", product.allergens);
+        formData.append("price", product.price.toString());
+        formData.append("categoryId", product.categoryId);
+        formData.append("initialStatus", product.initialStatus);
+
+        if (product.photo) {
+          formData.append("photo", product.photo);
+        }
+
+        return {
+          url: "manager/product",
+          method: "POST",
+          body: formData,
+        };
+      },
+    }),
   }),
 });
 
 export const {
   useGetStaffQuery,
   useCreateStaffMutation,
+  useCreateCategoryMutation,
+  useGetCategoriesQuery,
   useGetLocationQuery,
   useGetLocationSettingsQuery,
   useUpdateSettingsMutation,
+  useCreateProductMutation,
+  useGetAllProductsQuery,
 } = managerApi;

@@ -17,6 +17,7 @@ export * from "./dtos/customer/productOrderWithNameAndPrice.dto";
 export * from "./dtos/manager/createProduct.dto";
 export * from "./dtos/manager/createStaffMember.dto";
 export * from "./dtos/manager/locationSettingsRequest.dto";
+export * from "./dtos/manager/getProducts.dto";
 
 export * from "./entities/category.model";
 export * from "./models/error.model";

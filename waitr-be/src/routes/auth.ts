@@ -1,21 +1,13 @@
 import express, { Request, Response } from "express";
-import { Pool } from "pg";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { LoginRequest, UserModel } from "shared";
+import pool from "../db";
 
 import dotenv from "dotenv";
 dotenv.config();
 
 const router = express.Router();
-
-export const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_DB,
-  password: process.env.DB_PASS,
-  port: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : undefined,
-});
 
 router.post("/login", async (req: Request, res: Response) => {
   const { username, password }: LoginRequest = req.body;

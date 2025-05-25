@@ -1,23 +1,20 @@
 import express, { Request, Response } from "express";
-import { Pool } from "pg";
 import { getLocationFromRequest } from "../middleware/managerMiddleware";
+import { getLocationIdFromSlug } from "../middleware/customerMiddleware";
+import pool from "../db";
 
 const router = express.Router();
 
-const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_DB,
-  password: process.env.DB_PASS,
-  port: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : undefined,
-});
-
 //location
 
-router.get("/location/settings", async (req: Request, res: Response) => {
+router.get("/location/settings/:slug", async (req: Request, res: Response) => {
   try {
-    const locationId = getLocationFromRequest(req);
-    console.log("Location ID:", locationId);
+    let locationId = "";
+    if (req.params.slug && req.params.slug !== "undefined") {
+      locationId = await getLocationIdFromSlug(pool, req.params.slug);
+    } else {
+      locationId = await getLocationFromRequest(req);
+    }
     const settingsQuery = await pool.query(
       "SELECT slug, name, color, logo, logo_mime FROM public.Location WHERE id = $1",
       [locationId]
@@ -29,7 +26,16 @@ router.get("/location/settings", async (req: Request, res: Response) => {
     }
 
     const settings = settingsQuery.rows[0];
-    res.status(200).json(settings);
+
+    const response = {
+      slug: settings.slug,
+      name: settings.name,
+      color: settings.color,
+      logo: settings.logo,
+      logoMime: settings.logo_mime, // Transformăm `logo_mime` în `logoMime`
+    };
+
+    res.status(200).json(response);
     return;
   } catch (error) {
     if (error instanceof Error) {
@@ -37,6 +43,10 @@ router.get("/location/settings", async (req: Request, res: Response) => {
       return;
     }
   }
+});
+
+router.get("/check", async (req: Request, res: Response) => {
+  res.status(200).json({ message: "ok" });
 });
 
 export default router;

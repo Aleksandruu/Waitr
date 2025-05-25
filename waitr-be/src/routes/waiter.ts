@@ -1,20 +1,13 @@
 import express, { Request, Response } from "express";
-import { Pool } from "pg";
 import { checkWaiterRole } from "../middleware/roleMiddleware";
 import { authenticateToken } from "../middleware/authMiddleware";
 import { getLocationFromRequest } from "../middleware/managerMiddleware";
 import { OrderResponseDto } from "shared/dtos/waiter/orderResponse.dto";
 import { ProductStatus, TableQueueJsonModel } from "shared";
 import { TableStatus } from "shared";
+import pool from "../db";
 
 const router = express.Router();
-const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_DB,
-  password: process.env.DB_PASS,
-  port: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : undefined,
-});
 
 const statusPriority: ProductStatus[] = [
   "ready",

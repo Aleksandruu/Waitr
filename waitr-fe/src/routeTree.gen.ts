@@ -31,9 +31,11 @@ import { Route as DashboardManagerProductIndexImport } from './routes/dashboard/
 import { Route as DashboardManagerStaffCreateImport } from './routes/dashboard/manager/staff.create'
 import { Route as DashboardManagerProductCreateImport } from './routes/dashboard/manager/product/create'
 import { Route as DashboardManagerProductProductIdImport } from './routes/dashboard/manager/product/$productId'
+import { Route as DashboardManagerCategoryCreateImport } from './routes/dashboard/manager/category/create'
 import { Route as DashboardAdminLocationCreateImport } from './routes/dashboard/admin/location/create'
 import { Route as DashboardAdminLocationLocationIdImport } from './routes/dashboard/admin/location/$locationId'
 import { Route as DashboardManagerProductEditProductIdImport } from './routes/dashboard/manager/product/edit.$productId'
+import { Route as DashboardManagerCategoryEditCategoryIdImport } from './routes/dashboard/manager/category/edit.$categoryId'
 
 // Create/Update Routes
 
@@ -166,6 +168,13 @@ const DashboardManagerProductProductIdRoute =
     getParentRoute: () => DashboardManagerRoute,
   } as any)
 
+const DashboardManagerCategoryCreateRoute =
+  DashboardManagerCategoryCreateImport.update({
+    id: '/category/create',
+    path: '/category/create',
+    getParentRoute: () => DashboardManagerRoute,
+  } as any)
+
 const DashboardAdminLocationCreateRoute =
   DashboardAdminLocationCreateImport.update({
     id: '/location/create',
@@ -184,6 +193,13 @@ const DashboardManagerProductEditProductIdRoute =
   DashboardManagerProductEditProductIdImport.update({
     id: '/product/edit/$productId',
     path: '/product/edit/$productId',
+    getParentRoute: () => DashboardManagerRoute,
+  } as any)
+
+const DashboardManagerCategoryEditCategoryIdRoute =
+  DashboardManagerCategoryEditCategoryIdImport.update({
+    id: '/category/edit/$categoryId',
+    path: '/category/edit/$categoryId',
     getParentRoute: () => DashboardManagerRoute,
   } as any)
 
@@ -317,6 +333,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardAdminLocationCreateImport
       parentRoute: typeof DashboardAdminImport
     }
+    '/dashboard/manager/category/create': {
+      id: '/dashboard/manager/category/create'
+      path: '/category/create'
+      fullPath: '/dashboard/manager/category/create'
+      preLoaderRoute: typeof DashboardManagerCategoryCreateImport
+      parentRoute: typeof DashboardManagerImport
+    }
     '/dashboard/manager/product/$productId': {
       id: '/dashboard/manager/product/$productId'
       path: '/product/$productId'
@@ -343,6 +366,13 @@ declare module '@tanstack/react-router' {
       path: '/product'
       fullPath: '/dashboard/manager/product'
       preLoaderRoute: typeof DashboardManagerProductIndexImport
+      parentRoute: typeof DashboardManagerImport
+    }
+    '/dashboard/manager/category/edit/$categoryId': {
+      id: '/dashboard/manager/category/edit/$categoryId'
+      path: '/category/edit/$categoryId'
+      fullPath: '/dashboard/manager/category/edit/$categoryId'
+      preLoaderRoute: typeof DashboardManagerCategoryEditCategoryIdImport
       parentRoute: typeof DashboardManagerImport
     }
     '/dashboard/manager/product/edit/$productId': {
@@ -397,20 +427,25 @@ const DashboardAdminRouteWithChildren = DashboardAdminRoute._addFileChildren(
 interface DashboardManagerRouteChildren {
   DashboardManagerLocationSetupRoute: typeof DashboardManagerLocationSetupRoute
   DashboardManagerIndexRoute: typeof DashboardManagerIndexRoute
+  DashboardManagerCategoryCreateRoute: typeof DashboardManagerCategoryCreateRoute
   DashboardManagerProductProductIdRoute: typeof DashboardManagerProductProductIdRoute
   DashboardManagerProductCreateRoute: typeof DashboardManagerProductCreateRoute
   DashboardManagerStaffCreateRoute: typeof DashboardManagerStaffCreateRoute
   DashboardManagerProductIndexRoute: typeof DashboardManagerProductIndexRoute
+  DashboardManagerCategoryEditCategoryIdRoute: typeof DashboardManagerCategoryEditCategoryIdRoute
   DashboardManagerProductEditProductIdRoute: typeof DashboardManagerProductEditProductIdRoute
 }
 
 const DashboardManagerRouteChildren: DashboardManagerRouteChildren = {
   DashboardManagerLocationSetupRoute: DashboardManagerLocationSetupRoute,
   DashboardManagerIndexRoute: DashboardManagerIndexRoute,
+  DashboardManagerCategoryCreateRoute: DashboardManagerCategoryCreateRoute,
   DashboardManagerProductProductIdRoute: DashboardManagerProductProductIdRoute,
   DashboardManagerProductCreateRoute: DashboardManagerProductCreateRoute,
   DashboardManagerStaffCreateRoute: DashboardManagerStaffCreateRoute,
   DashboardManagerProductIndexRoute: DashboardManagerProductIndexRoute,
+  DashboardManagerCategoryEditCategoryIdRoute:
+    DashboardManagerCategoryEditCategoryIdRoute,
   DashboardManagerProductEditProductIdRoute:
     DashboardManagerProductEditProductIdRoute,
 }
@@ -455,10 +490,12 @@ export interface FileRoutesByFullPath {
   '/dashboard/manager/': typeof DashboardManagerIndexRoute
   '/dashboard/admin/location/$locationId': typeof DashboardAdminLocationLocationIdRoute
   '/dashboard/admin/location/create': typeof DashboardAdminLocationCreateRoute
+  '/dashboard/manager/category/create': typeof DashboardManagerCategoryCreateRoute
   '/dashboard/manager/product/$productId': typeof DashboardManagerProductProductIdRoute
   '/dashboard/manager/product/create': typeof DashboardManagerProductCreateRoute
   '/dashboard/manager/staff/create': typeof DashboardManagerStaffCreateRoute
   '/dashboard/manager/product': typeof DashboardManagerProductIndexRoute
+  '/dashboard/manager/category/edit/$categoryId': typeof DashboardManagerCategoryEditCategoryIdRoute
   '/dashboard/manager/product/edit/$productId': typeof DashboardManagerProductEditProductIdRoute
 }
 
@@ -478,10 +515,12 @@ export interface FileRoutesByTo {
   '/dashboard/manager': typeof DashboardManagerIndexRoute
   '/dashboard/admin/location/$locationId': typeof DashboardAdminLocationLocationIdRoute
   '/dashboard/admin/location/create': typeof DashboardAdminLocationCreateRoute
+  '/dashboard/manager/category/create': typeof DashboardManagerCategoryCreateRoute
   '/dashboard/manager/product/$productId': typeof DashboardManagerProductProductIdRoute
   '/dashboard/manager/product/create': typeof DashboardManagerProductCreateRoute
   '/dashboard/manager/staff/create': typeof DashboardManagerStaffCreateRoute
   '/dashboard/manager/product': typeof DashboardManagerProductIndexRoute
+  '/dashboard/manager/category/edit/$categoryId': typeof DashboardManagerCategoryEditCategoryIdRoute
   '/dashboard/manager/product/edit/$productId': typeof DashboardManagerProductEditProductIdRoute
 }
 
@@ -505,10 +544,12 @@ export interface FileRoutesById {
   '/dashboard/manager/': typeof DashboardManagerIndexRoute
   '/dashboard/admin/location/$locationId': typeof DashboardAdminLocationLocationIdRoute
   '/dashboard/admin/location/create': typeof DashboardAdminLocationCreateRoute
+  '/dashboard/manager/category/create': typeof DashboardManagerCategoryCreateRoute
   '/dashboard/manager/product/$productId': typeof DashboardManagerProductProductIdRoute
   '/dashboard/manager/product/create': typeof DashboardManagerProductCreateRoute
   '/dashboard/manager/staff/create': typeof DashboardManagerStaffCreateRoute
   '/dashboard/manager/product/': typeof DashboardManagerProductIndexRoute
+  '/dashboard/manager/category/edit/$categoryId': typeof DashboardManagerCategoryEditCategoryIdRoute
   '/dashboard/manager/product/edit/$productId': typeof DashboardManagerProductEditProductIdRoute
 }
 
@@ -533,10 +574,12 @@ export interface FileRouteTypes {
     | '/dashboard/manager/'
     | '/dashboard/admin/location/$locationId'
     | '/dashboard/admin/location/create'
+    | '/dashboard/manager/category/create'
     | '/dashboard/manager/product/$productId'
     | '/dashboard/manager/product/create'
     | '/dashboard/manager/staff/create'
     | '/dashboard/manager/product'
+    | '/dashboard/manager/category/edit/$categoryId'
     | '/dashboard/manager/product/edit/$productId'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -555,10 +598,12 @@ export interface FileRouteTypes {
     | '/dashboard/manager'
     | '/dashboard/admin/location/$locationId'
     | '/dashboard/admin/location/create'
+    | '/dashboard/manager/category/create'
     | '/dashboard/manager/product/$productId'
     | '/dashboard/manager/product/create'
     | '/dashboard/manager/staff/create'
     | '/dashboard/manager/product'
+    | '/dashboard/manager/category/edit/$categoryId'
     | '/dashboard/manager/product/edit/$productId'
   id:
     | '__root__'
@@ -580,10 +625,12 @@ export interface FileRouteTypes {
     | '/dashboard/manager/'
     | '/dashboard/admin/location/$locationId'
     | '/dashboard/admin/location/create'
+    | '/dashboard/manager/category/create'
     | '/dashboard/manager/product/$productId'
     | '/dashboard/manager/product/create'
     | '/dashboard/manager/staff/create'
     | '/dashboard/manager/product/'
+    | '/dashboard/manager/category/edit/$categoryId'
     | '/dashboard/manager/product/edit/$productId'
   fileRoutesById: FileRoutesById
 }
@@ -662,10 +709,12 @@ export const routeTree = rootRoute
       "children": [
         "/dashboard/manager/location-setup",
         "/dashboard/manager/",
+        "/dashboard/manager/category/create",
         "/dashboard/manager/product/$productId",
         "/dashboard/manager/product/create",
         "/dashboard/manager/staff/create",
         "/dashboard/manager/product/",
+        "/dashboard/manager/category/edit/$categoryId",
         "/dashboard/manager/product/edit/$productId"
       ]
     },
@@ -713,6 +762,10 @@ export const routeTree = rootRoute
       "filePath": "dashboard/admin/location/create.tsx",
       "parent": "/dashboard/admin"
     },
+    "/dashboard/manager/category/create": {
+      "filePath": "dashboard/manager/category/create.tsx",
+      "parent": "/dashboard/manager"
+    },
     "/dashboard/manager/product/$productId": {
       "filePath": "dashboard/manager/product/$productId.tsx",
       "parent": "/dashboard/manager"
@@ -727,6 +780,10 @@ export const routeTree = rootRoute
     },
     "/dashboard/manager/product/": {
       "filePath": "dashboard/manager/product/index.tsx",
+      "parent": "/dashboard/manager"
+    },
+    "/dashboard/manager/category/edit/$categoryId": {
+      "filePath": "dashboard/manager/category/edit.$categoryId.tsx",
       "parent": "/dashboard/manager"
     },
     "/dashboard/manager/product/edit/$productId": {

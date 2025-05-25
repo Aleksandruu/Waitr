@@ -1,17 +1,9 @@
 import express, { Request, Response } from "express";
-import { Pool } from "pg";
 import bcrypt from "bcrypt";
 import { checkAdminRole } from "../middleware/roleMiddleware";
 import { authenticateToken } from "../middleware/authMiddleware";
 import { LocationResponseDto, TableQueueJsonModel } from "shared";
-
-const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_DB,
-  password: process.env.DB_PASS,
-  port: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : undefined,
-});
+import pool from "../db";
 
 const router = express.Router();
 
