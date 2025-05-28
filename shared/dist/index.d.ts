@@ -25,3 +25,4 @@ export * from "./models/staffMember.model";
 export * from "./models/tablesStatus.model";
 export * from "./entities/user.model";
 export * from "./models/tableQueue.model";
+//# sourceMappingURL=index.d.ts.map

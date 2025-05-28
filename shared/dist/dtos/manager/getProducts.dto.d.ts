@@ -4,3 +4,4 @@ export interface ManagerProductResponseDto {
     categoryId: string;
     categoryName: string;
 }
+//# sourceMappingURL=getProducts.dto.d.ts.map

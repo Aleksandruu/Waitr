@@ -9,3 +9,4 @@ export interface LocationResponseDto {
     color?: string;
     staff?: StaffMember[];
 }
+//# sourceMappingURL=locationResponse.dto.d.ts.map

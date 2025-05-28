@@ -4,3 +4,4 @@ export interface OrderModel {
     waiter_id: string | null;
     location_id: string;
 }
+//# sourceMappingURL=order.model.d.ts.map

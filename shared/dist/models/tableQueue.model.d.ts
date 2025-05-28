@@ -4,3 +4,4 @@ export interface TableQueueJsonModel {
     delivered: number[];
     payed: number[];
 }
+//# sourceMappingURL=tableQueue.model.d.ts.map

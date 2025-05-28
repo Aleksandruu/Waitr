@@ -7,3 +7,4 @@ export interface ProductResponseDto {
     price: number;
     photoUrl?: string;
 }
+//# sourceMappingURL=productResponse.dto.d.ts.map

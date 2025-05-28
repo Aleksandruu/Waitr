@@ -6,3 +6,4 @@ export interface UserModel {
     role: Role;
     location_id: string;
 }
+//# sourceMappingURL=user.model.d.ts.map

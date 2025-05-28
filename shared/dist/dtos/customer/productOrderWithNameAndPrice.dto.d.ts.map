@@ -1,0 +1,1 @@
+{"version":3,"file":"productOrderWithNameAndPrice.dto.d.ts","sourceRoot":"","sources":["../../../src/dtos/customer/productOrderWithNameAndPrice.dto.ts"],"names":[],"mappings":"AAAA,MAAM,WAAW,WAAW;IAC1B,SAAS,EAAE,MAAM,CAAC;IAClB,QAAQ,EAAE,MAAM,CAAC;IACjB,IAAI,EAAE,MAAM,CAAC;IACb,KAAK,EAAE,MAAM,CAAC;CACf"}

@@ -4,3 +4,4 @@ export interface CreateLocationDto {
     managerUsername: string;
     managerPassword: string;
 }
+//# sourceMappingURL=createLocation.dto.d.ts.map

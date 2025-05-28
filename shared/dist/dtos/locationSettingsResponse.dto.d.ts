@@ -7,3 +7,4 @@ export interface LocationSettingsDto {
     logoMime?: string;
     color: string;
 }
+//# sourceMappingURL=locationSettingsResponse.dto.d.ts.map

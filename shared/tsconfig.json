@@ -3,10 +3,11 @@
   "compilerOptions": {
     "composite": true,
     "outDir": "./dist",
-    "rootDir": "./",
+    "rootDir": "./src",
     "target": "es2016",
+    "declaration": true,
     "declarationMap": true,
     "strict": true
   },
-  "include": ["**/*.ts"]
+  "include": ["src/**/*.ts"]
 }

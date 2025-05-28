@@ -1,4 +1,4 @@
-import { ProductStatus } from "@shared/models/productStatus.model";
+import { ProductStatus } from "shared/src/models/productStatus.model";
 export interface OrderItemDto {
     productId: string;
     name: string;
@@ -7,3 +7,4 @@ export interface OrderItemDto {
     orderTime: Date;
     quantity: number;
 }
+//# sourceMappingURL=orderItem.dto.d.ts.map

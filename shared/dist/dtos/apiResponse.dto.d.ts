@@ -5,3 +5,4 @@ export interface ApiSuccess<T = unknown> {
 export type ApiResponse<T = unknown> = ApiSuccess<T> | {
     error: ApiError;
 };
+//# sourceMappingURL=apiResponse.dto.d.ts.map

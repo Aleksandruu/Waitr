@@ -4,3 +4,4 @@ export interface CartItemDto {
     name: string;
     price: number;
 }
+//# sourceMappingURL=productOrderWithNameAndPrice.dto.d.ts.map

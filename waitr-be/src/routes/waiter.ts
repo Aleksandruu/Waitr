@@ -2,7 +2,7 @@ import express, { Request, Response } from "express";
 import { checkWaiterRole } from "../middleware/roleMiddleware";
 import { authenticateToken } from "../middleware/authMiddleware";
 import { getLocationFromRequest } from "../middleware/managerMiddleware";
-import { OrderResponseDto } from "shared/dtos/waiter/orderResponse.dto";
+import { OrderResponseDto } from "shared/src/dtos/waiter/orderResponse.dto";
 import { ProductStatus, TableQueueJsonModel } from "shared";
 import { TableStatus } from "shared";
 import pool from "../db";

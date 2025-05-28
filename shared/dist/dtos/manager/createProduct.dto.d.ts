@@ -8,3 +8,4 @@ export interface CreateProductDto {
     initialStatus: "cook" | "barman" | "barista" | "ready";
     photo?: File;
 }
+//# sourceMappingURL=createProduct.dto.d.ts.map

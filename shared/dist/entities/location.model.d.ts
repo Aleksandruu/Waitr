@@ -1,4 +1,4 @@
-import { FileBuffer } from "@shared/models/fileBuffer.model";
+import { FileBuffer } from "../models/fileBuffer.model";
 export interface LocationModel {
     id: string;
     slug: string;
@@ -9,3 +9,4 @@ export interface LocationModel {
     active: boolean;
     tables: number;
 }
+//# sourceMappingURL=location.model.d.ts.map

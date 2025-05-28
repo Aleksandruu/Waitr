@@ -4,3 +4,4 @@ export interface StaffMemberRequest {
     password: string;
     role: Role;
 }
+//# sourceMappingURL=createStaffMember.dto.d.ts.map

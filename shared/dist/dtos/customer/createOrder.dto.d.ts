@@ -7,3 +7,4 @@ export interface ProductQuantityDto {
     quantity: number;
     preferences?: string;
 }
+//# sourceMappingURL=createOrder.dto.d.ts.map

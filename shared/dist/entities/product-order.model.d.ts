@@ -1,4 +1,4 @@
-import { ProductStatus } from "@shared/models/productStatus.model";
+import { ProductStatus } from "../models/productStatus.model";
 export interface ProductOrderModel {
     id: string;
     product_id: string;
@@ -9,3 +9,4 @@ export interface ProductOrderModel {
     created_at: string;
     preferences: string;
 }
+//# sourceMappingURL=product-order.model.d.ts.map

@@ -4,3 +4,4 @@ export interface ApiError {
     status?: number;
     details?: any;
 }
+//# sourceMappingURL=error.model.d.ts.map

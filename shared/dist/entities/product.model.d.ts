@@ -9,3 +9,4 @@ export interface ProductModel {
     initial_status: "cook" | "barman" | "barista" | "ready";
     photo_url?: string;
 }
+//# sourceMappingURL=product.model.d.ts.map

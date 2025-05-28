@@ -3,3 +3,4 @@ export interface StaffMember {
     name: string;
     role: string;
 }
+//# sourceMappingURL=staffMember.model.d.ts.map
