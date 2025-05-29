@@ -32,7 +32,8 @@
     "vite": "^6.2.4",
     "vite-tsconfig-paths": "^5.1.4",
     "web-vitals": "^2.1.4",
-    "yup": "^1.6.1"
+    "yup": "^1.6.1",
+    "shared": "file:../shared"
   },
   "scripts": {
     "start": "vite",

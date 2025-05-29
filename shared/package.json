@@ -1,5 +1,5 @@
 {
-  "name": "waitr-shared",
+  "name": "shared",
   "version": "1.0.0",
   "description": "Shared types and models for Waitr application",
   "main": "dist/index.js",
