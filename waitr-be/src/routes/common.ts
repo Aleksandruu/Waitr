@@ -46,7 +46,7 @@ router.get("/location/settings/:slug", async (req: Request, res: Response) => {
 });
 
 router.get("/check", async (req: Request, res: Response) => {
-  res.status(200).json({ message: "ok" });
+  res.status(200).json({ message: "merge" });
 });
 
 export default router;
