@@ -36,10 +36,8 @@ jobs:
           npm run test --if-present
 
       - name: Zip artifact for deployment
-        run: |
-          cd waitr-be
-          zip -r ../release.zip *
-
+        working-directory: waitr-be
+        run: zip -r ../release.zip .
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
