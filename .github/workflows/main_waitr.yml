@@ -20,6 +20,10 @@ jobs:
         with:
           node-version: "20.x"
 
+      - name: Recreate firebase service account key
+        working-directory: waitr-be
+        run: echo '${{ secrets.FIREBASE_ADMINSDK_JSON }}' > waitr-aa853-firebase-adminsdk-fbsvc-e36e08e124.json
+
       # Install & build shared module PRIMA dată
       - name: Install and build shared
         working-directory: shared
