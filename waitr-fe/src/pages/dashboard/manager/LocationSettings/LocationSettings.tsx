@@ -20,7 +20,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { UpdateLocationSettingsDto } from "shared";
 import ImageInput from "waitr-fe/src/base_components/ImageInput/ImageInput";
 import { bufferToFile } from "waitr-fe/src/helpers/byteArrayToFile";
-import { FileBuffer } from "shared/models/fileBuffer.model";
+import { FileBuffer } from "shared";
 
 type LocationSettingsProps = {
   // props here

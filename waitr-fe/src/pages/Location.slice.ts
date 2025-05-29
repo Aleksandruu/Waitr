@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { generateSetterReducers } from "../helpers/reduxReducerGenerator";
 import { managerApi } from "../api/managerApi";
 import { generateColorVars } from "../helpers/generateColorVars";
-import { FileBuffer } from "shared/models/fileBuffer.model";
+import { FileBuffer } from "shared";
 import * as jwtDecode from "jwt-decode";
 
 export interface LocationState {

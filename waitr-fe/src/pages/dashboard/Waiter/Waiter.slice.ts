@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { generateSetterReducers } from "../../../helpers/reduxReducerGenerator";
-import { TableStatus } from "shared/models/tablesStatus.model";
+import { TableStatus } from "shared";
 import { waiterApi } from "waitr-fe/src/api/waiterApi";
 import { OrderResponseDto } from "shared";
 import { mapAndSortTablesByStatus } from "waitr-fe/src/helpers/createTablesStatusArray";

@@ -15,7 +15,7 @@ export const Primary: Story = {
     orderItem: {
       name: "Pizza",
       quantity: 2,
-      status: "pending",
+      status: "ready",
       productId: "",
       price: 0,
       orderTime: new Date(),
