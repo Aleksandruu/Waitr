@@ -1,0 +1,34 @@
+@import "../../../variables";
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  box-sizing: border-box;
+  height: 80px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: var(--color-brand);
+  z-index: 1000;
+
+  p {
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  .btn {
+    width: 6rem;
+  }
+
+  .logo {
+    height: 70px;
+  }
+}
+
+.nav-filler {
+  height: 80px;
+  width: 100%;
+}

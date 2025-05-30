@@ -1,0 +1,58 @@
+@import "../../variables.scss";
+
+.btn {
+  border: none;
+  color: white;
+  text-align: center;
+  padding: 0.3rem 1.5rem;
+  text-decoration: none;
+  font-size: 15px;
+  cursor: pointer;
+  border-radius: 1.5rem;
+  font-weight: 600;
+}
+
+.wider {
+  min-width: 300px;
+}
+
+.wide {
+  min-width: 200px;
+}
+
+.tall {
+  font-size: 18px;
+  padding: 0.5rem 1.5rem;
+}
+
+.red {
+  background-color: $red;
+}
+
+.green {
+  background-color: $primary-color;
+}
+
+.yellow {
+  background-color: $yellow;
+}
+
+.orange {
+  background-color: orange;
+}
+
+.brand {
+  background-color: var(--color-brand);
+}
+
+.brand-light {
+  background-color: var(--color-brand-light);
+}
+
+.brand-dark {
+  background-color: var(--color-brand-dark);
+}
+
+.btn:disabled {
+  background-color: gray;
+}
