@@ -34,10 +34,7 @@ router.post("/login", async (req: Request, res: Response) => {
       }
     }
   } catch (err) {
-    if (err instanceof Error) {
-      res.status(500).json({ error: err.message });
-      return;
-    }
+    res.status(500).json({ error: err });
   }
 
   res.status(403).json({ message: "Invalid username or password" });
