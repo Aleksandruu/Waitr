@@ -29,16 +29,18 @@ const Customer = ({}: CustomerProps) => {
 
   return (
     <div className={styles.products}>
-      {data?.map((productCategory) => {
-        return (
-          <div style={{ width: "90%" }} key={productCategory.categoryId}>
-            <h2>{productCategory.categoryName}</h2>
-            {productCategory.products?.map((product) => {
-              return <Product key={product.id} product={product}></Product>;
-            })}
-          </div>
-        );
-      })}
+      {data
+        ?.filter((category) => category.products.length > 0)
+        .map((productCategory) => {
+          return (
+            <div style={{ width: "90%" }} key={productCategory.categoryId}>
+              <h2>{productCategory.categoryName}</h2>
+              {productCategory.products?.map((product) => {
+                return <Product key={product.id} product={product}></Product>;
+              })}
+            </div>
+          );
+        })}
     </div>
   );
 };

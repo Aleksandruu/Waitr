@@ -24,7 +24,8 @@ const Product = ({ product }: ProductProps) => {
     );
   });
 
-  const addToCart = () => {
+  const addToCart = (e: React.MouseEvent) => {
+    e.stopPropagation();
     dispatch(
       orderActions.addProductToOrder({
         productId: product.id,
@@ -34,31 +35,53 @@ const Product = ({ product }: ProductProps) => {
     );
   };
 
-  const increment = () => {
+  const increment = (e: React.MouseEvent) => {
+    e.stopPropagation();
     dispatch(
       orderActions.increaseQuantityForProduct({ productId: product.id })
     );
   };
 
-  const decrement = () => {
+  const decrement = (e: React.MouseEvent) => {
+    e.stopPropagation();
     dispatch(
       orderActions.decreaseQuantityForProduct({ productId: product.id })
     );
   };
 
+  // Functions for AddToCartButton (no event parameter needed)
+  const handleAddToCart = () => {
+    dispatch(
+      orderActions.addProductToOrder({
+        productId: product.id,
+        productName: product.name,
+        productPrice: product.price,
+      })
+    );
+  };
+
+  const handleIncrement = () => {
+    dispatch(
+      orderActions.increaseQuantityForProduct({ productId: product.id })
+    );
+  };
+
+  const handleDecrement = () => {
+    dispatch(
+      orderActions.decreaseQuantityForProduct({ productId: product.id })
+    );
+  };
+
+  const toggleExpand = () => {
+    if (!quantity) {
+      setExpanded(!expanded);
+    }
+  };
+
   return (
     <div className={styles.product}>
-      <div>
-        <h3
-          className={styles.name}
-          onClick={() => {
-            if (!quantity) {
-              setExpanded(!expanded);
-            }
-          }}
-        >
-          {product.name}
-        </h3>
+      <div className={styles.info} onClick={toggleExpand}>
+        <h3 className={styles.name}>{product.name}</h3>
         <p>{product.ingredients}</p>
         <div className={expanded ? "" : styles.hidden}>
           <p style={{ color: "black" }}>For 100g:</p>
@@ -69,24 +92,21 @@ const Product = ({ product }: ProductProps) => {
         <p className={styles.price}>{product.price} lei</p>
       </div>
       <div className={styles.photoAndAddToCart}>
-        {product.photoUrl ? (
-          <img loading="lazy" src={product.photoUrl} alt={product.name} />
-        ) : (
-          <div></div>
-        )}
-        <div
-          className={classNames(
-            expanded ? "" : styles.hidden,
-            styles.addToCart
+        <div onClick={toggleExpand} className={styles.photoContainer}>
+          {product.photoUrl ? (
+            <img loading="lazy" src={product.photoUrl} alt={product.name} />
+          ) : (
+            <div className={styles.noPhoto}></div>
           )}
-        >
+        </div>
+        {expanded && (
           <AddToCartButton
-            onClick={addToCart}
-            onIncrement={increment}
-            onDecrement={decrement}
+            onClick={handleAddToCart}
+            onIncrement={handleIncrement}
+            onDecrement={handleDecrement}
             quantity={quantity}
           ></AddToCartButton>
-        </div>
+        )}
       </div>
     </div>
   );

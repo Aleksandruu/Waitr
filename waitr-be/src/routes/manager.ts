@@ -199,7 +199,10 @@ router.post(
         return;
       }
 
-      const publicUrl = await addPhotoToCloud(req.file!);
+      let publicUrl;
+      if (req.file) {
+        publicUrl = await addPhotoToCloud(req.file!);
+      }
 
       await pool.query(
         "INSERT INTO public.Product (name, ingredients, nutrients, allergens, price, category_id, initial_status, photo_url) VALUES ($1, $2, $3, $4, $5, $6, $7,  $8)",

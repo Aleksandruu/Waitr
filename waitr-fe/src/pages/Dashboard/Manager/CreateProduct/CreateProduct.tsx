@@ -11,6 +11,7 @@ import {
 import Select from "waitr-fe/src/base_components/Select/Select";
 import ImageInput from "waitr-fe/src/base_components/ImageInput/ImageInput";
 import { useState } from "react";
+import { useNavigate } from "@tanstack/react-router";
 
 type CreateProductProps = {
   // props here
@@ -59,10 +60,12 @@ const CreateProduct = ({}: CreateProductProps) => {
     mode: "onChange",
   });
 
-  const [createProduct] = useCreateProductMutation();
+  const [createProduct, { isLoading }] = useCreateProductMutation();
 
+  const navigate = useNavigate();
   const onSubmit = async (data: FormData) => {
     await createProduct({ photo: photo, ...data }).unwrap();
+    navigate({ to: "/dashboard/manager" });
   };
 
   return (
@@ -144,6 +147,7 @@ const CreateProduct = ({}: CreateProductProps) => {
           tall
           wide
           disabled={!isValid}
+          loading={isLoading}
         />
       </form>
     </div>

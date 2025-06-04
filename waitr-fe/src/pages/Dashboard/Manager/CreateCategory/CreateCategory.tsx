@@ -5,6 +5,7 @@ import Input from "waitr-fe/src/base_components/Input/Input";
 import Button from "waitr-fe/src/base_components/Button/Button";
 import styles from "./CreateCategory.module.scss";
 import { useCreateCategoryMutation } from "waitr-fe/src/api/managerApi";
+import { useNavigate } from "@tanstack/react-router";
 
 type CreateCategoryProps = {
   // props here
@@ -26,10 +27,12 @@ const CreateCategory = ({}: CreateCategoryProps) => {
     mode: "onChange",
   });
 
-  const [createCategory] = useCreateCategoryMutation();
+  const [createCategory, { isLoading }] = useCreateCategoryMutation();
+  const navigate = useNavigate();
 
   const onSubmit = async (data: FormData) => {
     await createCategory({ name: data.name }).unwrap();
+    navigate({ to: "/dashboard/manager" });
   };
 
   return (
@@ -53,6 +56,7 @@ const CreateCategory = ({}: CreateCategoryProps) => {
           tall
           wide
           disabled={!isValid}
+          loading={isLoading}
         />
       </form>
     </div>

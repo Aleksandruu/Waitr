@@ -6,6 +6,10 @@
   align-items: stretch;
   width: 100%;
 
+  .info {
+    width: calc(100% - 120px);
+  }
+
   .name {
     font-size: 18px;
     margin-bottom: 8px;
@@ -36,8 +40,14 @@
     align-items: flex-end;
     min-height: 100%;
 
-    img {
+    .noPhoto {
+      background-color: lightgray;
+    }
+
+    .photoContainer > * {
       width: 110px;
+      aspect-ratio: 1;
+      border-radius: 10px;
     }
   }
 }

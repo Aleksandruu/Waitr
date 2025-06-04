@@ -18,6 +18,7 @@ interface ButtonProps {
   disabled?: boolean;
   loading?: boolean;
   submit?: boolean;
+  textWrap?: boolean;
 }
 
 const Button = ({
@@ -30,6 +31,7 @@ const Button = ({
   disabled = false,
   loading = false,
   submit = false,
+  textWrap = false,
 }: ButtonProps) => {
   return (
     <button
@@ -38,7 +40,8 @@ const Button = ({
         styles[color],
         wide ? styles.wide : "",
         wider ? styles.wider : "",
-        tall ? styles.tall : ""
+        tall ? styles.tall : "",
+        textWrap ? styles.textWrap : ""
       )}
       disabled={disabled || loading}
       onClick={onClick}

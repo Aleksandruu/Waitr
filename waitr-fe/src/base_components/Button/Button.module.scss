@@ -10,6 +10,11 @@
   cursor: pointer;
   border-radius: 1.5rem;
   font-weight: 600;
+  text-wrap: nowrap;
+}
+
+.btn:hover {
+  filter: brightness(95%);
 }
 
 .wider {
@@ -55,4 +60,8 @@
 
 .btn:disabled {
   background-color: gray;
+}
+
+.textWrap {
+  text-wrap: wrap;
 }
