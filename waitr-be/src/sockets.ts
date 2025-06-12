@@ -10,8 +10,8 @@ export const initSocket = (server: HttpServer) => {
         // "*",
         [
           process.env.CORS_ORIGIN || "https://waitr-ten.vercel.app",
-          // "http://localhost:3000",
-          "*",
+          "http://localhost:3000",
+          // "*",
         ],
       credentials: true,
     },
