@@ -13,6 +13,7 @@ type Story = StoryObj<typeof meta>;
 export const Primary: Story = {
   args: {
     orderItem: {
+      id: "ad",
       name: "Pizza",
       quantity: 2,
       status: "ready",

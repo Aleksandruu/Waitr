@@ -79,7 +79,7 @@ const BottomBar = ({}: BottomBarProps) => {
               color="brand"
             ></Button>
           </>
-        ) : currentOrder?.length ? (
+        ) : currentOrder?.length && products.length > 0 ? (
           <Button
             onClick={placeOrder}
             text="Adauga la comanda"
@@ -89,6 +89,8 @@ const BottomBar = ({}: BottomBarProps) => {
             loading={isCreating}
             disabled={status === "placed"}
           ></Button>
+        ) : currentOrder?.length && products.length > 0 ? (
+          <Button text="Cere nota" wider tall color="brand"></Button>
         ) : (
           <Button
             onClick={placeOrder}
