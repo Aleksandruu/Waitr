@@ -47,7 +47,8 @@ CREATE TABLE
         table_number INTEGER NOT NULL,
         waiter_id UUID REFERENCES public.User (id),
         location_id UUID NOT NULL,
-        order_time TIMESTAMP DEFAULT NOW ()
+        order_time TIMESTAMP DEFAULT NOW (),
+        active BOOLEAN NOT NULL DEFAULT TRUE
     );
 
 CREATE TABLE

@@ -6,6 +6,7 @@ type ImageInputProps = {
   name: string;
   onChange: (file: File) => void;
   initialImage?: File;
+  initialImageUrl?: string;
   small?: string;
 };
 
@@ -13,9 +14,12 @@ const ImageInput = ({
   name,
   onChange,
   initialImage,
+  initialImageUrl,
   small,
 }: ImageInputProps) => {
-  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(
+    initialImageUrl || null
+  );
 
   const handlePhotoChange = async (
     event: React.ChangeEvent<HTMLInputElement>
@@ -36,6 +40,12 @@ const ImageInput = ({
       setImagePreview(previewUrl);
     }
   }, [initialImage]);
+
+  useEffect(() => {
+    if (initialImageUrl) {
+      setImagePreview(initialImageUrl);
+    }
+  }, [initialImageUrl]);
 
   return (
     <>

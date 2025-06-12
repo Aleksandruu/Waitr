@@ -21,23 +21,35 @@ export function resizeImage(file: File): Promise<File> {
 
         // Creăm un canvas pentru a desena imaginea redimensionată
         const canvas = document.createElement("canvas");
-        const ctx = canvas.getContext("2d");
+        const ctx = canvas.getContext("2d", { alpha: true });
 
         if (ctx) {
           canvas.width = newWidth;
           canvas.height = newHeight;
 
+          // Clear canvas with transparent background
+          ctx.clearRect(0, 0, newWidth, newHeight);
+
           // Desenăm imaginea pe canvas
           ctx.drawImage(img, 0, 0, newWidth, newHeight);
+
+          // Determine the output format based on the input
+          const outputType =
+            file.type === "image/png" ||
+            file.type === "image/webp" ||
+            file.type.includes("png") ||
+            file.type.includes("webp")
+              ? file.type
+              : "image/png";
 
           // Creăm un nou fișier din imaginea redimensionată
           canvas.toBlob((blob) => {
             if (blob) {
-              resolve(new File([blob], file.name, { type: "image/jpeg" }));
+              resolve(new File([blob], file.name, { type: outputType }));
             } else {
               reject(new Error("Failed to create blob"));
             }
-          }, "image/jpeg");
+          }, outputType);
         } else {
           reject(new Error("Canvas context not available"));
         }

@@ -24,11 +24,12 @@
   }
 
   .logo {
-    height: 70px;
+    height: 60px;
+    object-fit: contain;
   }
 }
 
-.nav-filler {
+.navFiller {
   height: 80px;
   width: 100%;
 }

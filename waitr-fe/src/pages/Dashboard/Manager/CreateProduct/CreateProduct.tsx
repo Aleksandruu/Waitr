@@ -7,14 +7,18 @@ import styles from "./CreateCategory.module.scss";
 import {
   useCreateProductMutation,
   useGetCategoriesQuery,
+  useUpdateProductMutation,
 } from "waitr-fe/src/api/managerApi";
 import Select from "waitr-fe/src/base_components/Select/Select";
 import ImageInput from "waitr-fe/src/base_components/ImageInput/ImageInput";
 import { useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 
+import { ManagerProductDetailsDto } from "shared";
+
 type CreateProductProps = {
-  // props here
+  product?: ManagerProductDetailsDto;
+  isEditing?: boolean;
 };
 
 const statusOptions = [
@@ -45,7 +49,7 @@ const schema = yup.object({
 
 type FormData = yup.InferType<typeof schema>;
 
-const CreateProduct = ({}: CreateProductProps) => {
+const CreateProduct = ({ product, isEditing = false }: CreateProductProps) => {
   const [photo, setPhoto] = useState<File | undefined>(undefined);
 
   const { data: categories, isLoading: isCategoriesLoading } =
@@ -58,13 +62,33 @@ const CreateProduct = ({}: CreateProductProps) => {
   } = useForm<FormData>({
     resolver: yupResolver(schema),
     mode: "onChange",
+    defaultValues: product
+      ? {
+          name: product.name,
+          ingredients: product.ingredients,
+          nutrients: product.nutrients,
+          allergens: product.allergens,
+          price: product.price,
+          categoryId: product.category_id,
+          initialStatus: product.initial_status,
+        }
+      : undefined,
   });
 
-  const [createProduct, { isLoading }] = useCreateProductMutation();
+  const [createProduct, { isLoading: isCreateLoading }] =
+    useCreateProductMutation();
+  const [updateProduct, { isLoading: isUpdateLoading }] =
+    useUpdateProductMutation();
+
+  const isLoading = isCreateLoading || isUpdateLoading;
 
   const navigate = useNavigate();
   const onSubmit = async (data: FormData) => {
-    await createProduct({ photo: photo, ...data }).unwrap();
+    if (isEditing && product) {
+      await updateProduct({ id: product.id, photo: photo, ...data }).unwrap();
+    } else {
+      await createProduct({ photo: photo, ...data }).unwrap();
+    }
     navigate({ to: "/dashboard/manager" });
   };
 
@@ -74,7 +98,7 @@ const CreateProduct = ({}: CreateProductProps) => {
         className="middle-column-container"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <h1>Creaza produs nou</h1>
+        <h1>{isEditing ? "Editează produsul" : "Creaza produs nou"}</h1>
         <Input
           name="name"
           label="Nume"
@@ -138,10 +162,11 @@ const CreateProduct = ({}: CreateProductProps) => {
           small="Încărcați o imagine pentru produs (opțional)"
           onChange={(file) => setPhoto(file)}
           initialImage={photo}
+          initialImageUrl={product?.photo_url}
         />
 
         <Button
-          text="Submit"
+          text={isEditing ? "Salvează modificările" : "Creează produs"}
           color="brand"
           submit
           tall

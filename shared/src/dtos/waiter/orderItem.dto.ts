@@ -7,4 +7,5 @@ export interface OrderItemDto {
   status: ProductStatus;
   orderTime: Date;
   quantity: number;
+  id: string;
 }

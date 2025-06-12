@@ -11,7 +11,9 @@ export const connectWaiterSocket = (
   locationId: string,
   onOrderPing: (table: number) => void
 ) => {
-  socket.emit("join-location", locationId);
+  const roomName = `waiter-${locationId}`;
+  socket.emit("join-location", roomName);
+  console.log(`Waiter attempting to join room: ${roomName}`);
 
   socket.off("order-ping"); // evită adăugarea multiplă
   socket.on("order-ping", (data: { table: number }) => {

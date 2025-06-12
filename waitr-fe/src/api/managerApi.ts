@@ -7,6 +7,7 @@ import {
   CategoryModel,
   CreateProductDto,
   ManagerProductResponseDto,
+  ManagerProductDetailsDto,
 } from "shared";
 import { api } from "./baseApi";
 
@@ -31,8 +32,16 @@ export const managerApi = api.injectEndpoints({
         body: category,
       }),
     }),
+    deleteCategory: build.mutation<void, string>({
+      query: (categoryId) => ({
+        url: `manager/category/${categoryId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Categories"],
+    }),
     getCategories: build.query<CategoryModel[], void>({
       query: () => "manager/category",
+      providesTags: ["Categories"],
     }),
     getLocation: build.query<LocationResponseDto, void>({
       query: () => "manager/location",
@@ -62,6 +71,11 @@ export const managerApi = api.injectEndpoints({
     }),
     getAllProducts: build.query<ManagerProductResponseDto[], void>({
       query: () => "manager/product",
+      providesTags: ["Products"],
+    }),
+    getProductById: build.query<ManagerProductDetailsDto, string>({
+      query: (id) => `manager/product/${id}`,
+      providesTags: (result, error, id) => [{ type: "Products", id }],
     }),
     createProduct: build.mutation<void, CreateProductDto>({
       query: (product) => {
@@ -84,6 +98,30 @@ export const managerApi = api.injectEndpoints({
           body: formData,
         };
       },
+      invalidatesTags: ["Products"],
+    }),
+    updateProduct: build.mutation<void, CreateProductDto & { id: string }>({
+      query: (product) => {
+        const formData = new FormData();
+        formData.append("name", product.name);
+        formData.append("ingredients", product.ingredients);
+        formData.append("nutrients", product.nutrients);
+        formData.append("allergens", product.allergens);
+        formData.append("price", product.price.toString());
+        formData.append("categoryId", product.categoryId);
+        formData.append("initialStatus", product.initialStatus);
+
+        if (product.photo) {
+          formData.append("photo", product.photo);
+        }
+
+        return {
+          url: `manager/product/${product.id}`,
+          method: "PUT",
+          body: formData,
+        };
+      },
+      invalidatesTags: ["Products"],
     }),
   }),
 });
@@ -97,5 +135,8 @@ export const {
   useGetLocationSettingsQuery,
   useUpdateSettingsMutation,
   useCreateProductMutation,
+  useUpdateProductMutation,
   useGetAllProductsQuery,
+  useGetProductByIdQuery,
+  useDeleteCategoryMutation,
 } = managerApi;

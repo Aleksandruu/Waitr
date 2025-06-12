@@ -37,6 +37,7 @@ const TableList = (props: TableListProps) => {
                 key={table.tableNumber}
                 onClick={() => {
                   dispatch(waiterActions.setSelectedTable(table.tableNumber));
+                  dispatch(waiterActions.setSelectedTableProductsToBePaid([]));
                 }}
               >
                 {table.tableNumber}

@@ -11,6 +11,7 @@ const admin_1 = __importDefault(require("./routes/admin"));
 const manager_1 = __importDefault(require("./routes/manager"));
 const customer_1 = __importDefault(require("./routes/customer"));
 const waiter_1 = __importDefault(require("./routes/waiter"));
+const staff_1 = __importDefault(require("./routes/staff"));
 const common_1 = __importDefault(require("./routes/common"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const http_1 = __importDefault(require("http"));
@@ -32,7 +33,12 @@ io.on("connection", (socket) => {
     });
 });
 app.use((0, cors_1.default)({
-    origin: process.env.CORS_ORIGIN || "http://localhost:3000",
+    origin: "*",
+    // [
+    //   process.env.CORS_ORIGIN || "https://waitr-6728.vercel.app",
+    //   "http://localhost:3000",
+    //   "*",
+    // ],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true,
 }));
@@ -45,6 +51,7 @@ app.use("/admin", admin_1.default);
 app.use("/manager", manager_1.default);
 app.use("/customer", customer_1.default);
 app.use("/waiter", waiter_1.default);
+app.use("/staff", staff_1.default);
 app.use("/common", common_1.default);
 server.listen(port, () => {
     console.log(`App running on port ${port}.`);

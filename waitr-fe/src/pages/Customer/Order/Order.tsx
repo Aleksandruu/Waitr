@@ -17,6 +17,10 @@ const Order = ({}: OrderProps) => {
     return sum + product.price * product.quantity;
   }, 0);
 
+  const oldTotal = currentOrder.reduce((sum, product) => {
+    return sum + product.price * product.quantity;
+  }, 0);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -28,45 +32,56 @@ const Order = ({}: OrderProps) => {
       {status !== "placed" ? (
         <div className={styles.notepad}>
           <img className={styles.frame} src="/assets/Frame.svg" alt="" />
-          {currentOrder.length > 0 && (
-            <>
-              <div className={styles.line}>
-                <span>Produse deja comandate</span>
-              </div>
-              {currentOrder.map((product, index) => {
-                return (
-                  <p
-                    className={styles.currentOrderItem}
-                    key={product.productId + index}
-                  >
-                    <span>
-                      {product.name} x{product.quantity}
-                    </span>{" "}
-                    <span className={styles.price}>
-                      {(product.price * product.quantity).toFixed(2)} lei
-                    </span>
-                  </p>
-                );
-              })}
-              <div className={styles.line}>
-                <span>Produse noi</span>
-              </div>
-            </>
-          )}
-          {products.map((product, index) => {
-            return (
-              <p className={styles.productItem} key={product.productId + index}>
-                <span>
-                  {product.name} x{product.quantity}
-                </span>{" "}
-                <span className={styles.price}>
-                  {(product.price * product.quantity).toFixed(2)} lei
-                </span>
-              </p>
-            );
-          })}
+          <div className={styles.productsList}>
+            {currentOrder.length > 0 && (
+              <>
+                <div className={styles.line}>
+                  <span>Produse deja comandate</span>
+                </div>
+                {currentOrder.map((product, index) => {
+                  return (
+                    <p
+                      className={styles.currentOrderItem}
+                      key={product.productId + index}
+                    >
+                      <span>
+                        {product.name} x{product.quantity}
+                      </span>{" "}
+                      <span className={styles.price}>
+                        {(product.price * product.quantity).toFixed(2)} lei
+                      </span>
+                    </p>
+                  );
+                })}
+                {products.length > 0 && (
+                  <div className={styles.line}>
+                    <span>Produse noi</span>
+                  </div>
+                )}
+              </>
+            )}
+            {products.map((product, index) => {
+              return (
+                <p
+                  className={styles.productItem}
+                  key={product.productId + index}
+                >
+                  <span>
+                    {product.name} x{product.quantity}
+                  </span>{" "}
+                  <span className={styles.price}>
+                    {(product.price * product.quantity).toFixed(2)} lei
+                  </span>
+                </p>
+              );
+            })}
+          </div>
           <p className={styles.total}>
-            <span>Total:</span> <span>{total.toFixed(2)} lei</span>
+            <span>Total:</span>{" "}
+            <span>
+              {products.length === 0 ? oldTotal.toFixed(2) : total.toFixed(2)}{" "}
+              lei
+            </span>
           </p>
         </div>
       ) : (

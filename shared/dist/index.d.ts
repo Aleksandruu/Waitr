@@ -14,6 +14,8 @@ export * from "./dtos/manager/createProduct.dto";
 export * from "./dtos/manager/createStaffMember.dto";
 export * from "./dtos/manager/locationSettingsRequest.dto";
 export * from "./dtos/manager/getProducts.dto";
+export * from "./dtos/manager/managerProductDetails.dto";
+export * from "./dtos/staff/staffProduct.dto";
 export * from "./entities/category.model";
 export * from "./models/error.model";
 export * from "./models/fileBuffer.model";
@@ -25,4 +27,5 @@ export * from "./models/staffMember.model";
 export * from "./models/tablesStatus.model";
 export * from "./entities/user.model";
 export * from "./models/tableQueue.model";
+export * from "./entities/location.model";
 //# sourceMappingURL=index.d.ts.map

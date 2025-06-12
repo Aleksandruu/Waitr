@@ -48,3 +48,19 @@ export const checkEmployeeRole = (role: Role) => {
   const validRoles = ["waiter", "cook", "barman", "barista"];
   return validRoles.includes(role);
 };
+
+export const checkStaffRole = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const user: UserModel = jwt.decode(
+    req.headers.authorization!.split(" ")[1]
+  ) as UserModel;
+  const staffRoles = ["cook", "barman", "barista"];
+  if (!staffRoles.includes(user.role)) {
+    res.status(403).json({ error: "Unauthorized. Staff role required." });
+    return;
+  }
+  next();
+};

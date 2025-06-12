@@ -52,10 +52,8 @@ router.get("/:locationSlug/product", async (req: Request, res: Response) => {
       [locationId]
     );
 
-
     const categoriesWithProducts: CategoryWithProductsDto[] =
       categoriesWithProductsQuery.rows;
-
 
     res.status(200).json(categoriesWithProducts);
     return;
@@ -101,7 +99,6 @@ router.post(
           return;
         }
       }
-
       const productStatusMap: { [id: string]: ProductStatus } = {};
 
       products.forEach(async (p: ProductModel) => {
@@ -140,6 +137,23 @@ router.post(
       }
 
       const io = getIo();
+
+      // Send pings based on product statuses
+      const statusSet = new Set<ProductStatus>();
+      ordersDetails.products.forEach((orderDetails) => {
+        const status = productStatusMap[orderDetails.id];
+        statusSet.add(status);
+      });
+
+      statusSet.forEach((status) => {
+        if (status !== "ready") {
+          io.to(`${status}-${locationId}`).emit("order-ping", {
+            table: table,
+          });
+          console.log(`${status}-${locationId}`);
+        }
+      });
+
       io.to(`waiter-${locationId}`).emit("order-ping", {
         table: table,
       });
@@ -221,6 +235,22 @@ router.put(
       }
 
       const io = getIo();
+
+      // Send pings based on product statuses
+      const statusSet = new Set<ProductStatus>();
+      ordersDetails.products.forEach((orderDetails) => {
+        const status = productStatusMap[orderDetails.id];
+        statusSet.add(status);
+      });
+
+      statusSet.forEach((status) => {
+        if (status !== "ready") {
+          io.to(`${status}-${locationId}`).emit("order-ping", {
+            table: table,
+          });
+        }
+      });
+
       io.to(`waiter-${locationId}`).emit("order-ping", {
         table: table,
       });

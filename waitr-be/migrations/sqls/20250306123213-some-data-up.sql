@@ -95,14 +95,66 @@ INSERT INTO public.Product (id, name, ingredients, nutrients, allergens, price, 
 
 -- Corectare categorii și produse pentru 'The Bar'
 INSERT INTO public.Category (id, name, location_id) VALUES
-    ('29f5fd36-7dfb-4c4d-89d3-7ac4f49a0e55', 'Cocktails', 'd0707c7f-b03d-4194-8ac0-8f21d37af90b'),
-    ('1d1f6e6f-8d25-4b18-88cd-6ea69fc08c66', 'Beers', 'd0707c7f-b03d-4194-8ac0-8f21d37af90b'),
-    ('e3472169-1142-4dc4-9314-7aeefddedaa5', 'Snacks', 'd0707c7f-b03d-4194-8ac0-8f21d37af90b');
+    ('c1f5fd36-7dfb-4c4d-89d3-7ac4f49a0e01', 'Coffees',  'd0707c7f-b03d-4194-8ac0-8f21d37af90b'),
+    ('c2e2e56f-8d25-4b18-88cd-6ea69fc08c02', 'Beers',    'd0707c7f-b03d-4194-8ac0-8f21d37af90b'),
+    ('c3d34721-1142-4dc4-9314-7aeefddedaa5', 'Cocktails','d0707c7f-b03d-4194-8ac0-8f21d37af90b'),
+    ('c4a349b9-5572-4c38-9714-a2bef6ef08c3', 'Snacks',   'd0707c7f-b03d-4194-8ac0-8f21d37af90b'),
+    ('c5b7648a-2b11-4c54-bf9e-3d1a2a3c4d5e', 'Mains',    'd0707c7f-b03d-4194-8ac0-8f21d37af90b'),
+    ('c6c8879d-3e22-4e27-a2bc-e659f7de9f6f', 'Desserts', 'd0707c7f-b03d-4194-8ac0-8f21d37af90b');
 
+-- Insert products (~40)
 INSERT INTO public.Product (id, name, ingredients, nutrients, allergens, price, category_id, initial_status) VALUES
-    ('b3f4e342-86a6-46c0-9d80-bb52f49a8132', 'Mojito', 'White rum, lime, mint, soda, sugar', 'Alcohol: 15%', 'None', 9.50, '29f5fd36-7dfb-4c4d-89d3-7ac4f49a0e55', 'barman'),
-    ('06193eaf-5a9b-4ac9-9c0e-47f8398bdce4', 'IPA Beer', 'Hops, barley, yeast, water', 'Alcohol: 6.5%', 'Gluten', 6.00, '1d1f6e6f-8d25-4b18-88cd-6ea69fc08c66', 'ready'),
-    ('56d273d6-3611-4237-9473-25cf0d774bf5', 'Nachos', 'Tortilla chips, cheese, jalapeños, salsa', 'Calories: 450, Fat: 22g', 'Dairy', 7.50, 'e3472169-1142-4dc4-9314-7aeefddedaa5', 'cook');
+    -- Coffees (5)
+    ('a11e342b-86a6-46c0-9d80-bb52f49a8001', 'Espresso',              'Coffee beans, water',                                     'Calories: 5, Caffeine: 63mg',         'None',             2.50, 'c1f5fd36-7dfb-4c4d-89d3-7ac4f49a0e01', 'ready'),
+    ('a12e342b-86a6-46c0-9d80-bb52f49a8002', 'Americano',             'Espresso, hot water',                                     'Calories: 10, Caffeine: 63mg',        'None',             3.00, 'c1f5fd36-7dfb-4c4d-89d3-7ac4f49a0e01', 'ready'),
+    ('a13e342b-86a6-46c0-9d80-bb52f49a8003', 'Cappuccino',            'Espresso, steamed milk, milk foam',                       'Calories: 120, Fat: 4g',              'Dairy',            3.50, 'c1f5fd36-7dfb-4c4d-89d3-7ac4f49a0e01', 'ready'),
+    ('a14e342b-86a6-46c0-9d80-bb52f49a8004', 'Latte',                 'Espresso, steamed milk',                                  'Calories: 150, Fat: 5g',              'Dairy',            3.75, 'c1f5fd36-7dfb-4c4d-89d3-7ac4f49a0e01', 'ready'),
+    ('a15e342b-86a6-46c0-9d80-bb52f49a8005', 'Mocha',                 'Espresso, chocolate syrup, steamed milk, whipped cream',  'Calories: 200, Fat: 7g',              'Dairy',            4.00, 'c1f5fd36-7dfb-4c4d-89d3-7ac4f49a0e01', 'ready'),
+    
+    -- Beers (6)
+    ('b11e342b-86a6-46c0-9d80-bb52f49a8006', 'Pilsner',               'Water, barley, hops, yeast',                              'Alcohol: 5%',                         'Gluten',           5.50, 'c2e2e56f-8d25-4b18-88cd-6ea69fc08c02', 'ready'),
+    ('b12e342b-86a6-46c0-9d80-bb52f49a8007', 'IPA Beer',              'Water, barley, hops, yeast',                              'Alcohol: 6.5%',                       'Gluten',           6.00, 'c2e2e56f-8d25-4b18-88cd-6ea69fc08c02', 'ready'),
+    ('b13e342b-86a6-46c0-9d80-bb52f49a8008', 'Stout',                 'Water, roasted barley, hops, yeast',                      'Alcohol: 5.8%',                       'Gluten',           6.50, 'c2e2e56f-8d25-4b18-88cd-6ea69fc08c02', 'ready'),
+    ('b14e342b-86a6-46c0-9d80-bb52f49a8009', 'Wheat Beer',            'Water, wheat malt, barley, hops, yeast',                  'Alcohol: 5.2%',                       'Gluten',           5.75, 'c2e2e56f-8d25-4b18-88cd-6ea69fc08c02', 'ready'),
+    ('b15e342b-86a6-46c0-9d80-bb52f49a8010', 'Lager',                 'Water, barley, hops, yeast',                              'Alcohol: 4.8%',                       'Gluten',           5.25, 'c2e2e56f-8d25-4b18-88cd-6ea69fc08c02', 'ready'),
+    ('b16e342b-86a6-46c0-9d80-bb52f49a8011', 'Amber Ale',             'Water, barley malt, hops, yeast',                         'Alcohol: 5.5%',                       'Gluten',           6.25, 'c2e2e56f-8d25-4b18-88cd-6ea69fc08c02', 'ready'),
+    
+    -- Cocktails (7)
+    ('c11e342b-86a6-46c0-9d80-bb52f49a8012', 'Margarita',             'Tequila, triple sec, lime juice, salt',                   'Alcohol: 13%',                        'None',             10.00,'c3d34721-1142-4dc4-9314-7aeefddedaa5', 'barman'),
+    ('c12e342b-86a6-46c0-9d80-bb52f49a8013', 'Old Fashioned',         'Bourbon, sugar, bitters, orange peel',                    'Alcohol: 21%',                        'None',             11.50,'c3d34721-1142-4dc4-9314-7aeefddedaa5', 'barman'),
+    ('c13e342b-86a6-46c0-9d80-bb52f49a8014', 'Martini',               'Gin, dry vermouth, olive',                                'Alcohol: 30%',                        'None',             12.00,'c3d34721-1142-4dc4-9314-7aeefddedaa5', 'barman'),
+    ('c14e342b-86a6-46c0-9d80-bb52f49a8015', 'Cosmopolitan',          'Vodka, triple sec, cranberry juice, lime juice',         'Alcohol: 15%',                        'None',             10.50,'c3d34721-1142-4dc4-9314-7aeefddedaa5', 'barman'),
+    ('c15e342b-86a6-46c0-9d80-bb52f49a8016', 'Negroni',               'Gin, Campari, sweet vermouth',                            'Alcohol: 24%',                        'None',             11.00,'c3d34721-1142-4dc4-9314-7aeefddedaa5', 'barman'),
+    ('c16e342b-86a6-46c0-9d80-bb52f49a8017', 'Moscow Mule',           'Vodka, ginger beer, lime juice',                          'Alcohol: 14%',                        'None',             10.00,'c3d34721-1142-4dc4-9314-7aeefddedaa5', 'barman'),
+    ('c17e342b-86a6-46c0-9d80-bb52f49a8018', 'Piña Colada',           'Rum, coconut cream, pineapple juice',                     'Alcohol: 15%',                        'None',             9.50, 'c3d34721-1142-4dc4-9314-7aeefddedaa5', 'barman'),
+    
+    -- Snacks (6)
+    ('d11e342b-86a6-46c0-9d80-bb52f49a8019', 'Nachos',                'Tortilla chips, cheese, jalapeños, salsa',               'Calories: 450, Fat: 22g',             'Dairy',            7.50, 'c4a349b9-5572-4c38-9714-a2bef6ef08c3', 'cook'),
+    ('d12e342b-86a6-46c0-9d80-bb52f49a8020', 'French Fries',          'Potatoes, salt, oil',                                    'Calories: 365, Fat: 17g',             'None',             4.00, 'c4a349b9-5572-4c38-9714-a2bef6ef08c3', 'cook'),
+    ('d13e342b-86a6-46c0-9d80-bb52f49a8021', 'Onion Rings',           'Onions, batter, oil',                                    'Calories: 320, Fat: 15g',             'None',             5.00, 'c4a349b9-5572-4c38-9714-a2bef6ef08c3', 'cook'),
+    ('d14e342b-86a6-46c0-9d80-bb52f49a8022', 'Chicken Wings',         'Chicken wings, spices, sauce',                           'Calories: 550, Protein: 30g',         'None',             8.00, 'c4a349b9-5572-4c38-9714-a2bef6ef08c3', 'cook'),
+    ('d15e342b-86a6-46c0-9d80-bb52f49a8023', 'Mozzarella Sticks',     'Mozzarella cheese, bread crumbs, oil',                   'Calories: 300, Fat: 20g',             'Dairy',            6.00, 'c4a349b9-5572-4c38-9714-a2bef6ef08c3', 'cook'),
+    ('d16e342b-86a6-46c0-9d80-bb52f49a8024', 'Mixed Nuts',            'Almonds, cashews, peanuts',                              'Calories: 250, Fat: 22g',             'Tree Nuts, Peanuts',5.50, 'c4a349b9-5572-4c38-9714-a2bef6ef08c3', 'ready'),
+    
+    -- Mains (10)
+    ('e11e342b-86a6-46c0-9d80-bb52f49a8025', 'Cheeseburger',          'Beef patty, cheese, lettuce, tomato, bun',               'Calories: 750, Protein: 40g',         'Gluten, Dairy',    9.00, 'c5b7648a-2b11-4c54-bf9e-3d1a2a3c4d5e', 'cook'),
+    ('e12e342b-86a6-46c0-9d80-bb52f49a8026', 'Margherita Pizza',      'Pizza dough, tomato sauce, mozzarella, basil',           'Calories: 800, Carbs: 90g',           'Gluten, Dairy',   11.00, 'c5b7648a-2b11-4c54-bf9e-3d1a2a3c4d5e', 'cook'),
+    ('e13e342b-86a6-46c0-9d80-bb52f49a8027', 'Caesar Salad',          'Romaine lettuce, croutons, Parmesan, Caesar dressing',  'Calories: 450, Fat: 30g',             'Gluten, Dairy, Fish',7.50,'c5b7648a-2b11-4c54-bf9e-3d1a2a3c4d5e', 'ready'),
+    ('e14e342b-86a6-46c0-9d80-bb52f49a8028', 'Fish & Chips',          'Cod, potatoes, batter, oil',                            'Calories: 900, Protein: 45g',         'Gluten, Fish',    12.00, 'c5b7648a-2b11-4c54-bf9e-3d1a2a3c4d5e', 'cook'),
+    ('e15e342b-86a6-46c0-9d80-bb52f49a8029', 'Grilled Chicken Sandwich','Chicken breast, lettuce, tomato, bun',                  'Calories: 600, Protein: 35g',         'Gluten',           8.50, 'c5b7648a-2b11-4c54-bf9e-3d1a2a3c4d5e', 'cook'),
+    ('e16e342b-86a6-46c0-9d80-bb52f49a8030', 'Pasta Carbonara',       'Pasta, eggs, pancetta, Parmesan',                        'Calories: 650, Protein: 25g',         'Gluten, Dairy, Pork',10.50,'c5b7648a-2b11-4c54-bf9e-3d1a2a3c4d5e', 'cook'),
+    ('e17e342b-86a6-46c0-9d80-bb52f49a8031', 'Vegan Buddha Bowl',     'Quinoa, chickpeas, veggies, tahini sauce',              'Calories: 550, Protein: 20g',         'Sesame',           9.00, 'c5b7648a-2b11-4c54-bf9e-3d1a2a3c4d5e', 'ready'),
+    ('e18e342b-86a6-46c0-9d80-bb52f49a8032', 'Beef Tacos',            'Tortillas, beef, lettuce, cheese, salsa',               'Calories: 500, Protein: 25g',         'Gluten, Dairy',    8.00, 'c5b7648a-2b11-4c54-bf9e-3d1a2a3c4d5e', 'cook'),
+    ('e19e342b-86a6-46c0-9d80-bb52f49a8033', 'Salmon Teriyaki',       'Salmon, teriyaki sauce, rice, veggies',                 'Calories: 600, Protein: 30g',         'Fish, Soy',       13.50, 'c5b7648a-2b11-4c54-bf9e-3d1a2a3c4d5e', 'cook'),
+    ('e20e342b-86a6-46c0-9d80-bb52f49a8034', 'Tofu Stir Fry',         'Tofu, veggies, soy sauce, rice',                        'Calories: 500, Protein: 22g',         'Soy',              9.50, 'c5b7648a-2b11-4c54-bf9e-3d1a2a3c4d5e', 'cook'),
+    
+    -- Desserts (6)
+    ('f11e342b-86a6-46c0-9d80-bb52f49a8035', 'Cheesecake',            'Cream cheese, sugar, eggs, graham cracker crust',       'Calories: 450, Fat: 30g',             'Dairy, Gluten',    5.50, 'c6c8879d-3e22-4e27-a2bc-e659f7de9f6f', 'ready'),
+    ('f12e342b-86a6-46c0-9d80-bb52f49a8036', 'Chocolate Brownie',      'Chocolate, flour, sugar, eggs',                         'Calories: 400, Carbs: 50g',           'Gluten, Eggs',     4.50, 'c6c8879d-3e22-4e27-a2bc-e659f7de9f6f', 'ready'),
+    ('f13e342b-86a6-46c0-9d80-bb52f49a8037', 'Tiramisu',              'Mascarpone, coffee, ladyfingers, cocoa',                'Calories: 500, Fat: 32g',             'Dairy, Gluten, Eggs',6.00,'c6c8879d-3e22-4e27-a2bc-e659f7de9f6f', 'ready'),
+    ('f14e342b-86a6-46c0-9d80-bb52f49a8038', 'Fruit Salad',           'Mixed fruits, mint',                                    'Calories: 120, Fiber: 5g',            'None',             4.00, 'c6c8879d-3e22-4e27-a2bc-e659f7de9f6f', 'ready'),
+    ('f15e342b-86a6-46c0-9d80-bb52f49a8039', 'Ice Cream Sundae',      'Ice cream, chocolate sauce, nuts, whipped cream',       'Calories: 600, Fat: 35g',             'Dairy, Tree Nuts', 5.00, 'c6c8879d-3e22-4e27-a2bc-e659f7de9f6f', 'ready'),
+    ('f16e342b-86a6-46c0-9d80-bb52f49a8040', 'Panna Cotta',           'Cream, sugar, vanilla, gelatin',                        'Calories: 300, Fat: 18g',             'Dairy',            5.50, 'c6c8879d-3e22-4e27-a2bc-e659f7de9f6f', 'ready');
 
 -- Corectare categorii și produse pentru 'The Bistro'
 INSERT INTO public.Category (id, name, location_id) VALUES

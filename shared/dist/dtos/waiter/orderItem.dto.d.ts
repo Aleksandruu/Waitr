@@ -6,5 +6,6 @@ export interface OrderItemDto {
     status: ProductStatus;
     orderTime: Date;
     quantity: number;
+    id: string;
 }
 //# sourceMappingURL=orderItem.dto.d.ts.map

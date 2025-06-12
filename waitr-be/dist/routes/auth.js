@@ -38,10 +38,7 @@ router.post("/login", (req, res) => __awaiter(void 0, void 0, void 0, function* 
         }
     }
     catch (err) {
-        if (err instanceof Error) {
-            res.status(500).json({ error: err.message });
-            return;
-        }
+        res.status(500).json({ error: err });
     }
     res.status(403).json({ message: "Invalid username or password" });
 }));

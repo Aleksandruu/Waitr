@@ -6,6 +6,7 @@ import adminRouter from "./routes/admin";
 import managerRouter from "./routes/manager";
 import customerRoutes from "./routes/customer";
 import waiterRouter from "./routes/waiter";
+import staffRouter from "./routes/staff";
 import commonRouter from "./routes/common";
 
 import dotenv from "dotenv";
@@ -25,9 +26,9 @@ const io = getIo();
 io.on("connection", (socket) => {
   console.log("Socket conectat:", socket.id);
 
-  socket.on("join-location", (locationId: string) => {
-    socket.join(`waiter-${locationId}`);
-    console.log(`Socket ${socket.id} joined waiter-${locationId}`);
+  socket.on("join-location", (roomName: string) => {
+    socket.join(roomName);
+    console.log(`Socket ${socket.id} joined ${roomName}`);
   });
 
   socket.on("disconnect", () => {
@@ -37,10 +38,12 @@ io.on("connection", (socket) => {
 
 app.use(
   cors({
-    origin: [
-      process.env.CORS_ORIGIN || "https://waitr-6728.vercel.app",
-      "http://localhost:3000",
-    ],
+    origin: "*",
+    // [
+    //   process.env.CORS_ORIGIN || "https://waitr-6728.vercel.app",
+    //   "http://localhost:3000",
+    //   "*",
+    // ],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true,
   })
@@ -58,6 +61,7 @@ app.use("/admin", adminRouter);
 app.use("/manager", managerRouter);
 app.use("/customer", customerRoutes);
 app.use("/waiter", waiterRouter);
+app.use("/staff", staffRouter);
 app.use("/common", commonRouter);
 
 server.listen(port, () => {

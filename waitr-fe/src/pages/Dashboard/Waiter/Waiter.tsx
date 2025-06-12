@@ -11,6 +11,7 @@ import { connectWaiterSocket } from "./Waiter.sockets";
 import { useEffect } from "react";
 import { OrderItemDto, OrderResponseDto } from "shared";
 import { WaiterState } from "./Waiter.slice";
+import BottomBar from "./BottomBar/BottomBar";
 
 type WaiterProps = {
   // props here
@@ -47,6 +48,7 @@ const Waiter = ({}: WaiterProps) => {
         orderData.products.map((orderItem: OrderItemDto, index: number) => {
           return <Product key={index} orderItem={orderItem} />;
         })}
+      <BottomBar></BottomBar>
     </div>
   );
 };

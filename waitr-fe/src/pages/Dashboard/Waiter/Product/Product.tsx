@@ -2,12 +2,56 @@ import { OrderItemDto } from "shared";
 import styles from "./Product.module.scss";
 import Button from "waitr-fe/src/base_components/Button/Button";
 import { classNames } from "waitr-fe/src/helpers/className";
+import {
+  useDeliverMutation,
+  useLazyGetOrderQuery,
+} from "waitr-fe/src/api/waiterApi";
+import { useAppSelector } from "waitr-fe/src/helpers/app.hooks";
+import QuantityButton from "waitr-fe/src/base_components/QuantityButton/QuantityButton";
+import { useDispatch } from "react-redux";
+import { waiterActions } from "../Waiter.slice";
 
 type ProductProps = {
   orderItem: OrderItemDto;
 };
 
 const Product = ({ orderItem }: ProductProps) => {
+  const { selectedTable, selectedTableProductsToBePaid } = useAppSelector(
+    (state) => state.waiter
+  );
+  const [deliverProduct, { isLoading }] = useDeliverMutation();
+  const dispatch = useDispatch();
+  const [fetchOrder] = useLazyGetOrderQuery();
+
+  // Find the quantity of this product in the selectedTableProductsToBePaid array
+  const productToBePaid = selectedTableProductsToBePaid.find(
+    (product) => product.id === orderItem.id
+  );
+  const quantityToBePaid = productToBePaid ? productToBePaid.quantity : 0;
+
+  // Handler functions for the quantity button
+  const handleAddToPayment = () => {
+    dispatch(
+      waiterActions.addProductToSelectedTableProductsToBePaid(orderItem)
+    );
+  };
+
+  const handleIncrement = () => {
+    dispatch(
+      waiterActions.increaseQuantityForSelectedTableProduct({
+        productId: orderItem.id,
+      })
+    );
+  };
+
+  const handleDecrement = () => {
+    dispatch(
+      waiterActions.decreaseQuantityForSelectedTableProduct({
+        productId: orderItem.id,
+      })
+    );
+  };
+
   const formattedTime = new Date(orderItem.orderTime).toLocaleTimeString([], {
     hour: "2-digit",
     minute: "2-digit",
@@ -32,15 +76,37 @@ const Product = ({ orderItem }: ProductProps) => {
         {["cook", "barista", "barman"].includes(orderItem.status) && (
           <p>Se prepara...</p>
         )}
+        {orderItem.status == "delivered" && <p>Produs livrat</p>}
+        {orderItem.status == "payed" && <p>Produs achitat</p>}
       </div>
       {orderItem.status === "payed" ? (
         <div></div>
       ) : orderItem.status === "delivered" ? (
-        <Button text="Incaseaza" color="yellow" tall></Button>
+        <QuantityButton
+          text={"Incaseaza"}
+          quantity={quantityToBePaid}
+          color="yellow"
+          tall={true}
+          onClick={handleAddToPayment}
+          onIncrement={handleIncrement}
+          onDecrement={handleDecrement}
+          disabled={quantityToBePaid === orderItem.quantity}
+        />
       ) : ["cook", "barista", "barman"].includes(orderItem.status) ? (
         <Button text="Livreaza" color="orange" disabled tall></Button>
       ) : (
-        <Button text="Livreaza" color="red" tall></Button>
+        <Button
+          text="Livreaza"
+          color="red"
+          tall
+          onClick={() =>
+            deliverProduct({
+              orderProductId: orderItem.id,
+              tableNumber: selectedTable,
+            }).then(() => fetchOrder(selectedTable))
+          }
+          loading={isLoading}
+        ></Button>
       )}
     </div>
   );

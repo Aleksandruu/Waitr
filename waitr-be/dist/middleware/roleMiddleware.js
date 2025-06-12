@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.checkEmployeeRole = exports.checkWaiterRole = exports.checkManagerRole = exports.checkAdminRole = void 0;
+exports.checkStaffRole = exports.checkEmployeeRole = exports.checkWaiterRole = exports.checkManagerRole = exports.checkAdminRole = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const checkAdminRole = (req, res, next) => {
     const user = jsonwebtoken_1.default.decode(req.headers.authorization.split(" ")[1]);
@@ -34,3 +34,13 @@ const checkEmployeeRole = (role) => {
     return validRoles.includes(role);
 };
 exports.checkEmployeeRole = checkEmployeeRole;
+const checkStaffRole = (req, res, next) => {
+    const user = jsonwebtoken_1.default.decode(req.headers.authorization.split(" ")[1]);
+    const staffRoles = ["cook", "barman", "barista"];
+    if (!staffRoles.includes(user.role)) {
+        res.status(403).json({ error: "Unauthorized. Staff role required." });
+        return;
+    }
+    next();
+};
+exports.checkStaffRole = checkStaffRole;

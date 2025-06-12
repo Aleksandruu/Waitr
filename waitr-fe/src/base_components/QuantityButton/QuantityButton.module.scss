@@ -13,4 +13,12 @@
   align-items: center;
   width: 90px;
   font-weight: 700;
+
+  .disabled {
+    color: #8c8c8c;
+  }
+}
+
+.tall {
+  padding: 0.5rem 1.5rem;
 }

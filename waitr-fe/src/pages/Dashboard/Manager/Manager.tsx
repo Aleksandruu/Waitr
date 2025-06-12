@@ -1,5 +1,6 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import {
+  useDeleteCategoryMutation,
   useGetAllProductsQuery,
   useGetCategoriesQuery,
   useGetStaffQuery,
@@ -7,6 +8,7 @@ import {
 import StaffCard from "../Admin/LocationPage/StaffCard/StaffCard";
 import styles from "./Manager.module.scss";
 import cardStyles from "../card.module.scss";
+import { classNames } from "waitr-fe/src/helpers/className";
 
 type ManagerProps = {};
 
@@ -14,6 +16,10 @@ const Manager = ({}: ManagerProps) => {
   const { data: staff } = useGetStaffQuery();
   const { data: categories } = useGetCategoriesQuery();
   const { data: products } = useGetAllProductsQuery();
+
+  const [deleteCategory] = useDeleteCategoryMutation();
+
+  const navigate = useNavigate();
 
   return (
     <div className="container">
@@ -39,8 +45,16 @@ const Manager = ({}: ManagerProps) => {
 
         <h2>Categories</h2>
         {categories?.map((category, index) => (
-          <div className={cardStyles.card} key={index}>
+          <div
+            className={classNames(cardStyles.card, styles.category)}
+            key={index}
+          >
             <strong>{category.name}</strong>
+            <img
+              src="/assets/trash-solid.svg"
+              alt="delete"
+              onClick={() => deleteCategory(category.id)}
+            />
           </div>
         ))}
         <Link
@@ -52,7 +66,15 @@ const Manager = ({}: ManagerProps) => {
 
         <h2>Products</h2>
         {products?.map((product, index) => (
-          <div className={cardStyles.card} key={index}>
+          <div
+            className={cardStyles.card}
+            key={index}
+            onClick={() =>
+              navigate({
+                to: `/dashboard/manager/product/edit/${product.productId}`,
+              })
+            }
+          >
             <strong>{product.productName}</strong>
             <p>{product.categoryName}</p>
           </div>

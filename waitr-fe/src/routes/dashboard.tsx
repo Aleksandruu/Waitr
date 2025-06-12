@@ -29,6 +29,14 @@ export const Route = createFileRoute("/dashboard")({
           throw redirect({
             to: "/dashboard/cook",
           });
+        case "barman":
+          throw redirect({
+            to: "/dashboard/cook",
+          });
+        case "barista":
+          throw redirect({
+            to: "/dashboard/cook",
+          });
         case "waiter":
           throw redirect({
             to: "/dashboard/waiter",

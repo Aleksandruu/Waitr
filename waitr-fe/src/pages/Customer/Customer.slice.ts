@@ -11,20 +11,20 @@ export interface OrderState {
   status: "empty" | "products" | "checkout" | "placed";
 }
 
-const savedProducts = sessionStorage.getItem("orderProducts");
-let parsedProducts: CartItemDto[] = [];
-
-try {
-  parsedProducts = savedProducts ? JSON.parse(savedProducts) : [];
-} catch (e) {
-  console.warn("Failed to parse order products from sessionStorage", e);
-}
+const getParsedProducts = () => {
+  const products = sessionStorage.getItem("orderProducts");
+  try {
+    return products ? JSON.parse(products) : [];
+  } catch (e) {
+    console.warn("Failed to parse order products from sessionStorage", e);
+  }
+};
 
 const initialState: OrderState = {
   orderTime: undefined,
   preferences: "",
-  products: parsedProducts,
-  status: parsedProducts.length ? "products" : "empty",
+  products: getParsedProducts(),
+  status: getParsedProducts().length ? "products" : "empty",
   currentOrder: [],
 };
 

@@ -2,52 +2,18 @@ import { ProductResponseDto } from "shared";
 import styles from "./Product.module.scss";
 import { useState } from "react";
 import { orderActions } from "../../Customer.slice";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "waitr-fe/src/store";
-import AddToCartButton from "waitr-fe/src/base_components/AddToCartButton/AddToCartButton";
-import { classNames } from "waitr-fe/src/helpers/className";
+import { useDispatch } from "react-redux";
+import QuantityButton from "waitr-fe/src/base_components/QuantityButton/QuantityButton";
+
 type ProductProps = {
   product: ProductResponseDto;
+  quantity: number;
 };
 
-const Product = ({ product }: ProductProps) => {
-  const [expanded, setExpanded] = useState(false);
+const Product = ({ product, quantity }: ProductProps) => {
+  const [expanded, setExpanded] = useState(quantity > 0);
 
   const dispatch = useDispatch();
-
-  const quantity = useSelector((state: RootState) => {
-    return (
-      state.order.products.find(
-        (p: { productId: string; quantity: number }) =>
-          p.productId === product.id
-      )?.quantity || 0
-    );
-  });
-
-  const addToCart = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    dispatch(
-      orderActions.addProductToOrder({
-        productId: product.id,
-        productName: product.name,
-        productPrice: product.price,
-      })
-    );
-  };
-
-  const increment = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    dispatch(
-      orderActions.increaseQuantityForProduct({ productId: product.id })
-    );
-  };
-
-  const decrement = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    dispatch(
-      orderActions.decreaseQuantityForProduct({ productId: product.id })
-    );
-  };
 
   // Functions for AddToCartButton (no event parameter needed)
   const handleAddToCart = () => {
@@ -100,12 +66,13 @@ const Product = ({ product }: ProductProps) => {
           )}
         </div>
         {expanded && (
-          <AddToCartButton
+          <QuantityButton
             onClick={handleAddToCart}
             onIncrement={handleIncrement}
             onDecrement={handleDecrement}
             quantity={quantity}
-          ></AddToCartButton>
+            text="Adauga in cos"
+          />
         )}
       </div>
     </div>

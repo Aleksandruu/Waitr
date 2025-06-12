@@ -199,9 +199,9 @@ router.post(
         return;
       }
 
-      let publicUrl;
+      let publicUrl: string | undefined;
       if (req.file) {
-        publicUrl = await addPhotoToCloud(req.file!);
+        publicUrl = (await addPhotoToCloud(req.file!)) as string;
       }
 
       await pool.query(
@@ -233,49 +233,54 @@ router.put(
   "/product/:id",
   authenticateToken,
   checkManagerRole,
-  async (req: Request, res: Response) => {
+  upload.single("photo"),
+  async (req: UploadProductRequest, res: Response) => {
     const id = req.params.id;
-    const {
-      name,
-      ingredients,
-      nutrients,
-      allergens,
-      price,
-      categoryId,
-      initialStatus,
-    }: CreateProductDto = req.body;
+    const productRequest = req.body;
 
     try {
       validateFields(
         {
-          name,
-          ingredients,
-          nutrients,
-          allergens,
-          price,
-          categoryId,
-          initialStatus,
+          name: productRequest.name,
+          ingredients: productRequest.ingredients,
+          nutrients: productRequest.nutrients,
+          allergens: productRequest.allergens,
+          price: productRequest.price,
+          categoryId: productRequest.categoryId,
+          initialStatus: productRequest.initialStatus,
         },
-        req.body
+        req.body as unknown as Body
       );
 
-      if (!(await checkCategoryExistsById(pool, categoryId))) {
+      if (!(await checkCategoryExistsById(pool, productRequest.categoryId))) {
         res.status(400).json({ error: "Category does not exist." });
         return;
       }
 
+      let photoUpdateQuery = "";
+      const queryParams = [
+        productRequest.name,
+        productRequest.ingredients,
+        productRequest.nutrients,
+        productRequest.allergens,
+        productRequest.price,
+        productRequest.categoryId,
+        productRequest.initialStatus,
+        id,
+      ];
+
+      // Handle photo update if a new photo is uploaded
+      if (req.file) {
+        const publicUrl = (await addPhotoToCloud(req.file)) as string;
+        photoUpdateQuery = ", photo_url = $9";
+        queryParams.push(publicUrl);
+      }
+
       await pool.query(
-        "UPDATE public.Product SET name = $1, ingredients = $2, nutrients = $3, allergens = $4, price = $5, category_id = $6, initial_status = $7 WHERE id = $8",
-        [
-          name,
-          ingredients,
-          nutrients,
-          allergens,
-          price,
-          categoryId,
-          initialStatus,
-          id,
-        ]
+        `UPDATE public.Product SET name = $1, ingredients = $2, nutrients = $3, 
+        allergens = $4, price = $5, category_id = $6, initial_status = $7${photoUpdateQuery} 
+        WHERE id = $8`,
+        queryParams
       );
     } catch (error) {
       if (error instanceof Error) {
@@ -338,6 +343,62 @@ router.get(
       const categoriesWithProducts: ManagerProductResponseDto[] =
         categoriesWithProductsQuery.rows;
       res.status(200).json(categoriesWithProducts);
+      return;
+    } catch (error) {
+      if (error instanceof Error) {
+        res.status(500).json({ error: error.message });
+      }
+      return;
+    }
+  }
+);
+
+router.get(
+  "/product/:id",
+  authenticateToken,
+  checkManagerRole,
+  async (req: Request, res: Response) => {
+    try {
+      const productId = req.params.id;
+      const locationId = getLocationFromRequest(req);
+
+      // First check if the product belongs to a category in this location
+      const productQuery = await pool.query(
+        `
+        SELECT 
+          p.id,
+          p.name,
+          p.ingredients,
+          p.nutrients,
+          p.allergens,
+          p.price,
+          p.category_id,
+          p.initial_status,
+          p.photo_url,
+          p.id AS "productId",
+          p.name AS "productName",
+          c.id AS "categoryId",
+          c.name AS "categoryName"
+        FROM 
+          public.Product p
+        JOIN 
+          public.Category c
+        ON 
+          p.category_id = c.id
+        WHERE 
+          p.id = $1
+          AND c.location_id = $2;
+        `,
+        [productId, locationId]
+      );
+
+      if (productQuery.rows.length === 0) {
+        res.status(404).json({ error: "Product not found" });
+        return;
+      }
+
+      const product = productQuery.rows[0];
+      res.status(200).json(product);
       return;
     } catch (error) {
       if (error instanceof Error) {
@@ -416,7 +477,16 @@ router.get(
         [locationId]
       );
 
-      const location = locationsQuery.rows[0];
+      const location = {
+        id: locationsQuery.rows[0].id,
+        slug: locationsQuery.rows[0].slug,
+        name: locationsQuery.rows[0].name,
+        logo: locationsQuery.rows[0].logo,
+        logoMime: locationsQuery.rows[0].logo_mime,
+        color: locationsQuery.rows[0].color,
+        active: locationsQuery.rows[0].active,
+        tables: locationsQuery.rows[0].tables,
+      };
 
       res.status(200).json(location);
       return;
