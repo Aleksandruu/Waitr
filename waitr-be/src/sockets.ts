@@ -6,13 +6,11 @@ let io: Server;
 export const initSocket = (server: HttpServer) => {
   io = new Server(server, {
     cors: {
-      origin:
+      origin: [
+        process.env.CORS_ORIGIN || "https://waitr-ten.vercel.app",
+        "http://localhost:3000",
         // "*",
-        [
-          process.env.CORS_ORIGIN || "https://waitr-ten.vercel.app",
-          "http://localhost:3000",
-          // "*",
-        ],
+      ],
       credentials: true,
     },
     transports: ["websocket", "polling"],
