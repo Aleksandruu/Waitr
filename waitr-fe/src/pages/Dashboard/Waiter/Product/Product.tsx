@@ -58,7 +58,7 @@ const Product = ({ orderItem }: ProductProps) => {
   });
 
   const borderStyle =
-    orderItem.status === "ready"
+    orderItem.status === "ready" || orderItem.status === "billed"
       ? styles.ready
       : ["cook", "barista", "barman"].includes(orderItem.status)
         ? styles.preparing
@@ -77,6 +77,7 @@ const Product = ({ orderItem }: ProductProps) => {
           <p>Se prepara...</p>
         )}
         {orderItem.status == "delivered" && <p>Produs livrat</p>}
+        {orderItem.status == "billed" && <p>Pe nota de plata</p>}
         {orderItem.status == "payed" && <p>Produs achitat</p>}
       </div>
       {orderItem.status === "payed" ? (
@@ -94,6 +95,8 @@ const Product = ({ orderItem }: ProductProps) => {
         />
       ) : ["cook", "barista", "barman"].includes(orderItem.status) ? (
         <Button text="Livreaza" color="orange" disabled tall></Button>
+      ) : orderItem.status === "billed" ? (
+        ""
       ) : (
         <Button
           text="Livreaza"

@@ -2,7 +2,7 @@ import express, { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import { checkAdminRole } from "../middleware/roleMiddleware";
 import { authenticateToken } from "../middleware/authMiddleware";
-import { LocationResponseDto, TableQueueJsonModel } from "shared";
+import { LocationResponseDto } from "shared";
 import pool from "../db";
 
 const router = express.Router();
@@ -98,16 +98,9 @@ router.post(
       } = req.body;
       const hashedPassword = await bcrypt.hash(managerPassword, 10);
 
-      const initialQueue: TableQueueJsonModel = {
-        ready: [],
-        preparing: [],
-        delivered: [],
-        payed: Array.from({ length: tables }, (_, i) => i + 1),
-      };
-
       const locationId = await pool.query(
-        "INSERT INTO public.Location (name, slug, tables, tables_queue) VALUES ($1, $2, $3, $4) RETURNING id ",
-        [locationName, locationSlug, tables, initialQueue]
+        "INSERT INTO public.Location (name, slug, tables) VALUES ($1, $2, $3) RETURNING id ",
+        [locationName, locationSlug, tables]
       );
 
       await pool.query(

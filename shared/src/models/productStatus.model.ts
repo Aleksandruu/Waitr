@@ -4,4 +4,5 @@ export type ProductStatus =
   | "barista"
   | "ready"
   | "delivered"
+  | "billed"
   | "payed";

@@ -1,5 +1,6 @@
+import { create } from "@mui/material/styles/createTransitions";
 import { api } from "./baseApi";
-import { TableStatus, OrderResponseDto } from "shared";
+import { OrderResponseDto, BillResponseDto } from "shared";
 
 export const waiterApi = api.injectEndpoints({
   endpoints: (build) => ({
@@ -12,6 +13,12 @@ export const waiterApi = api.injectEndpoints({
     getOrders: build.query<OrderResponseDto[], void>({
       query: () => `waiter/orders`,
       providesTags: [{ type: "Order", id: "LIST" }],
+    }),
+    getBills: build.query<BillResponseDto[], number>({
+      query: (tableNumber: number) => `waiter/bills/${tableNumber}`,
+      providesTags: (result, error, tableNumber) => [
+        { type: "Bill", id: tableNumber },
+      ],
     }),
     deliver: build.mutation<
       void,
@@ -26,12 +33,39 @@ export const waiterApi = api.injectEndpoints({
         { type: "Order", id: tableNumber },
       ],
     }),
-    pay: build.mutation<void, { orderProductId: string; quantity: number }[]>({
+    createWaiterBill: build.mutation<
+      void,
+      { orderProductId: string; quantity: number }[]
+    >({
       query: (productsToPay) => ({
-        url: `waiter/pay`,
-        method: "PATCH",
-        body: productsToPay,
+        url: `waiter/create-bill`,
+        method: "POST",
+        body: {
+          orderProducts: productsToPay,
+          paymentMethod: "cash",
+          tips: 0,
+        },
       }),
+      invalidatesTags: (result, error, productsToPay) => {
+        return [{ type: "Bill" }];
+      },
+    }),
+    goToTable: build.mutation<void, number>({
+      query: (tableNumber) => ({
+        url: `waiter/respond-to-call/${tableNumber}`,
+        method: "POST",
+      }),
+      invalidatesTags: (result, error, tableNumber) => [{ type: "Order" }],
+    }),
+    payBill: build.mutation<void, string>({
+      query: (billId) => ({
+        url: `waiter/pay-bill/${billId}`,
+        method: "POST",
+      }),
+      invalidatesTags: (result, error, billId) => [
+        { type: "Bill" },
+        { type: "Order" },
+      ],
     }),
   }),
 });
@@ -39,6 +73,9 @@ export const waiterApi = api.injectEndpoints({
 export const {
   useLazyGetOrderQuery,
   useGetOrdersQuery,
+  useGetBillsQuery,
   useDeliverMutation,
-  usePayMutation,
+  useCreateWaiterBillMutation,
+  useGoToTableMutation,
+  usePayBillMutation,
 } = waiterApi;

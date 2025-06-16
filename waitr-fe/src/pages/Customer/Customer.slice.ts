@@ -8,7 +8,10 @@ export interface OrderState {
   orderTime?: Date;
   preferences: string;
   products: CartItemDto[];
-  status: "empty" | "products" | "checkout" | "placed";
+  status: "empty" | "products" | "checkout" | "placed" | "payment";
+  selectedProductsForPayment: CartItemDto[];
+  productsForPayment?: CartItemDto[];
+  tipAmount: number;
 }
 
 const getParsedProducts = () => {
@@ -26,6 +29,9 @@ const initialState: OrderState = {
   products: getParsedProducts(),
   status: getParsedProducts().length ? "products" : "empty",
   currentOrder: [],
+  selectedProductsForPayment: [],
+  productsForPayment: [],
+  tipAmount: 0,
 };
 
 export const orderSlice = createSlice({
@@ -70,6 +76,77 @@ export const orderSlice = createSlice({
         state.status = "empty";
       }
     },
+    // New reducers for payment using CartItemDto
+    addProductToPayment: (state, action) => {
+      const { productId } = action.payload;
+      // Use productsForPayment instead of currentOrder to only add products that can be paid
+      const product = state.productsForPayment?.find(
+        (p) => p.productId === productId
+      );
+
+      if (
+        product &&
+        !state.selectedProductsForPayment.some((p) => p.productId === productId)
+      ) {
+        state.selectedProductsForPayment.push({
+          productId: product.productId,
+          quantity: 1,
+          name: product.name,
+          price: product.price,
+        });
+      }
+    },
+    incrementProductForPayment: (state, action) => {
+      const { productId } = action.payload;
+      const selectedProduct = state.selectedProductsForPayment.find(
+        (p) => p.productId === productId
+      );
+      // Use productsForPayment instead of currentOrder to check against products that can be paid
+      const originalProduct = state.productsForPayment?.find(
+        (p) => p.productId === productId
+      );
+
+      if (
+        selectedProduct &&
+        originalProduct &&
+        selectedProduct.quantity < originalProduct.quantity
+      ) {
+        selectedProduct.quantity += 1;
+      }
+    },
+    decrementProductForPayment: (state, action) => {
+      const { productId } = action.payload;
+      const selectedProduct = state.selectedProductsForPayment.find(
+        (p) => p.productId === productId
+      );
+
+      if (selectedProduct && selectedProduct.quantity > 0) {
+        selectedProduct.quantity -= 1;
+
+        if (selectedProduct.quantity === 0) {
+          state.selectedProductsForPayment =
+            state.selectedProductsForPayment.filter(
+              (p) => p.productId !== productId
+            );
+        }
+      }
+    },
+    selectAllProductsForPayment: (state) => {
+      // Use productsForPayment instead of currentOrder to only select products that can be paid
+      if (state.productsForPayment && state.productsForPayment.length > 0) {
+        state.selectedProductsForPayment = state.productsForPayment.map(
+          (product) => ({
+            productId: product.productId,
+            quantity: product.quantity,
+            name: product.name,
+            price: product.price,
+          })
+        );
+      }
+    },
+    clearSelectedProductsForPayment: (state) => {
+      state.selectedProductsForPayment = [];
+    },
   },
   extraReducers: (builder) => {
     builder.addMatcher(
@@ -78,11 +155,19 @@ export const orderSlice = createSlice({
         state.currentOrder = payload;
       }
     );
+
     builder.addMatcher(
       customerApi.endpoints.createOrder.matchFulfilled,
       (state) => {
         state.products = [];
         state.status = "placed";
+      }
+    );
+    builder.addMatcher(
+      customerApi.endpoints.getUnpaidOrder.matchFulfilled,
+      (state, { payload }) => {
+        state.selectedProductsForPayment = payload;
+        state.productsForPayment = payload;
       }
     );
   },

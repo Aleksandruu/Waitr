@@ -3,8 +3,9 @@ import styles from "./BottomBar.module.scss";
 import { useAppSelector } from "waitr-fe/src/helpers/app.hooks";
 import Button from "waitr-fe/src/base_components/Button/Button";
 import {
+  useGoToTableMutation,
   useLazyGetOrderQuery,
-  usePayMutation,
+  useCreateWaiterBillMutation,
 } from "waitr-fe/src/api/waiterApi";
 import { useDispatch } from "react-redux";
 import { waiterActions } from "../Waiter.slice";
@@ -14,19 +15,22 @@ type BottomBarProps = {
 };
 
 const BottomBar = ({}: BottomBarProps) => {
-  const { selectedTableProductsToBePaid, selectedTable } = useAppSelector(
-    (state) => state.waiter
-  );
+  const { selectedTableProductsToBePaid, selectedTable, orders } =
+    useAppSelector((state) => state.waiter);
 
   const bottomBarRef = useRef<HTMLDivElement>(null);
   const [fillerHeight, setFillerHeight] = useState(100);
   const [products, setProducts] = useState<any[]>([]);
-  const [pay, { isLoading }] = usePayMutation();
+  const [createBill, { isLoading }] = useCreateWaiterBillMutation();
   const [fetchOrder] = useLazyGetOrderQuery();
+  const [goToTable] = useGoToTableMutation();
   const dispatch = useDispatch();
 
-  const onPay = () => {
-    pay(
+  const isWaiterCalled = !!orders.find((order) => order.table === selectedTable)
+    ?.waiterCalledAt;
+
+  const onCreateBill = () => {
+    createBill(
       selectedTableProductsToBePaid.map((product) => ({
         orderProductId: product.id,
         quantity: product.quantity,
@@ -116,14 +120,22 @@ const BottomBar = ({}: BottomBarProps) => {
               </p>
             </div>
             <Button
-              text={"Incaseaza"}
+              text={"Creaza nota"}
               wider
               tall
               color="brand"
-              onClick={onPay}
+              onClick={onCreateBill}
               loading={isLoading}
             ></Button>
           </>
+        ) : isWaiterCalled ? (
+          <Button
+            text={"Mergi la masa"}
+            wider
+            tall
+            color="red"
+            onClick={() => goToTable(selectedTable).unwrap()}
+          ></Button>
         ) : (
           <Button text={"Adauga produse"} wider tall color="brand"></Button>
         )}

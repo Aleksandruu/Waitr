@@ -34,7 +34,7 @@ router.get(
         FROM public.ProductOrder po
         JOIN public.Product p ON po.product_id = p.id
         JOIN public.Order o ON po.order_id = o.id
-        WHERE o.location_id = $1 AND po.status = $2
+        WHERE o.location_id = $1 AND po.status = $2 AND o.active = TRUE
         ORDER BY po.created_at ASC`,
         [locationId, targetStatus]
       );

@@ -9,6 +9,7 @@ const statusPriority: OrderStatus[] = [
   "ready",
   "preparing",
   "delivered",
+  "billed",
   "payed",
 ];
 
@@ -18,32 +19,70 @@ const normalizeStatus = (status: ProductStatus): OrderStatus => {
 };
 
 const getStatusAndOldestTime = (
-  products: OrderResponseDto["products"]
+  order: OrderResponseDto
 ): {
   status: OrderStatus;
   time: number;
 } => {
+  // Initialize with default values
+  let oldestTime = Infinity;
+  let resultStatus: OrderStatus = "payed";
+
+  // Check all statuses and find the oldest timestamp
   for (const status of statusPriority) {
-    const filtered = products.filter(
+    // Check waiter called status (maps to "ready")
+    if (status === "ready" && order.waiterCalledAt) {
+      const waiterCalledTime = new Date(order.waiterCalledAt).getTime();
+      if (waiterCalledTime < oldestTime) {
+        oldestTime = waiterCalledTime;
+        resultStatus = "ready";
+      }
+    }
+
+    // Check products with this status
+    const filteredProducts = order.products.filter(
       (p) => normalizeStatus(p.status) === status
     );
 
-    if (filtered.length > 0) {
-      const oldest = filtered.reduce((min, p) => {
+    if (filteredProducts.length > 0) {
+      const oldestProductTime = filteredProducts.reduce((min, p) => {
         const time = new Date(p.orderTime).getTime();
         return Math.min(min, time);
       }, Infinity);
-      return { status, time: oldest };
+
+      if (oldestProductTime < oldestTime) {
+        oldestTime = oldestProductTime;
+        resultStatus = status;
+      }
+    }
+
+    // Check bills (for "billed" status)
+    if (status === "billed" && order.bills && order.bills.length > 0) {
+      const oldestBillTime = order.bills.reduce((min, bill) => {
+        const time = new Date(bill.createdAt).getTime();
+        return Math.min(min, time);
+      }, Infinity);
+
+      if (oldestBillTime < oldestTime) {
+        oldestTime = oldestBillTime;
+        resultStatus = "billed";
+      }
     }
   }
-  return { status: "payed", time: Infinity };
+
+  // If no relevant status was found, return default
+  if (oldestTime === Infinity) {
+    return { status: "payed", time: Infinity };
+  }
+
+  return { status: resultStatus, time: oldestTime };
 };
 
 export const mapAndSortTablesByStatus = (
   orders: OrderResponseDto[]
 ): TableStatus[] => {
   const mapped: (TableStatus & { sortKey: number })[] = orders.map((order) => {
-    const { status, time } = getStatusAndOldestTime(order.products);
+    const { status, time } = getStatusAndOldestTime(order);
     const statusIndex = statusPriority.indexOf(status);
     return {
       tableNumber: order.table,

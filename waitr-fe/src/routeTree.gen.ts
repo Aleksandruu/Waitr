@@ -25,6 +25,7 @@ import { Route as DashboardAdminIndexImport } from './routes/dashboard/admin/ind
 import { Route as LocationSlugTableNumberIndexImport } from './routes/$locationSlug/$tableNumber/index'
 import { Route as DashboardManagerLocationSetupImport } from './routes/dashboard/manager/location-setup'
 import { Route as LocationSlugTableNumberPlaceOrderImport } from './routes/$locationSlug/$tableNumber/place-order'
+import { Route as LocationSlugTableNumberPaymentImport } from './routes/$locationSlug/$tableNumber/payment'
 import { Route as LocationSlugTableNumberOrderImport } from './routes/$locationSlug/$tableNumber/order'
 import { Route as LocationSlugTableNumberFeedbackImport } from './routes/$locationSlug/$tableNumber/feedback'
 import { Route as DashboardManagerProductIndexImport } from './routes/dashboard/manager/product/index'
@@ -123,6 +124,13 @@ const LocationSlugTableNumberPlaceOrderRoute =
   LocationSlugTableNumberPlaceOrderImport.update({
     id: '/$tableNumber/place-order',
     path: '/$tableNumber/place-order',
+    getParentRoute: () => LocationSlugRoute,
+  } as any)
+
+const LocationSlugTableNumberPaymentRoute =
+  LocationSlugTableNumberPaymentImport.update({
+    id: '/$tableNumber/payment',
+    path: '/$tableNumber/payment',
     getParentRoute: () => LocationSlugRoute,
   } as any)
 
@@ -284,6 +292,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LocationSlugTableNumberOrderImport
       parentRoute: typeof LocationSlugImport
     }
+    '/$locationSlug/$tableNumber/payment': {
+      id: '/$locationSlug/$tableNumber/payment'
+      path: '/$tableNumber/payment'
+      fullPath: '/$locationSlug/$tableNumber/payment'
+      preLoaderRoute: typeof LocationSlugTableNumberPaymentImport
+      parentRoute: typeof LocationSlugImport
+    }
     '/$locationSlug/$tableNumber/place-order': {
       id: '/$locationSlug/$tableNumber/place-order'
       path: '/$tableNumber/place-order'
@@ -391,6 +406,7 @@ interface LocationSlugRouteChildren {
   LocationSlugIndexRoute: typeof LocationSlugIndexRoute
   LocationSlugTableNumberFeedbackRoute: typeof LocationSlugTableNumberFeedbackRoute
   LocationSlugTableNumberOrderRoute: typeof LocationSlugTableNumberOrderRoute
+  LocationSlugTableNumberPaymentRoute: typeof LocationSlugTableNumberPaymentRoute
   LocationSlugTableNumberPlaceOrderRoute: typeof LocationSlugTableNumberPlaceOrderRoute
   LocationSlugTableNumberIndexRoute: typeof LocationSlugTableNumberIndexRoute
 }
@@ -399,6 +415,7 @@ const LocationSlugRouteChildren: LocationSlugRouteChildren = {
   LocationSlugIndexRoute: LocationSlugIndexRoute,
   LocationSlugTableNumberFeedbackRoute: LocationSlugTableNumberFeedbackRoute,
   LocationSlugTableNumberOrderRoute: LocationSlugTableNumberOrderRoute,
+  LocationSlugTableNumberPaymentRoute: LocationSlugTableNumberPaymentRoute,
   LocationSlugTableNumberPlaceOrderRoute:
     LocationSlugTableNumberPlaceOrderRoute,
   LocationSlugTableNumberIndexRoute: LocationSlugTableNumberIndexRoute,
@@ -483,6 +500,7 @@ export interface FileRoutesByFullPath {
   '/$locationSlug/': typeof LocationSlugIndexRoute
   '/$locationSlug/$tableNumber/feedback': typeof LocationSlugTableNumberFeedbackRoute
   '/$locationSlug/$tableNumber/order': typeof LocationSlugTableNumberOrderRoute
+  '/$locationSlug/$tableNumber/payment': typeof LocationSlugTableNumberPaymentRoute
   '/$locationSlug/$tableNumber/place-order': typeof LocationSlugTableNumberPlaceOrderRoute
   '/dashboard/manager/location-setup': typeof DashboardManagerLocationSetupRoute
   '/$locationSlug/$tableNumber': typeof LocationSlugTableNumberIndexRoute
@@ -508,6 +526,7 @@ export interface FileRoutesByTo {
   '/$locationSlug': typeof LocationSlugIndexRoute
   '/$locationSlug/$tableNumber/feedback': typeof LocationSlugTableNumberFeedbackRoute
   '/$locationSlug/$tableNumber/order': typeof LocationSlugTableNumberOrderRoute
+  '/$locationSlug/$tableNumber/payment': typeof LocationSlugTableNumberPaymentRoute
   '/$locationSlug/$tableNumber/place-order': typeof LocationSlugTableNumberPlaceOrderRoute
   '/dashboard/manager/location-setup': typeof DashboardManagerLocationSetupRoute
   '/$locationSlug/$tableNumber': typeof LocationSlugTableNumberIndexRoute
@@ -537,6 +556,7 @@ export interface FileRoutesById {
   '/$locationSlug/': typeof LocationSlugIndexRoute
   '/$locationSlug/$tableNumber/feedback': typeof LocationSlugTableNumberFeedbackRoute
   '/$locationSlug/$tableNumber/order': typeof LocationSlugTableNumberOrderRoute
+  '/$locationSlug/$tableNumber/payment': typeof LocationSlugTableNumberPaymentRoute
   '/$locationSlug/$tableNumber/place-order': typeof LocationSlugTableNumberPlaceOrderRoute
   '/dashboard/manager/location-setup': typeof DashboardManagerLocationSetupRoute
   '/$locationSlug/$tableNumber/': typeof LocationSlugTableNumberIndexRoute
@@ -567,6 +587,7 @@ export interface FileRouteTypes {
     | '/$locationSlug/'
     | '/$locationSlug/$tableNumber/feedback'
     | '/$locationSlug/$tableNumber/order'
+    | '/$locationSlug/$tableNumber/payment'
     | '/$locationSlug/$tableNumber/place-order'
     | '/dashboard/manager/location-setup'
     | '/$locationSlug/$tableNumber'
@@ -591,6 +612,7 @@ export interface FileRouteTypes {
     | '/$locationSlug'
     | '/$locationSlug/$tableNumber/feedback'
     | '/$locationSlug/$tableNumber/order'
+    | '/$locationSlug/$tableNumber/payment'
     | '/$locationSlug/$tableNumber/place-order'
     | '/dashboard/manager/location-setup'
     | '/$locationSlug/$tableNumber'
@@ -618,6 +640,7 @@ export interface FileRouteTypes {
     | '/$locationSlug/'
     | '/$locationSlug/$tableNumber/feedback'
     | '/$locationSlug/$tableNumber/order'
+    | '/$locationSlug/$tableNumber/payment'
     | '/$locationSlug/$tableNumber/place-order'
     | '/dashboard/manager/location-setup'
     | '/$locationSlug/$tableNumber/'
@@ -674,6 +697,7 @@ export const routeTree = rootRoute
         "/$locationSlug/",
         "/$locationSlug/$tableNumber/feedback",
         "/$locationSlug/$tableNumber/order",
+        "/$locationSlug/$tableNumber/payment",
         "/$locationSlug/$tableNumber/place-order",
         "/$locationSlug/$tableNumber/"
       ]
@@ -732,6 +756,10 @@ export const routeTree = rootRoute
     },
     "/$locationSlug/$tableNumber/order": {
       "filePath": "$locationSlug/$tableNumber/order.tsx",
+      "parent": "/$locationSlug"
+    },
+    "/$locationSlug/$tableNumber/payment": {
+      "filePath": "$locationSlug/$tableNumber/payment.tsx",
       "parent": "/$locationSlug"
     },
     "/$locationSlug/$tableNumber/place-order": {

@@ -18,7 +18,7 @@ const TableList = (props: TableListProps) => {
         {tablesStatus &&
           tablesStatus.map((table) => {
             const tableStyle =
-              table.status === "ready"
+              table.status === "ready" || table.status === "billed"
                 ? styles.ready
                 : table.status === "preparing"
                   ? styles.preparing

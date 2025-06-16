@@ -1,1 +1,1 @@
-{"version":3,"file":"productStatus.model.d.ts","sourceRoot":"","sources":["../../src/models/productStatus.model.ts"],"names":[],"mappings":"AAAA,MAAM,MAAM,aAAa,GACrB,MAAM,GACN,QAAQ,GACR,SAAS,GACT,OAAO,GACP,WAAW,GACX,OAAO,CAAC"}
+{"version":3,"file":"productStatus.model.d.ts","sourceRoot":"","sources":["../../src/models/productStatus.model.ts"],"names":[],"mappings":"AAAA,MAAM,MAAM,aAAa,GACrB,MAAM,GACN,QAAQ,GACR,SAAS,GACT,OAAO,GACP,WAAW,GACX,QAAQ,GACR,OAAO,CAAC"}

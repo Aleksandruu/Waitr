@@ -7,12 +7,14 @@ export * from "./dtos/customer/productResponse.dto";
 
 export * from "./dtos/waiter/orderResponse.dto";
 export * from "./dtos/waiter/orderItem.dto";
+export * from "./dtos/waiter/billResponse.dto";
 
 export * from "./dtos/admin/createLocation.dto";
 
 export * from "./dtos/customer/createOrder.dto";
 export * from "./dtos/customer/getAllProducts.response.dto";
 export * from "./dtos/customer/productOrderWithNameAndPrice.dto";
+export * from "./dtos/customer/createBill.dto";
 
 export * from "./dtos/manager/createProduct.dto";
 export * from "./dtos/manager/createStaffMember.dto";
@@ -32,5 +34,4 @@ export * from "./models/role.model";
 export * from "./models/staffMember.model";
 export * from "./models/tablesStatus.model";
 export * from "./entities/user.model";
-export * from "./models/tableQueue.model";
 export * from "./entities/location.model";

@@ -48,7 +48,8 @@ CREATE TABLE
         waiter_id UUID REFERENCES public.User (id),
         location_id UUID NOT NULL,
         order_time TIMESTAMP DEFAULT NOW (),
-        active BOOLEAN NOT NULL DEFAULT TRUE
+        active BOOLEAN NOT NULL DEFAULT TRUE,
+        waiter_called_at TIMESTAMP DEFAULT NULL
     );
 
 CREATE TABLE
@@ -60,4 +61,24 @@ CREATE TABLE
         quantity INTEGER NOT NULL,
         status VARCHAR(255) NOT NULL,
         preferences TEXT
+    );
+
+CREATE TABLE
+    IF NOT EXISTS public.Bill (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        order_id UUID REFERENCES public.Order (id),
+        payment_method VARCHAR(50) NOT NULL, 
+        tips DECIMAL(10, 2) NOT NULL DEFAULT 0,
+        total_amount DECIMAL(10, 2) NOT NULL,
+        created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+        paid_at TIMESTAMP DEFAULT NULL
+    );
+
+CREATE TABLE
+    IF NOT EXISTS public.BillItem (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        bill_id UUID REFERENCES public.Bill (id),
+        product_order_id UUID REFERENCES public.ProductOrder (id),
+        quantity INTEGER NOT NULL,
+        price DECIMAL(10, 2) NOT NULL
     );

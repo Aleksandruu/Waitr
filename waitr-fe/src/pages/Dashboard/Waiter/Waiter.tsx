@@ -4,12 +4,14 @@ import styles from "./Waiter.module.scss";
 import {
   useLazyGetOrderQuery,
   useGetOrdersQuery,
+  useGetBillsQuery,
 } from "waitr-fe/src/api/waiterApi";
 import { RootState } from "waitr-fe/src/store";
 import Product from "./Product/Product";
+import Bill from "./Bill/Bill";
 import { connectWaiterSocket } from "./Waiter.sockets";
 import { useEffect } from "react";
-import { OrderItemDto, OrderResponseDto } from "shared";
+import { BillResponseDto, OrderItemDto, OrderResponseDto } from "shared";
 import { WaiterState } from "./Waiter.slice";
 import BottomBar from "./BottomBar/BottomBar";
 
@@ -25,6 +27,9 @@ const Waiter = ({}: WaiterProps) => {
 
   useGetOrdersQuery();
   const [fetchOrder] = useLazyGetOrderQuery();
+  const { data: bills } = useGetBillsQuery(selectedTable, {
+    skip: !selectedTable,
+  });
 
   const orderData: OrderResponseDto | undefined = orders.find(
     (order: OrderResponseDto) => {
@@ -43,6 +48,17 @@ const Waiter = ({}: WaiterProps) => {
   return (
     <div className={styles.container}>
       <TableList />
+
+      {/* Display Bills First */}
+      {bills && bills.length > 0 && (
+        <div className={styles.billsSection}>
+          {bills.map((bill: BillResponseDto) => (
+            <Bill key={bill.id} bill={bill} />
+          ))}
+        </div>
+      )}
+
+      {/* Then Display Products */}
       {orderData &&
         orderData.products &&
         orderData.products.map((orderItem: OrderItemDto, index: number) => {

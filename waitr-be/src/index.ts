@@ -38,11 +38,12 @@ io.on("connection", (socket) => {
 
 app.use(
   cors({
-    origin: [
-      process.env.CORS_ORIGIN || "https://waitr-ten.vercel.app",
-      "http://localhost:3000",
-      // "*",
-    ],
+    origin: "*",
+    // [
+    //   // process.env.CORS_ORIGIN || "https://waitr-ten.vercel.app",
+    //   // "http://localhost:3000",
+    //   "*",
+    // ],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true,
   })
