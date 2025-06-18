@@ -3,7 +3,7 @@ import styles from "./Button.module.scss";
 
 interface ButtonProps {
   text: string;
-  onClick?: () => void;
+  onClick?: (e?: React.MouseEvent<HTMLButtonElement>) => void;
   color?:
     | "green"
     | "yellow"
@@ -44,7 +44,7 @@ const Button = ({
         textWrap ? styles.textWrap : ""
       )}
       disabled={disabled || loading}
-      onClick={onClick}
+      onClick={(e) => onClick?.(e)}
       type={submit ? "submit" : "button"}
     >
       {loading ? "Loading..." : text}

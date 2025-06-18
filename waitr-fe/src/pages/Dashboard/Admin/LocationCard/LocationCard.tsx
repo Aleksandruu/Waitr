@@ -33,8 +33,8 @@ function LocationCard({ location, isLoading }: LocationCardProps) {
               text={"Deactivate location"}
               loading={loading}
               onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
+                e?.preventDefault();
+                e?.stopPropagation();
                 changeActiveStatus({ id: location.id, active: false });
               }}
             ></Button>
@@ -44,8 +44,8 @@ function LocationCard({ location, isLoading }: LocationCardProps) {
               text={"Activate location"}
               loading={loading}
               onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
+                e?.preventDefault();
+                e?.stopPropagation();
                 changeActiveStatus({ id: location.id, active: true });
               }}
             ></Button>
