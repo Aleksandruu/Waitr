@@ -12,6 +12,7 @@ export interface OrderState {
   selectedProductsForPayment: CartItemDto[];
   productsForPayment?: CartItemDto[];
   tipAmount: number;
+  isLoaded?: boolean;
 }
 
 const getParsedProducts = () => {
@@ -32,6 +33,7 @@ const initialState: OrderState = {
   selectedProductsForPayment: [],
   productsForPayment: [],
   tipAmount: 0,
+  isLoaded: false,
 };
 
 export const orderSlice = createSlice({
@@ -149,6 +151,12 @@ export const orderSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    builder.addMatcher(
+      customerApi.endpoints.getProducts.matchFulfilled,
+      (state, { payload }) => {
+        state.isLoaded = true;
+      }
+    );
     builder.addMatcher(
       customerApi.endpoints.getCurrentOrder.matchFulfilled,
       (state, { payload }) => {

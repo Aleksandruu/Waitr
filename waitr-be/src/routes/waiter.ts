@@ -468,6 +468,169 @@ router.patch(
   }
 );
 
+router.get(
+  "/products",
+  authenticateToken,
+  checkWaiterRole,
+  async (req: Request, res: Response) => {
+    try {
+      const locationId = getLocationFromRequest(req);
+
+      const categoriesWithProductsQuery = await pool.query(
+        `
+        SELECT 
+          c.id AS "categoryId",
+          c.name AS "categoryName",
+          COALESCE(
+            JSON_AGG(
+              JSON_BUILD_OBJECT(
+                'id', p.id,
+                'name', p.name,
+                'ingredients', p.ingredients,
+                'nutrients', p.nutrients,
+                'allergens', p.allergens,
+                'price', p.price,
+                'photoUrl', p.photo_url
+              )
+            ) FILTER (WHERE p.id IS NOT NULL), 
+            '[]'
+          ) AS "products"
+        FROM 
+          public.Category c
+        LEFT JOIN 
+          public.Product p
+        ON 
+          c.id = p.category_id
+        WHERE 
+          c.location_id = $1
+        GROUP BY 
+          c.id, c.name, c.location_id;
+        `,
+        [locationId]
+      );
+
+      const categoriesWithProducts = categoriesWithProductsQuery.rows;
+
+      res.status(200).json(categoriesWithProducts);
+    } catch (err) {
+      console.error("Error:", err);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  }
+);
+
+router.post(
+  "/create-order/:table",
+  authenticateToken,
+  checkWaiterRole,
+  async (req: Request, res: Response) => {
+    try {
+      const locationId = getLocationFromRequest(req);
+      const table = parseInt(req.params.table, 10);
+      const { products } = req.body;
+
+      if (isNaN(table) || table <= 0) {
+        res.status(400).json({ error: "Valid table number is required" });
+        return;
+      }
+
+      if (!products || !Array.isArray(products) || products.length === 0) {
+        res
+          .status(400)
+          .json({ error: "Products array is required and cannot be empty" });
+        return;
+      }
+
+      // Validate each product in the array
+      const productIds = products.map((p) => p.id);
+
+      // Verify products exist and get their initial statuses
+      const productsQuery = await pool.query(
+        `SELECT id, initial_status FROM public.Product WHERE id = ANY($1)`,
+        [productIds]
+      );
+      const foundProducts = productsQuery.rows;
+      const foundProductIds = foundProducts.map((p) => p.id);
+
+      if (foundProductIds.length < productIds.length) {
+        const invalidProductIds = productIds.filter(
+          (id: string) => !foundProductIds.includes(id)
+        );
+
+        if (invalidProductIds.length > 0) {
+          res.status(400).json({
+            error: "Invalid product IDs",
+            invalidProductIds,
+          });
+          return;
+        }
+      }
+
+      // Create a map of product IDs to their initial statuses
+      const productStatusMap: { [id: string]: ProductStatus } = {};
+      foundProducts.forEach((p) => {
+        productStatusMap[p.id] = p.initial_status;
+      });
+
+      // Check if there's an existing active order for this table
+      const getOrderQuery = await pool.query(
+        `SELECT id 
+        FROM public.Order 
+        WHERE table_number = $1 AND location_id = $2 AND active = TRUE
+        LIMIT 1;`,
+        [table, locationId]
+      );
+
+      let orderId: string = getOrderQuery.rows[0]?.id;
+
+      // If no active order exists, create a new one
+      if (!orderId) {
+        const orderQuery = await pool.query(
+          "INSERT INTO public.order (table_number, location_id) VALUES ($1, $2) RETURNING id",
+          [table, locationId]
+        );
+        orderId = orderQuery.rows[0].id;
+      }
+
+      // Add products to the order
+      for (const product of products) {
+        await pool.query(
+          "INSERT INTO public.ProductOrder (order_id, product_id, quantity, status, created_at) VALUES ($1, $2, $3, $4, NOW())",
+          [orderId, product.id, product.quantity, productStatusMap[product.id]]
+        );
+      }
+
+      // Send notifications via socket.io
+      const io = getIo();
+
+      // Send pings based on product statuses
+      const statusSet = new Set<ProductStatus>();
+      products.forEach((product) => {
+        const status = productStatusMap[product.id];
+        statusSet.add(status);
+      });
+
+      statusSet.forEach((status) => {
+        if (status !== "ready") {
+          io.to(`${status}-${locationId}`).emit("order-ping", {
+            table: table,
+          });
+        }
+      });
+
+      // Also notify waiters
+      io.to(`waiter-${locationId}`).emit("order-ping", {
+        table: table,
+      });
+
+      res.status(200).json({ message: "Order created successfully", orderId });
+    } catch (error) {
+      console.error("Error creating order:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  }
+);
+
 router.post(
   "/create-bill",
   authenticateToken,

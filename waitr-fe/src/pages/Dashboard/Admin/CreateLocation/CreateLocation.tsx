@@ -31,6 +31,12 @@ const locationSchema = yup.object({
     .required("Manager password is required")
     .min(8, "Manager password must be at least 8 characters")
     .max(50, "Manager password must be at most 50 characters"),
+  tables: yup
+    .number()
+    .required("Number of tables is required")
+    .min(1, "Number of tables must be at least 1")
+    .max(1000, "Number of tables must be at most 1000")
+    .integer("Number of tables must be an integer"),
 });
 
 type FormData = yup.InferType<typeof locationSchema>;
@@ -87,6 +93,13 @@ const CreateLocation = ({}: CreateLocationProps) => {
           type="password"
           register={register("managerPassword")}
           error={isDirty ? errors.managerPassword?.message : undefined}
+        ></Input>
+        <Input
+          name="tables"
+          label="Numar de mese"
+          type="number"
+          register={register("tables", { valueAsNumber: true })}
+          error={isDirty ? errors.tables?.message : undefined}
         ></Input>
         <Button
           text="Creaza locatie"

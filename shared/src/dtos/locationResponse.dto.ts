@@ -9,4 +9,5 @@ export interface LocationResponseDto {
   logoMime?: string;
   color?: string;
   staff?: StaffMember[];
+  active?: boolean;
 }

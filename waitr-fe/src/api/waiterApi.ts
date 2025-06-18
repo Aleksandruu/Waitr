@@ -1,9 +1,22 @@
 import { create } from "@mui/material/styles/createTransitions";
 import { api } from "./baseApi";
-import { OrderResponseDto, BillResponseDto } from "shared";
+import {
+  OrderResponseDto,
+  BillResponseDto,
+  CategoryWithProductsDto,
+} from "shared";
+
+interface CreateOrderType {
+  table: number;
+  products: { id: string; quantity: number }[];
+}
 
 export const waiterApi = api.injectEndpoints({
   endpoints: (build) => ({
+    waiterGetProducts: build.query<CategoryWithProductsDto[], void>({
+      query: () => `waiter/products`,
+      providesTags: ["Products"],
+    }),
     getOrder: build.query<OrderResponseDto, number>({
       query: (tableNumber: number) => `waiter/order/${tableNumber}`,
       providesTags: (result, error, tableNumber) => [
@@ -31,6 +44,19 @@ export const waiterApi = api.injectEndpoints({
       }),
       invalidatesTags: (result, error, { tableNumber }) => [
         { type: "Order", id: tableNumber },
+      ],
+    }),
+    waiterCreateOrder: build.mutation<void, CreateOrderType>({
+      query: (params: CreateOrderType) => {
+        return {
+          url: `waiter/create-order/${params.table}`,
+          method: "POST",
+          body: { products: params.products },
+        };
+      },
+      invalidatesTags: (result, error, { table }) => [
+        { type: "Order", id: table },
+        { type: "Order", id: "LIST" },
       ],
     }),
     createWaiterBill: build.mutation<
@@ -71,6 +97,7 @@ export const waiterApi = api.injectEndpoints({
 });
 
 export const {
+  useWaiterGetProductsQuery,
   useLazyGetOrderQuery,
   useGetOrdersQuery,
   useGetBillsQuery,
@@ -78,4 +105,5 @@ export const {
   useCreateWaiterBillMutation,
   useGoToTableMutation,
   usePayBillMutation,
+  useWaiterCreateOrderMutation,
 } = waiterApi;

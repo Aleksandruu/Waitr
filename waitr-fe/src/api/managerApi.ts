@@ -31,6 +31,7 @@ export const managerApi = api.injectEndpoints({
         method: "POST",
         body: category,
       }),
+      invalidatesTags: ["Categories"],
     }),
     deleteCategory: build.mutation<void, string>({
       query: (categoryId) => ({
@@ -123,6 +124,13 @@ export const managerApi = api.injectEndpoints({
       },
       invalidatesTags: ["Products"],
     }),
+    deleteProduct: build.mutation<void, string>({
+      query: (productId) => ({
+        url: `manager/product/${productId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Products"],
+    }),
   }),
 });
 
@@ -139,4 +147,5 @@ export const {
   useGetAllProductsQuery,
   useGetProductByIdQuery,
   useDeleteCategoryMutation,
+  useDeleteProductMutation,
 } = managerApi;

@@ -4,6 +4,8 @@ import Button from "../../base_components/Button/Button";
 import { useLoginMutation } from "../../api/authApi";
 import Input from "../../base_components/Input/Input";
 import { LoginRequest } from "shared";
+import { classNames } from "waitr-fe/src/helpers/className";
+import styles from "./Login.module.scss";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -21,7 +23,7 @@ const Login = () => {
   };
 
   return (
-    <div className="container">
+    <div className={classNames("container", styles.loginContainer)}>
       <form className="middle-column-container justify-center">
         <Input
           name="username"

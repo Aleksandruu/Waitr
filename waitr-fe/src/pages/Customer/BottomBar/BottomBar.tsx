@@ -24,7 +24,7 @@ import PaymentMethodPopup from "../Payment/PaymentMethodPopup";
 type BottomBarProps = {};
 
 const BottomBar = ({}: BottomBarProps) => {
-  const { products, status, selectedProductsForPayment, tipAmount } =
+  const { products, status, selectedProductsForPayment, tipAmount, isLoaded } =
     useAppSelector((state) => state.order);
   const [localWaiterCalled, setLocalWaiterCalled] = useState(false);
   const [isPaymentPopupOpen, setIsPaymentPopupOpen] = useState(false);
@@ -155,88 +155,92 @@ const BottomBar = ({}: BottomBarProps) => {
 
   return (
     <>
-      <div className={styles.bottomFiller}></div>
-      <div className={styles.bottomBar}>
-        <PaymentMethodPopup
-          isOpen={isPaymentPopupOpen}
-          onClose={() => setIsPaymentPopupOpen(false)}
-          onSelectPaymentMethod={handleSelectPaymentMethod}
-          isLoading={isCreatingBill}
-        />
-        {status === "empty" ? (
-          <Button
-            text={waiterCalled ? "Ospătar chemat" : "Cheamă ospătar"}
-            wider
-            tall
-            color="brand"
-            onClick={handleCallWaiter}
-            loading={isCallingWaiter}
-            disabled={waiterCalled}
-          ></Button>
-        ) : status === "products" ? (
-          <>
-            <Button
-              text={waiterCalled ? "Ospătar chemat" : "Cheamă ospătar"}
-              tall
-              color="brand"
-              onClick={handleCallWaiter}
-              loading={isCallingWaiter}
-              disabled={waiterCalled}
-            ></Button>
-            <Button
-              onClick={seeOrder}
-              text="Vezi comanda"
-              tall
-              color="brand"
-            ></Button>
-          </>
-        ) : status === "payment" ? (
-          <>
-            <Button
-              onClick={goToPayment}
-              text={"Plata online"}
-              tall
-              color="brand"
-              disabled
-            ></Button>
-            <Button
-              onClick={handleRequestBill}
-              text={"Cere nota"}
-              tall
-              color="brand"
-              disabled={totalAmount === 0}
-            ></Button>
-          </>
-        ) : currentOrder?.length && products.length > 0 ? (
-          <Button
-            onClick={placeOrder}
-            text="Adauga la comanda"
-            wider
-            tall
-            color="brand"
-            loading={isCreating}
-            disabled={status === "placed"}
-          ></Button>
-        ) : currentOrder?.length && products.length === 0 ? (
-          <Button
-            text={"Plătește comanda"}
-            wider
-            tall
-            color="brand"
-            onClick={goToPayment}
-          ></Button>
-        ) : (
-          <Button
-            onClick={placeOrder}
-            text="Plasează comanda"
-            wider
-            tall
-            color="brand"
-            loading={isCreating}
-            disabled={status === "placed"}
-          ></Button>
-        )}
-      </div>
+      {isLoaded && (
+        <>
+          <div className={styles.bottomFiller}></div>
+          <div className={styles.bottomBar}>
+            <PaymentMethodPopup
+              isOpen={isPaymentPopupOpen}
+              onClose={() => setIsPaymentPopupOpen(false)}
+              onSelectPaymentMethod={handleSelectPaymentMethod}
+              isLoading={isCreatingBill}
+            />
+            {status === "empty" ? (
+              <Button
+                text={waiterCalled ? "Ospătar chemat" : "Cheamă ospătar"}
+                wider
+                tall
+                color="brand"
+                onClick={handleCallWaiter}
+                loading={isCallingWaiter}
+                disabled={waiterCalled}
+              ></Button>
+            ) : status === "products" ? (
+              <>
+                <Button
+                  text={waiterCalled ? "Ospătar chemat" : "Cheamă ospătar"}
+                  tall
+                  color="brand"
+                  onClick={handleCallWaiter}
+                  loading={isCallingWaiter}
+                  disabled={waiterCalled}
+                ></Button>
+                <Button
+                  onClick={seeOrder}
+                  text="Vezi comanda"
+                  tall
+                  color="brand"
+                ></Button>
+              </>
+            ) : status === "payment" ? (
+              <>
+                <Button
+                  onClick={goToPayment}
+                  text={"Plata online"}
+                  tall
+                  color="brand"
+                  disabled
+                ></Button>
+                <Button
+                  onClick={handleRequestBill}
+                  text={"Cere nota"}
+                  tall
+                  color="brand"
+                  disabled={totalAmount === 0}
+                ></Button>
+              </>
+            ) : currentOrder?.length && products.length > 0 ? (
+              <Button
+                onClick={placeOrder}
+                text="Adauga la comanda"
+                wider
+                tall
+                color="brand"
+                loading={isCreating}
+                disabled={status === "placed"}
+              ></Button>
+            ) : currentOrder?.length && products.length === 0 ? (
+              <Button
+                text={"Plătește comanda"}
+                wider
+                tall
+                color="brand"
+                onClick={goToPayment}
+              ></Button>
+            ) : (
+              <Button
+                onClick={placeOrder}
+                text="Plasează comanda"
+                wider
+                tall
+                color="brand"
+                loading={isCreating}
+                disabled={status === "placed"}
+              ></Button>
+            )}
+          </div>
+        </>
+      )}
     </>
   );
 };

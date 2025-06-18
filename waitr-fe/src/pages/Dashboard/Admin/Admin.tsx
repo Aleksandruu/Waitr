@@ -4,6 +4,7 @@ import { Link } from "@tanstack/react-router";
 import styles from "./Admin.module.scss";
 import cardStyles from "../card.module.scss";
 import { useGetLocationsQuery } from "../../../api/adminApi";
+import { classNames } from "waitr-fe/src/helpers/className";
 
 type AdminProps = {
   data?: LocationResponseDto[];
@@ -24,7 +25,10 @@ const Admin = ({ data: propsLocations }: AdminProps) => {
           : skeletonLocations.map((index) => (
               <LocationCard key={index} isLoading={true} />
             ))}
-        <Link to="/dashboard/admin/location/create" className={cardStyles.card}>
+        <Link
+          to="/dashboard/admin/location/create"
+          className={classNames(cardStyles.card, styles.addLocation)}
+        >
           Add a new location
         </Link>
       </div>

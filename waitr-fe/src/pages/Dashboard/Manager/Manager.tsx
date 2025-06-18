@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import {
   useDeleteCategoryMutation,
+  useDeleteProductMutation,
   useGetAllProductsQuery,
   useGetCategoriesQuery,
   useGetStaffQuery,
@@ -18,6 +19,7 @@ const Manager = ({}: ManagerProps) => {
   const { data: products } = useGetAllProductsQuery();
 
   const [deleteCategory] = useDeleteCategoryMutation();
+  const [deleteProduct] = useDeleteProductMutation();
 
   const navigate = useNavigate();
 
@@ -67,16 +69,24 @@ const Manager = ({}: ManagerProps) => {
         <h2>Products</h2>
         {products?.map((product, index) => (
           <div
-            className={cardStyles.card}
+            className={classNames(cardStyles.card, styles.category)}
             key={index}
-            onClick={() =>
-              navigate({
-                to: `/dashboard/manager/product/edit/${product.productId}`,
-              })
-            }
           >
-            <strong>{product.productName}</strong>
-            <p>{product.categoryName}</p>
+            <div
+              onClick={() =>
+                navigate({
+                  to: `/dashboard/manager/product/edit/${product.productId}`,
+                })
+              }
+            >
+              <strong>{product.productName}</strong>
+              <p>{product.categoryName}</p>
+            </div>
+            <img
+              src="/assets/trash-solid.svg"
+              alt="delete"
+              onClick={() => deleteProduct(product.productId)}
+            />
           </div>
         ))}
         <Link

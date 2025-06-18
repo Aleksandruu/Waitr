@@ -13,6 +13,7 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as LoginImport } from './routes/login'
 import { Route as DashboardImport } from './routes/dashboard'
+import { Route as R404Import } from './routes/404'
 import { Route as LocationSlugImport } from './routes/$locationSlug'
 import { Route as IndexImport } from './routes/index'
 import { Route as LocationSlugIndexImport } from './routes/$locationSlug/index'
@@ -49,6 +50,12 @@ const LoginRoute = LoginImport.update({
 const DashboardRoute = DashboardImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const R404Route = R404Import.update({
+  id: '/404',
+  path: '/404',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -227,6 +234,13 @@ declare module '@tanstack/react-router' {
       path: '/$locationSlug'
       fullPath: '/$locationSlug'
       preLoaderRoute: typeof LocationSlugImport
+      parentRoute: typeof rootRoute
+    }
+    '/404': {
+      id: '/404'
+      path: '/404'
+      fullPath: '/404'
+      preLoaderRoute: typeof R404Import
       parentRoute: typeof rootRoute
     }
     '/dashboard': {
@@ -491,6 +505,7 @@ const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$locationSlug': typeof LocationSlugRouteWithChildren
+  '/404': typeof R404Route
   '/dashboard': typeof DashboardRouteWithChildren
   '/login': typeof LoginRoute
   '/dashboard/admin': typeof DashboardAdminRouteWithChildren
@@ -519,6 +534,7 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/404': typeof R404Route
   '/dashboard': typeof DashboardRouteWithChildren
   '/login': typeof LoginRoute
   '/dashboard/cook': typeof DashboardCookRoute
@@ -547,6 +563,7 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/$locationSlug': typeof LocationSlugRouteWithChildren
+  '/404': typeof R404Route
   '/dashboard': typeof DashboardRouteWithChildren
   '/login': typeof LoginRoute
   '/dashboard/admin': typeof DashboardAdminRouteWithChildren
@@ -578,6 +595,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/$locationSlug'
+    | '/404'
     | '/dashboard'
     | '/login'
     | '/dashboard/admin'
@@ -605,6 +623,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/404'
     | '/dashboard'
     | '/login'
     | '/dashboard/cook'
@@ -631,6 +650,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/$locationSlug'
+    | '/404'
     | '/dashboard'
     | '/login'
     | '/dashboard/admin'
@@ -661,6 +681,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   LocationSlugRoute: typeof LocationSlugRouteWithChildren
+  R404Route: typeof R404Route
   DashboardRoute: typeof DashboardRouteWithChildren
   LoginRoute: typeof LoginRoute
 }
@@ -668,6 +689,7 @@ export interface RootRouteChildren {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LocationSlugRoute: LocationSlugRouteWithChildren,
+  R404Route: R404Route,
   DashboardRoute: DashboardRouteWithChildren,
   LoginRoute: LoginRoute,
 }
@@ -684,6 +706,7 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/$locationSlug",
+        "/404",
         "/dashboard",
         "/login"
       ]
@@ -701,6 +724,9 @@ export const routeTree = rootRoute
         "/$locationSlug/$tableNumber/place-order",
         "/$locationSlug/$tableNumber/"
       ]
+    },
+    "/404": {
+      "filePath": "404.tsx"
     },
     "/dashboard": {
       "filePath": "dashboard.tsx",

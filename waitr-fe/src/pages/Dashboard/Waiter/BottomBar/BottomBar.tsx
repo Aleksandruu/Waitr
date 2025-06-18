@@ -9,6 +9,7 @@ import {
 } from "waitr-fe/src/api/waiterApi";
 import { useDispatch } from "react-redux";
 import { waiterActions } from "../Waiter.slice";
+import ProductSelectionPopup from "./ProductSelectionPopup";
 
 type BottomBarProps = {
   // props here
@@ -25,6 +26,7 @@ const BottomBar = ({}: BottomBarProps) => {
   const [fetchOrder] = useLazyGetOrderQuery();
   const [goToTable] = useGoToTableMutation();
   const dispatch = useDispatch();
+  const [isProductPopupOpen, setIsProductPopupOpen] = useState(false);
 
   const isWaiterCalled = !!orders.find((order) => order.table === selectedTable)
     ?.waiterCalledAt;
@@ -39,6 +41,16 @@ const BottomBar = ({}: BottomBarProps) => {
       fetchOrder(selectedTable);
       dispatch(waiterActions.setSelectedTableProductsToBePaid([]));
     });
+  };
+
+  const handleOpenProductPopup = () => {
+    setIsProductPopupOpen(true);
+  };
+
+  const handleCloseProductPopup = () => {
+    setIsProductPopupOpen(false);
+    // Refresh order data after adding products
+    fetchOrder(selectedTable);
   };
 
   // Process products to merge duplicates by ID
@@ -137,9 +149,22 @@ const BottomBar = ({}: BottomBarProps) => {
             onClick={() => goToTable(selectedTable).unwrap()}
           ></Button>
         ) : (
-          <Button text={"Adauga produse"} wider tall color="brand"></Button>
+          <Button
+            text={"Adauga produse"}
+            wider
+            tall
+            color="brand"
+            onClick={handleOpenProductPopup}
+          ></Button>
         )}
       </div>
+
+      {/* Product Selection Popup */}
+      <ProductSelectionPopup
+        isOpen={isProductPopupOpen}
+        onClose={handleCloseProductPopup}
+        tableNumber={selectedTable}
+      />
     </>
   );
 };

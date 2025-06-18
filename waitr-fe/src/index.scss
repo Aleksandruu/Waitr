@@ -43,6 +43,7 @@ code {
   min-height: calc(100vh - 80px);
   width: 600px;
   padding-bottom: 2rem;
+  box-sizing: border-box;
   gap: 1rem;
 }
 

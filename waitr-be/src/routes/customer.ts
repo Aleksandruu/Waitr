@@ -1,5 +1,8 @@
 import express, { Request, Response } from "express";
-import { getLocationIdFromSlug } from "../middleware/customerMiddleware";
+import {
+  getLocationIdFromSlug,
+  checkLocationActive,
+} from "../middleware/customerMiddleware";
 import {
   CreateOrderDto,
   CartItemDto,
@@ -14,13 +17,16 @@ import pool from "../db";
 
 const router = express.Router();
 
-router.get("/:locationSlug/product", async (req: Request, res: Response) => {
-  try {
-    const locationSlug = req.params.locationSlug;
-    const locationId = await getLocationIdFromSlug(pool, locationSlug);
+router.get(
+  "/:locationSlug/product",
+  checkLocationActive,
+  async (req: Request, res: Response) => {
+    try {
+      const locationSlug = req.params.locationSlug;
+      const locationId = await getLocationIdFromSlug(pool, locationSlug);
 
-    const categoriesWithProductsQuery = await pool.query(
-      `
+      const categoriesWithProductsQuery = await pool.query(
+        `
        SELECT 
     c.id AS "categoryId",
     c.name AS "categoryName",
@@ -50,24 +56,26 @@ router.get("/:locationSlug/product", async (req: Request, res: Response) => {
       c.id, c.name, c.location_id;
 
         `,
-      [locationId]
-    );
+        [locationId]
+      );
 
-    const categoriesWithProducts: CategoryWithProductsDto[] =
-      categoriesWithProductsQuery.rows;
+      const categoriesWithProducts: CategoryWithProductsDto[] =
+        categoriesWithProductsQuery.rows;
 
-    res.status(200).json(categoriesWithProducts);
-    return;
-  } catch (error) {
-    if (error instanceof Error) {
-      res.status(500).json({ error: error.message });
-      console.error("Error fetching products:", error);
+      res.status(200).json(categoriesWithProducts);
+      return;
+    } catch (error) {
+      if (error instanceof Error) {
+        res.status(500).json({ error: error.message });
+        console.error("Error fetching products:", error);
+      }
     }
   }
-});
+);
 
 router.post(
   "/order/:locationSlug/:table",
+  checkLocationActive,
   async (req: Request, res: Response) => {
     try {
       const locationSlug = req.params.locationSlug;
@@ -171,6 +179,7 @@ router.post(
 
 router.put(
   "/order/:locationSlug/:table",
+  checkLocationActive,
   async (req: Request, res: Response) => {
     try {
       const locationSlug = req.params.locationSlug;
@@ -267,6 +276,7 @@ router.put(
 
 router.get(
   "/order/:locationSlug/:table",
+  checkLocationActive,
   async (req: Request, res: Response) => {
     try {
       const locationSlug = req.params.locationSlug;
@@ -310,6 +320,7 @@ router.get(
 
 router.get(
   "/unpaid-order/:locationSlug/:table",
+  checkLocationActive,
   async (req: Request, res: Response) => {
     try {
       const locationSlug = req.params.locationSlug;
@@ -367,6 +378,7 @@ router.get(
 
 router.post(
   "/call-waiter/:locationSlug/:table",
+  checkLocationActive,
   async (req: Request, res: Response) => {
     try {
       const locationSlug = req.params.locationSlug;
@@ -437,6 +449,7 @@ router.post(
 
 router.get(
   "/waiter-called/:locationSlug/:table",
+  checkLocationActive,
   async (req: Request, res: Response) => {
     try {
       const locationSlug = req.params.locationSlug;
@@ -476,6 +489,7 @@ router.get(
 
 router.post(
   "/bill/:locationSlug/:table",
+  checkLocationActive,
   async (req: Request, res: Response) => {
     try {
       const locationSlug = req.params.locationSlug;

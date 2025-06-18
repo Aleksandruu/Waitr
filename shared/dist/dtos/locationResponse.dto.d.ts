@@ -8,5 +8,6 @@ export interface LocationResponseDto {
     logoMime?: string;
     color?: string;
     staff?: StaffMember[];
+    active?: boolean;
 }
 //# sourceMappingURL=locationResponse.dto.d.ts.map

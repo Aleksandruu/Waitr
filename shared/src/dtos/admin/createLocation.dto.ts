@@ -3,4 +3,5 @@ export interface CreateLocationDto {
   locationSlug: string;
   managerUsername: string;
   managerPassword: string;
+  tables: number;
 }

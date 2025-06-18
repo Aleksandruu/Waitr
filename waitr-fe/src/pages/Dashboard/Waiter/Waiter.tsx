@@ -58,12 +58,13 @@ const Waiter = ({}: WaiterProps) => {
         </div>
       )}
 
-      {/* Then Display Products */}
-      {orderData &&
-        orderData.products &&
+      {orderData && orderData.products.length > 0 ? (
         orderData.products.map((orderItem: OrderItemDto, index: number) => {
           return <Product key={index} orderItem={orderItem} />;
-        })}
+        })
+      ) : (
+        <p>Nu exista comenzi pentru acest masa</p>
+      )}
       <BottomBar></BottomBar>
     </div>
   );

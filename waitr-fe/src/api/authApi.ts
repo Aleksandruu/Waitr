@@ -9,6 +9,16 @@ export const authApi = api.injectEndpoints({
         method: "POST",
         body: credentials,
       }),
+      invalidatesTags: [
+        "Settings",
+        "Staff",
+        "Locations",
+        "Order",
+        "Categories",
+        "Products",
+        "CalledWaiter",
+        "Bill",
+      ],
     }),
   }),
 });

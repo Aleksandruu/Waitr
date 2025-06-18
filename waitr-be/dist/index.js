@@ -24,9 +24,9 @@ const server = http_1.default.createServer(app);
 const io = (0, sockets_1.getIo)();
 io.on("connection", (socket) => {
     console.log("Socket conectat:", socket.id);
-    socket.on("join-location", (locationId) => {
-        socket.join(`waiter-${locationId}`);
-        console.log(`Socket ${socket.id} joined waiter-${locationId}`);
+    socket.on("join-location", (roomName) => {
+        socket.join(roomName);
+        console.log(`Socket ${socket.id} joined ${roomName}`);
     });
     socket.on("disconnect", () => {
         console.log("Socket deconectat:", socket.id);
@@ -35,8 +35,8 @@ io.on("connection", (socket) => {
 app.use((0, cors_1.default)({
     origin: "*",
     // [
-    //   process.env.CORS_ORIGIN || "https://waitr-6728.vercel.app",
-    //   "http://localhost:3000",
+    //   // process.env.CORS_ORIGIN || "https://waitr-ten.vercel.app",
+    //   // "http://localhost:3000",
     //   "*",
     // ],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],

@@ -18,6 +18,14 @@ export const adminApi = api.injectEndpoints({
       }),
       invalidatesTags: ["Locations"],
     }),
+    changeActiveStatus: build.mutation<void, { id: string; active: boolean }>({
+      query: ({ id, active }) => ({
+        url: `admin/locations/${id}/active`,
+        method: "PATCH",
+        body: { active },
+      }),
+      invalidatesTags: ["Locations"],
+    }),
   }),
 });
 
@@ -25,4 +33,5 @@ export const {
   useGetLocationsQuery,
   useGetLocationByIdQuery,
   useCreateLocationMutation,
+  useChangeActiveStatusMutation,
 } = adminApi;
