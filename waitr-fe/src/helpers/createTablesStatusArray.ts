@@ -6,10 +6,10 @@ import {
 } from "shared";
 
 const statusPriority: OrderStatus[] = [
+  "billed",
   "ready",
   "preparing",
   "delivered",
-  "billed",
   "payed",
 ];
 
@@ -65,7 +65,7 @@ const getStatusAndOldestTime = (
 
       if (oldestBillTime < oldestTime) {
         oldestTime = oldestBillTime;
-        resultStatus = "billed";
+        resultStatus = "ready";
       }
     }
   }
