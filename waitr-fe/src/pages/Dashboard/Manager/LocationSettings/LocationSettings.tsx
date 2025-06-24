@@ -135,15 +135,13 @@ const LocationSettings = ({}: LocationSettingsProps) => {
             }}
           />
           <ColorSliders setColor={changeColor} color={settings.color!} />
-          {!!settings ? (
+          {!!settings && (
             <ImageInput
               name="Logo"
               onChange={changeLogo}
               initialImage={selectedLogo}
               small="Here you can upload or update your logo. We recommend uploading an image with a transparent background for the best results!"
             ></ImageInput>
-          ) : (
-            ""
           )}
           <Button
             text="Save"

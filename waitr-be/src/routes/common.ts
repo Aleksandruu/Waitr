@@ -5,8 +5,6 @@ import pool from "../db";
 
 const router = express.Router();
 
-//location
-
 router.get("/location/settings/:slug", async (req: Request, res: Response) => {
   try {
     let locationId = "";

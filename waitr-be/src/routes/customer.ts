@@ -147,7 +147,6 @@ router.post(
 
       const io = getIo();
 
-      // Send pings based on product statuses
       const statusSet = new Set<ProductStatus>();
       ordersDetails.products.forEach((orderDetails) => {
         const status = productStatusMap[orderDetails.id];

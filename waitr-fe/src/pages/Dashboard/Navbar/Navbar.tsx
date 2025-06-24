@@ -7,11 +7,13 @@ import { RootState } from "waitr-fe/src/store";
 import { bufferToFile } from "waitr-fe/src/helpers/byteArrayToFile";
 import { useEffect, useState } from "react";
 import { useAppSelector } from "waitr-fe/src/helpers/app.hooks";
-import { useGetLocationQuery } from "../../../api/managerApi";
+import { useGetLocationSettingsQuery } from "../../../api/managerApi";
 
 function Navbar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  useGetLocationSettingsQuery("undefined");
 
   const {
     logoBuffer: buffer,
