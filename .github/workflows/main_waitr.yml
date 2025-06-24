@@ -24,14 +24,12 @@ jobs:
         working-directory: waitr-be
         run: echo '${{ secrets.FIREBASE_ADMINSDK_JSON }}' > waitr-aa853-firebase-adminsdk-fbsvc-e36e08e124.json
 
-      # Install & build shared module PRIMA dată
       - name: Install and build shared
         working-directory: shared
         run: |
           npm install
           npm run build
 
-      # Apoi instalează backend și build în waitr-be
       - name: npm install, build, and test (backend)
         working-directory: waitr-be
         run: |
