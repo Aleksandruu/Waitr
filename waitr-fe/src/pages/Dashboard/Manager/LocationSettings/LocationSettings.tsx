@@ -5,22 +5,18 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import Input from "waitr-fe/src/base_components/Input/Input";
 import ColorSliders from "waitr-fe/src/base_components/ColorSlider/ColorSlider";
 import Button from "waitr-fe/src/base_components/Button/Button";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  locationActions,
-  LocationState,
-} from "waitr-fe/src/pages/Location.slice";
+import { locationActions } from "waitr-fe/src/pages/Location.slice";
 import { useEffect, useState } from "react";
 import {
   useGetLocationSettingsQuery,
   useUpdateSettingsMutation,
 } from "waitr-fe/src/api/managerApi";
-import { RootState } from "waitr-fe/src/store";
 import { useNavigate } from "@tanstack/react-router";
 import { UpdateLocationSettingsDto } from "shared";
 import ImageInput from "waitr-fe/src/base_components/ImageInput/ImageInput";
 import { bufferToFile } from "waitr-fe/src/helpers/byteArrayToFile";
 import { FileBuffer } from "shared";
+import { useAppDispatch, useAppSelector } from "waitr-fe/src/helpers/app.hooks";
 
 type LocationSettingsProps = {
   // props here
@@ -35,14 +31,14 @@ const settingsSchema = yup.object({
 type FormData = yup.InferType<typeof settingsSchema>;
 
 const LocationSettings = ({}: LocationSettingsProps) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const { data } = useGetLocationSettingsQuery(undefined);
   const [updateSettings, { isLoading }] = useUpdateSettingsMutation();
 
-  const settings = useSelector((state: RootState) => {
-    return state.location as LocationState;
+  const settings = useAppSelector((state) => {
+    return state.location;
   });
 
   const [selectedLogo, setSelectedLogo] = useState<File | undefined>(undefined);

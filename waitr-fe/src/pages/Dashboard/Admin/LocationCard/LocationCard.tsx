@@ -10,7 +10,8 @@ interface LocationCardProps {
   isLoading?: boolean;
 }
 
-function LocationCard({ location, isLoading }: LocationCardProps) {
+function LocationCard(props: LocationCardProps) {
+  const { location, isLoading } = props;
   const clientUrl = import.meta.env.VITE_APP_CLIENT_URL;
 
   const [changeActiveStatus, { isLoading: loading }] =

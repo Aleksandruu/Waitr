@@ -1,17 +1,15 @@
 import { useNavigate } from "@tanstack/react-router";
 import styles from "./Navbar.module.scss";
 import Button from "../../../base_components/Button/Button";
-import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../Login/Auth.slice";
-import { RootState } from "waitr-fe/src/store";
 import { bufferToFile } from "waitr-fe/src/helpers/byteArrayToFile";
 import { useEffect, useState } from "react";
-import { useAppSelector } from "waitr-fe/src/helpers/app.hooks";
+import { useAppDispatch, useAppSelector } from "waitr-fe/src/helpers/app.hooks";
 import { useGetLocationSettingsQuery } from "../../../api/managerApi";
 
-function Navbar() {
+const Navbar = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useGetLocationSettingsQuery("undefined");
 
@@ -48,6 +46,6 @@ function Navbar() {
       <div className={styles.navFiller}></div>
     </>
   );
-}
+};
 
 export default Navbar;

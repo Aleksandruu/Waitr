@@ -2,18 +2,19 @@ import { ProductResponseDto } from "shared";
 import styles from "./Product.module.scss";
 import { useState } from "react";
 import { orderActions } from "../../Customer.slice";
-import { useDispatch } from "react-redux";
 import QuantityButton from "waitr-fe/src/base_components/QuantityButton/QuantityButton";
+import { useAppDispatch } from "waitr-fe/src/helpers/app.hooks";
 
 type ProductProps = {
   product: ProductResponseDto;
   quantity: number;
 };
 
-const Product = ({ product, quantity }: ProductProps) => {
+const Product = (props: ProductProps) => {
+  const { product, quantity } = props;
   const [expanded, setExpanded] = useState(quantity > 0);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   // Functions for AddToCartButton (no event parameter needed)
   const handleAddToCart = () => {

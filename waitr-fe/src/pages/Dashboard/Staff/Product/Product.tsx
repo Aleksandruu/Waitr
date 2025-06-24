@@ -12,15 +12,16 @@ type StaffProductProps = {
   orderTime: string;
 };
 
-const Product = ({
-  orderProductId,
-  quantity,
-  status,
-  productName,
-  preferences,
-  tableNumber,
-  orderTime,
-}: StaffProductProps) => {
+const Product = (props: StaffProductProps) => {
+  const {
+    orderProductId,
+    quantity,
+    status,
+    productName,
+    preferences,
+    tableNumber,
+    orderTime,
+  } = props;
   const [markReady, { isLoading }] = useMarkProductReadyMutation();
 
   const formattedTime = new Date(orderTime).toLocaleTimeString([], {

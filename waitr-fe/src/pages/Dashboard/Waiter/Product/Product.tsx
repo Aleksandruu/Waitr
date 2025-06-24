@@ -6,9 +6,8 @@ import {
   useDeliverMutation,
   useLazyGetOrderQuery,
 } from "waitr-fe/src/api/waiterApi";
-import { useAppSelector } from "waitr-fe/src/helpers/app.hooks";
+import { useAppDispatch, useAppSelector } from "waitr-fe/src/helpers/app.hooks";
 import QuantityButton from "waitr-fe/src/base_components/QuantityButton/QuantityButton";
-import { useDispatch } from "react-redux";
 import { waiterActions } from "../Waiter.slice";
 
 type ProductProps = {
@@ -20,16 +19,14 @@ const Product = ({ orderItem }: ProductProps) => {
     (state) => state.waiter
   );
   const [deliverProduct, { isLoading }] = useDeliverMutation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [fetchOrder] = useLazyGetOrderQuery();
 
-  // Find the quantity of this product in the selectedTableProductsToBePaid array
   const productToBePaid = selectedTableProductsToBePaid.find(
     (product) => product.id === orderItem.id
   );
   const quantityToBePaid = productToBePaid ? productToBePaid.quantity : 0;
 
-  // Handler functions for the quantity button
   const handleAddToPayment = () => {
     dispatch(
       waiterActions.addProductToSelectedTableProductsToBePaid(orderItem)

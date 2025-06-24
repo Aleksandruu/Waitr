@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import TableList from "./TableList/TableList";
 import styles from "./Waiter.module.scss";
 import {
@@ -6,24 +5,21 @@ import {
   useGetOrdersQuery,
   useGetBillsQuery,
 } from "waitr-fe/src/api/waiterApi";
-import { RootState } from "waitr-fe/src/store";
 import Product from "./Product/Product";
 import Bill from "./Bill/Bill";
 import { connectWaiterSocket } from "./Waiter.sockets";
 import { useEffect } from "react";
 import { BillResponseDto, OrderItemDto, OrderResponseDto } from "shared";
-import { WaiterState } from "./Waiter.slice";
 import BottomBar from "./BottomBar/BottomBar";
+import { useAppSelector } from "waitr-fe/src/helpers/app.hooks";
 
 type WaiterProps = {
   // props here
 };
 
 const Waiter = ({}: WaiterProps) => {
-  const { selectedTable, orders } = useSelector(
-    (state: RootState) => state.waiter as WaiterState
-  );
-  const { id: locationId } = useSelector((state: RootState) => state.location);
+  const { selectedTable, orders } = useAppSelector((state) => state.waiter);
+  const { id: locationId } = useAppSelector((state) => state.location);
 
   useGetOrdersQuery();
   const [fetchOrder] = useLazyGetOrderQuery();
@@ -49,7 +45,6 @@ const Waiter = ({}: WaiterProps) => {
     <div className={styles.container}>
       <TableList />
 
-      {/* Display Bills First */}
       {bills && bills.length > 0 && (
         <div className={styles.billsSection}>
           {bills.map((bill: BillResponseDto) => (

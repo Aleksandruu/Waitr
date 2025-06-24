@@ -1,15 +1,14 @@
 import styles from "./TableList.module.scss";
 import { classNames } from "waitr-fe/src/helpers/className";
-import { useDispatch, useSelector } from "react-redux";
-import { waiterActions, WaiterState } from "../Waiter.slice";
-import { RootState } from "waitr-fe/src/store";
+import { waiterActions } from "../Waiter.slice";
+import { useAppDispatch, useAppSelector } from "waitr-fe/src/helpers/app.hooks";
 
 type TableListProps = {};
 
 const TableList = (props: TableListProps) => {
-  const dispatch = useDispatch();
-  const { selectedTable, tablesStatus } = useSelector(
-    (state: RootState) => state.waiter as WaiterState
+  const dispatch = useAppDispatch();
+  const { selectedTable, tablesStatus } = useAppSelector(
+    (state) => state.waiter
   );
 
   return (

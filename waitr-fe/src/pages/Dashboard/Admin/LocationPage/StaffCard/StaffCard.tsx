@@ -1,4 +1,3 @@
-import styles from "./StaffCard.module.scss";
 import { StaffMember } from "shared";
 import cardStyles from "../../../card.module.scss";
 
@@ -7,12 +6,13 @@ interface StaffCardProps {
   isLoading?: boolean;
 }
 
-function StaffCard({ staff, isLoading }: StaffCardProps) {
+const StaffCard = (props: StaffCardProps) => {
+  const { staff, isLoading } = props;
   return (
     <div className={cardStyles.card}>
       {staff ? (
         <>
-          <h2>{staff.name}</h2>
+          <h2>{staff.username}</h2>
           <p>{staff.role}</p>
           <p>{staff.id}</p>
         </>
@@ -28,6 +28,6 @@ function StaffCard({ staff, isLoading }: StaffCardProps) {
       ) : null}
     </div>
   );
-}
+};
 
 export default StaffCard;

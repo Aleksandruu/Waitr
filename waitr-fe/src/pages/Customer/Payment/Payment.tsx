@@ -1,5 +1,4 @@
 import { useParams } from "@tanstack/react-router";
-import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import styles from "./Payment.module.scss";
 import QuantityButton from "waitr-fe/src/base_components/QuantityButton/QuantityButton";
@@ -7,24 +6,19 @@ import Button from "waitr-fe/src/base_components/Button/Button";
 import { useGetUnpaidOrderQuery } from "waitr-fe/src/api/customerApi";
 import { CartItemDto } from "shared";
 import { orderActions } from "../Customer.slice";
-import { RootState } from "waitr-fe/src/store";
-import PaymentMethodPopup from "./PaymentMethodPopup";
+import { useAppDispatch, useAppSelector } from "waitr-fe/src/helpers/app.hooks";
 
-type PaymentProps = {
-  // props here (empty for now)
-};
+type PaymentProps = {};
 
 const Payment = (props: PaymentProps) => {
   const { locationSlug, tableNumber } = useParams({ strict: false });
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [tipInput, setTipInput] = useState<string>("0");
 
-  // Get data from Redux store
-  const { selectedProductsForPayment, tipAmount } = useSelector(
-    (state: RootState) => state.order
+  const { selectedProductsForPayment, tipAmount } = useAppSelector(
+    (state) => state.order
   );
 
-  // Initialize tipInput from state
   useEffect(() => {
     setTipInput(tipAmount.toString());
   }, [tipAmount]);
@@ -48,13 +42,11 @@ const Payment = (props: PaymentProps) => {
     dispatch(orderActions.setTipAmount(numericValue));
   };
 
-  // Fetch unpaid products
   const { data: currentOrder = [], isLoading } = useGetUnpaidOrderQuery({
     locationSlug: locationSlug || "",
     table: Number(tableNumber) || 0,
   });
 
-  // Handler functions using Redux actions
   const handleAddToPayment = (product: CartItemDto) => {
     dispatch(
       orderActions.addProductToPayment({ productId: product.productId })

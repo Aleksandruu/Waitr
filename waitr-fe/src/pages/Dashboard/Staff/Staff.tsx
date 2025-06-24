@@ -1,10 +1,10 @@
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
 import styles from "./Staff.module.scss";
 import { useLazyGetStaffProductsQuery } from "waitr-fe/src/api/staffApi";
 import Product from "./Product/Product";
 import { connectStaffSocket } from "./Staff.sockets";
 import { RootState } from "waitr-fe/src/store";
+import { useAppSelector } from "waitr-fe/src/helpers/app.hooks";
 
 type StaffProps = {
   // props here
@@ -13,8 +13,8 @@ type StaffProps = {
 const Staff = ({}: StaffProps) => {
   const [fetchStaffProducts, { data, isLoading, error }] =
     useLazyGetStaffProductsQuery();
-  const { id: locationId } = useSelector((state: RootState) => state.location);
-  const { user } = useSelector((state: RootState) => state.auth);
+  const { id: locationId } = useAppSelector((state) => state.location);
+  const { user } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
     fetchStaffProducts();

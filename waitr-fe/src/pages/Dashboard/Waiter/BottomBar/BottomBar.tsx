@@ -1,13 +1,12 @@
 import { useState, useRef, useEffect } from "react";
 import styles from "./BottomBar.module.scss";
-import { useAppSelector } from "waitr-fe/src/helpers/app.hooks";
+import { useAppDispatch, useAppSelector } from "waitr-fe/src/helpers/app.hooks";
 import Button from "waitr-fe/src/base_components/Button/Button";
 import {
   useGoToTableMutation,
   useLazyGetOrderQuery,
   useCreateWaiterBillMutation,
 } from "waitr-fe/src/api/waiterApi";
-import { useDispatch } from "react-redux";
 import { waiterActions } from "../Waiter.slice";
 import ProductSelectionPopup from "./ProductSelectionPopup";
 
@@ -25,7 +24,7 @@ const BottomBar = ({}: BottomBarProps) => {
   const [createBill, { isLoading }] = useCreateWaiterBillMutation();
   const [fetchOrder] = useLazyGetOrderQuery();
   const [goToTable] = useGoToTableMutation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [isProductPopupOpen, setIsProductPopupOpen] = useState(false);
 
   const isWaiterCalled = !!orders.find((order) => order.table === selectedTable)
@@ -53,7 +52,6 @@ const BottomBar = ({}: BottomBarProps) => {
     fetchOrder(selectedTable);
   };
 
-  // Process products to merge duplicates by ID
   useEffect(() => {
     const mergedProducts = selectedTableProductsToBePaid.reduce(
       (acc, product) => {
@@ -87,10 +85,8 @@ const BottomBar = ({}: BottomBarProps) => {
       }
     };
 
-    // Update height initially
     updateFillerHeight();
 
-    // Create a ResizeObserver to watch for height changes
     const resizeObserver = new ResizeObserver(updateFillerHeight);
     if (bottomBarRef.current) {
       resizeObserver.observe(bottomBarRef.current);
@@ -100,7 +96,6 @@ const BottomBar = ({}: BottomBarProps) => {
       resizeObserver.disconnect();
     };
   }, [products]);
-  // Re-run when products change
 
   return (
     <>

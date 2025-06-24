@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./PaymentMethodPopup.module.scss";
 import Button from "waitr-fe/src/base_components/Button/Button";
 
@@ -9,12 +8,8 @@ interface PaymentMethodPopupProps {
   isLoading: boolean;
 }
 
-const PaymentMethodPopup: React.FC<PaymentMethodPopupProps> = ({
-  isOpen,
-  onClose,
-  onSelectPaymentMethod,
-  isLoading,
-}) => {
+const PaymentMethodPopup = (props: PaymentMethodPopupProps) => {
+  const { isOpen, onClose, onSelectPaymentMethod, isLoading } = props;
   if (!isOpen) return null;
 
   return (
@@ -31,7 +26,6 @@ const PaymentMethodPopup: React.FC<PaymentMethodPopupProps> = ({
             text="Cash"
             color="brand"
             tall
-            wider
             onClick={() => onSelectPaymentMethod("cash")}
             loading={isLoading}
             disabled={isLoading}
@@ -40,7 +34,6 @@ const PaymentMethodPopup: React.FC<PaymentMethodPopupProps> = ({
             text="Card"
             color="brand"
             tall
-            wider
             onClick={() => onSelectPaymentMethod("card")}
             loading={isLoading}
             disabled={isLoading}

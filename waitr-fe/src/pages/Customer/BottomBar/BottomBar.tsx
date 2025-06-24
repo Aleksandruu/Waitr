@@ -1,9 +1,6 @@
 import Button from "waitr-fe/src/base_components/Button/Button";
 import styles from "./BottomBar.module.scss";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "waitr-fe/src/store";
 import { useNavigate, useParams } from "@tanstack/react-router";
-import { orderActions, OrderState } from "../Customer.slice";
 import {
   useCreateOrderMutation,
   useGetCurrentOrderQuery,
@@ -17,16 +14,16 @@ import {
   ProductQuantityDto,
   CreateBillDto,
 } from "shared";
-import { useAppSelector } from "waitr-fe/src/helpers/app.hooks";
+import { useAppDispatch, useAppSelector } from "waitr-fe/src/helpers/app.hooks";
 import { useState } from "react";
 import PaymentMethodPopup from "../Payment/PaymentMethodPopup";
+import { orderActions } from "../Customer.slice";
 
 type BottomBarProps = {};
 
 const BottomBar = ({}: BottomBarProps) => {
   const { products, status, selectedProductsForPayment, tipAmount, isLoaded } =
     useAppSelector((state) => state.order);
-  const [localWaiterCalled, setLocalWaiterCalled] = useState(false);
   const [isPaymentPopupOpen, setIsPaymentPopupOpen] = useState(false);
 
   const { locationSlug, tableNumber } = useParams({ strict: false });
@@ -51,7 +48,7 @@ const BottomBar = ({}: BottomBarProps) => {
     0
   );
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const placeOrder = () => {
@@ -106,14 +103,6 @@ const BottomBar = ({}: BottomBarProps) => {
         locationSlug: locationSlug!,
         tableNumber: tableNumberInt,
       }).unwrap();
-
-      // Set local state for immediate feedback
-      setLocalWaiterCalled(true);
-
-      // Reset the local waiter called state after 10 seconds
-      setTimeout(() => {
-        setLocalWaiterCalled(false);
-      }, 10000);
     } catch (error) {
       console.error("Failed to call waiter:", error);
     }
@@ -139,7 +128,6 @@ const BottomBar = ({}: BottomBarProps) => {
 
       setIsPaymentPopupOpen(false);
 
-      // Navigate back to the main page or show a success message
       navigate({
         to: "/$locationSlug/$tableNumber",
         params: {

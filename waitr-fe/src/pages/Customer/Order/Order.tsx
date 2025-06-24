@@ -1,8 +1,7 @@
-import { useDispatch, useSelector } from "react-redux";
 import styles from "./Order.module.scss";
 import { useEffect } from "react";
 import { orderActions } from "../Customer.slice";
-import { useAppSelector } from "waitr-fe/src/helpers/app.hooks";
+import { useAppDispatch, useAppSelector } from "waitr-fe/src/helpers/app.hooks";
 
 type OrderProps = {
   // props here
@@ -21,7 +20,7 @@ const Order = ({}: OrderProps) => {
     return sum + product.price * product.quantity;
   }, 0);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(orderActions.setStatus("checkout"));

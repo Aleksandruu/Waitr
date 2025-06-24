@@ -34,7 +34,11 @@ const QuantityButton = ({
         ></Button>
       ) : (
         <div
-          className={classNames(styles.quantityBtn, tall ? styles.tall : "")}
+          className={classNames(
+            styles.quantityBtn,
+            tall ? styles.tall : "",
+            color === "yellow" ? styles.yellow : styles.brand
+          )}
         >
           <span onClick={onDecrement}>-</span>
           <span>{quantity}</span>

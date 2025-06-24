@@ -2,7 +2,7 @@ import { useParams } from "@tanstack/react-router";
 import StaffCard from "./StaffCard/StaffCard";
 import { useGetLocationByIdQuery } from "../../../../api/adminApi";
 
-function LocationPage() {
+const LocationPage = () => {
   const clientUrl = import.meta.env.VITE_APP_CLIENT_URL;
   const { locationId } = useParams({ strict: false });
 
@@ -29,6 +29,6 @@ function LocationPage() {
       </div>
     </div>
   );
-}
+};
 
 export default LocationPage;
