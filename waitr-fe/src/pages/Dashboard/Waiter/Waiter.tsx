@@ -4,11 +4,12 @@ import {
   useLazyGetOrderQuery,
   useGetOrdersQuery,
   useGetBillsQuery,
+  useLazyGetBillsQuery,
 } from "waitr-fe/src/api/waiterApi";
 import Product from "./Product/Product";
 import Bill from "./Bill/Bill";
 import { connectWaiterSocket } from "./Waiter.sockets";
-import { useEffect } from "react";
+import { use, useEffect } from "react";
 import { BillResponseDto, OrderItemDto, OrderResponseDto } from "shared";
 import BottomBar from "./BottomBar/BottomBar";
 import { useAppSelector } from "waitr-fe/src/helpers/app.hooks";
@@ -23,6 +24,7 @@ const Waiter = ({}: WaiterProps) => {
 
   useGetOrdersQuery();
   const [fetchOrder] = useLazyGetOrderQuery();
+  const [fetchBills] = useLazyGetBillsQuery();
   const { data: bills } = useGetBillsQuery(selectedTable, {
     skip: !selectedTable,
   });
@@ -38,6 +40,7 @@ const Waiter = ({}: WaiterProps) => {
 
     connectWaiterSocket(locationId, (table) => {
       fetchOrder(table);
+      fetchBills(table);
     });
   }, [locationId, fetchOrder]);
 

@@ -101,6 +101,7 @@ export const {
   useLazyGetOrderQuery,
   useGetOrdersQuery,
   useGetBillsQuery,
+  useLazyGetBillsQuery,
   useDeliverMutation,
   useCreateWaiterBillMutation,
   useGoToTableMutation,
