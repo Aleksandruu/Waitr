@@ -2,12 +2,16 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@shared/*": ["shared/*"]
+      "@types/*": ["packages/types/*"],
+      "apps/web/*": ["apps/web/src/*"],
+      "apps/web/src/*": ["apps/web/src/*"]
     }
   },
   "references": [
     { "path": "waitr-be" },
-    { "path": "waitr-fe" },
-    { "path": "shared" }
+    { "path": "apps/web" },
+    { "path": "packages/types" }
+    // { "path": "packages/api" },
+    // { "path": "packages/store" }
   ]
 }
