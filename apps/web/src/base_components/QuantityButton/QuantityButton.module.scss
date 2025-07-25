@@ -1,5 +1,5 @@
 .quantity-btn {
-  padding: 0.2rem 1.5rem;
+  width: fit-content !important;
   text-decoration: none;
   font-size: 16px;
   cursor: pointer;
@@ -12,9 +12,55 @@
   align-items: center;
   width: 90px;
   font-weight: 700;
-
+  overflow: hidden;
   .disabled {
     color: #8c8c8c;
+  }
+  .control {
+    padding: 0.25rem 1.5rem;
+    height: 100%;
+    text-align: center;
+    transition: all 0.15s ease;
+    user-select: none;
+
+    &.decrement {
+      &:hover {
+        background: linear-gradient(
+          to right,
+          rgba(0, 0, 0, 0.05) 0%,
+          transparent 100%
+        );
+        border-radius: 0.25rem;
+      }
+
+      &:active {
+        transform: scale(0.95);
+        background: linear-gradient(
+          to right,
+          rgba(0, 0, 0, 0.1) 0%,
+          transparent 100%
+        );
+      }
+    }
+
+    &.increment {
+      &:hover {
+        background: linear-gradient(
+          to left,
+          rgba(0, 0, 0, 0.1) 0%,
+          transparent 100%
+        );
+      }
+
+      &:active {
+        transform: scale(0.95);
+        background: linear-gradient(
+          to left,
+          rgba(0, 0, 0, 0.2) 0%,
+          transparent 100%
+        );
+      }
+    }
   }
 }
 
@@ -28,4 +74,25 @@
 
 .yellow {
   border: 1px solid rgb(129, 129, 0);
+}
+
+.borderRadius-none {
+  border-radius: 0;
+}
+.borderRadius-small {
+  border-radius: 0.25rem;
+}
+.borderRadius-medium {
+  border-radius: 0.5rem;
+}
+.borderRadius-round {
+  border-radius: 1.5rem;
+}
+
+.decrement {
+  // Styles handled within .control.decrement
+}
+
+.increment {
+  // Styles handled within .control.increment
 }

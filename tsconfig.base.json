@@ -10,6 +10,7 @@
   "references": [
     { "path": "waitr-be" },
     { "path": "apps/web" },
+    { "path": "apps/mobile" },
     { "path": "packages/types" }
     // { "path": "packages/api" },
     // { "path": "packages/store" }

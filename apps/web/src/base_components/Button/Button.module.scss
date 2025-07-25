@@ -8,7 +8,6 @@
   text-decoration: none;
   font-size: 15px;
   cursor: pointer;
-  border-radius: 1.5rem;
   font-weight: 600;
   text-wrap: nowrap;
 }
@@ -64,4 +63,17 @@
 
 .textWrap {
   text-wrap: wrap;
+}
+
+.borderRadius-none {
+  border-radius: 0;
+}
+.borderRadius-small {
+  border-radius: 0.25rem;
+}
+.borderRadius-medium {
+  border-radius: 0.5rem;
+}
+.borderRadius-round {
+  border-radius: 1.5rem;
 }

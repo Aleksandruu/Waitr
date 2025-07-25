@@ -19,6 +19,7 @@ interface ButtonProps {
   loading?: boolean;
   submit?: boolean;
   textWrap?: boolean;
+  borderRadius?: "none" | "small" | "medium" | "round";
 }
 
 const Button = ({
@@ -32,6 +33,7 @@ const Button = ({
   loading = false,
   submit = false,
   textWrap = false,
+  borderRadius = "round",
 }: ButtonProps) => {
   return (
     <button
@@ -41,7 +43,8 @@ const Button = ({
         wide ? styles.wide : "",
         wider ? styles.wider : "",
         tall ? styles.tall : "",
-        textWrap ? styles.textWrap : ""
+        textWrap ? styles.textWrap : "",
+        styles[`borderRadius-${borderRadius}`]
       )}
       disabled={disabled || loading}
       onClick={(e) => onClick?.(e)}

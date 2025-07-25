@@ -11,6 +11,7 @@ type QuantityButtonProps = {
   disabled?: boolean;
   color?: "brand" | "yellow";
   tall?: boolean;
+  borderRadius?: "none" | "small" | "medium" | "round";
 };
 
 const QuantityButton = ({
@@ -22,6 +23,7 @@ const QuantityButton = ({
   disabled,
   color = "brand",
   tall = false,
+  borderRadius = "round",
 }: QuantityButtonProps) => {
   return (
     <>
@@ -31,20 +33,31 @@ const QuantityButton = ({
           onClick={onClick}
           color={color}
           tall={tall}
+          borderRadius={borderRadius}
         ></Button>
       ) : (
         <div
           className={classNames(
             styles.quantityBtn,
             tall ? styles.tall : "",
-            color === "yellow" ? styles.yellow : styles.brand
+            color === "yellow" ? styles.yellow : styles.brand,
+            styles[`borderRadius-${borderRadius}`]
           )}
         >
-          <span onClick={onDecrement}>-</span>
+          <span
+            onClick={onDecrement}
+            className={classNames(styles.control, styles.decrement)}
+          >
+            -
+          </span>
           <span>{quantity}</span>
           <span
             onClick={disabled ? () => undefined : onIncrement}
-            className={disabled ? styles.disabled : ""}
+            className={classNames(
+              disabled ? styles.disabled : "",
+              styles.control,
+              styles.increment
+            )}
           >
             +
           </span>
