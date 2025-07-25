@@ -3,13 +3,13 @@
     "baseUrl": ".",
     "paths": {
       "@types/*": ["packages/types/*"],
-      "apps/web/*": ["apps/web/src/*"],
-      "apps/web/src/*": ["apps/web/src/*"]
+      "apps/waitr-web/*": ["apps/waitr-web/src/*"],
+      "apps/waitr-web/src/*": ["apps/waitr-web/src/*"]
     }
   },
   "references": [
     { "path": "waitr-be" },
-    { "path": "apps/web" },
+    { "path": "apps/waitr-web" },
     { "path": "apps/mobile" },
     { "path": "packages/types" }
     // { "path": "packages/api" },
