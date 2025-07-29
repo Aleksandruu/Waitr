@@ -2,7 +2,7 @@ import express, { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import { checkAdminRole } from "../middleware/roleMiddleware";
 import { authenticateToken } from "../middleware/authMiddleware";
-import { LocationResponseDto } from "shared";
+import { LocationResponseDto } from "types";
 import pool from "../db";
 
 const router = express.Router();

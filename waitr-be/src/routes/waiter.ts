@@ -2,13 +2,13 @@ import express, { Request, Response } from "express";
 import { checkWaiterRole } from "../middleware/roleMiddleware";
 import { authenticateToken } from "../middleware/authMiddleware";
 import { getLocationFromRequest } from "../middleware/managerMiddleware";
-import { OrderResponseDto } from "shared/src/dtos/waiter/orderResponse.dto";
 import {
   OrderItemDto,
   ProductStatus,
   BillResponseDto,
   BillItemDto,
-} from "shared";
+  OrderResponseDto,
+} from "types";
 import { getIo } from "../sockets";
 import pool from "../db";
 

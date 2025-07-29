@@ -1,4 +1,4 @@
-import { Role, UserModel } from "shared";
+import { Role, UserModel } from "types";
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 

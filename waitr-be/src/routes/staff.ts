@@ -2,7 +2,7 @@ import express, { Request, Response } from "express";
 import { checkStaffRole } from "../middleware/roleMiddleware";
 import { authenticateToken } from "../middleware/authMiddleware";
 import { getLocationFromRequest } from "../middleware/managerMiddleware";
-import { UserModel, OrderProductDto } from "shared";
+import { UserModel, OrderProductDto } from "types";
 import jwt from "jsonwebtoken";
 import pool from "../db";
 import { getIo } from "../sockets";

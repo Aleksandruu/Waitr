@@ -1,7 +1,9 @@
-import { useGetProductsQuery } from "@/api/customerApi";
+"use client"; // This is a client component 👈🏽
+
+import { useGetProductsQuery } from "../../../api/customerApi";
 import styles from "./ProductsList.module.scss";
 import { useEffect } from "react";
-import { Route } from "../../../routes/$locationSlug/$tableNumber/index";
+// import { Route } from "../../../app/[locationSlug]/[tableNumber]";
 import Product from "./Product/Product";
 import { orderActions } from "../Customer.slice";
 import { useAppDispatch, useAppSelector } from "../../../helpers/app.hooks";
@@ -13,7 +15,8 @@ type CustomerProps = {
 const Customer = ({}: CustomerProps) => {
   const { products, currentOrder } = useAppSelector((state) => state.order);
 
-  const { locationSlug } = Route.useParams();
+  const locationSlug = "the-bar";
+  // Route.useParams();
 
   const { data } = useGetProductsQuery(locationSlug);
 

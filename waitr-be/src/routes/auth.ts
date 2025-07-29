@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { LoginRequest, UserModel } from "shared";
+import { LoginRequest, UserModel } from "types";
 import pool from "../db";
 
 import dotenv from "dotenv";

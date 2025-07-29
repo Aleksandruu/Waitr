@@ -21,7 +21,7 @@
     "multer": "^1.4.5-lts.2",
     "pg": "^8.15.5",
     "socket.io": "^4.8.1",
-    "shared": "file:../shared"
+    "types": "file:../packages/types"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.1",

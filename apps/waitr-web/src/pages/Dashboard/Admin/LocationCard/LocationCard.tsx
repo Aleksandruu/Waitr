@@ -3,7 +3,7 @@ import Link from "next/link";
 import styles from "./LocationCard.module.scss";
 import cardStyles from "../../card.module.scss";
 import Button from "apps/waitr-web/src/base_components/Button/Button";
-import { useChangeActiveStatusMutation } from "@/api/adminApi";
+import { useChangeActiveStatusMutation } from "../../../../api/adminApi";
 
 interface LocationCardProps {
   location?: LocationResponseDto;

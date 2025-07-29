@@ -1,4 +1,4 @@
-import Customer from '@/pages/Customer/ProductsList/ProductsList';
+import Customer from "../../../pages/Customer/ProductsList/ProductsList";
 
 export default function TablePage() {
   return <Customer />;

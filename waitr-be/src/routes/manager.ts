@@ -14,7 +14,7 @@ import {
   CreateProductDto,
   LocationSettingsDto,
   ManagerProductResponseDto,
-} from "shared";
+} from "types";
 import multer from "multer";
 import pool from "../db";
 

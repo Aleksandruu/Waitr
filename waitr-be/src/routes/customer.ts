@@ -11,7 +11,7 @@ import {
   ProductModel,
   CategoryWithProductsDto,
   CreateBillDto,
-} from "shared";
+} from "types";
 import { getIo } from "../sockets";
 import pool from "../db";
 
