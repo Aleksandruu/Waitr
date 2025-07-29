@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import styles from "./Staff.module.scss";
-import { useLazyGetStaffProductsQuery } from "apps/waitr-web/src/api/staffApi";
+import { useLazyGetStaffProductsQuery } from "@/api/staffApi";
 import Product from "./Product/Product";
 import { connectStaffSocket } from "./Staff.sockets";
 import { RootState } from "apps/waitr-web/src/store";

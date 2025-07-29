@@ -4,8 +4,8 @@ import Select from "../../../../base_components/Select/Select";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Button from "../../../../base_components/Button/Button";
-import { useCreateStaffMutation } from "../../../../api/managerApi";
-import { useNavigate } from "@tanstack/react-router";
+import { useCreateStaffMutation } from "@/api/managerApi";
+import { useRouter } from "next/navigation";
 import { Role } from "types";
 
 const roles: Role[] = ["waiter", "cook", "barman", "barista"];
@@ -45,11 +45,11 @@ const CreateStaff = ({}: CreateStaffProps) => {
   });
 
   const [createStaff, { isLoading }] = useCreateStaffMutation();
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const onSubmit = async (data: FormData) => {
     await createStaff(data).unwrap();
-    navigate({ to: "/dashboard/manager" });
+    router.push("/dashboard/manager");
   };
 
   return (

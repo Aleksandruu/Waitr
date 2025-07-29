@@ -1,6 +1,6 @@
-import { useParams } from "@tanstack/react-router";
+import { useParams } from "next/navigation";
 import StaffCard from "./StaffCard/StaffCard";
-import { useGetLocationByIdQuery } from "../../../../api/adminApi";
+import { useGetLocationByIdQuery } from "apps/waitr-web/src/api/adminApi";
 
 const LocationPage = () => {
   const clientUrl = import.meta.env.VITE_APP_CLIENT_URL;

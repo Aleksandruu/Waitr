@@ -1,4 +1,4 @@
-import { useGetProductsQuery } from "../../../api/customerApi";
+import { useGetProductsQuery } from "@/api/customerApi";
 import styles from "./ProductsList.module.scss";
 import { useEffect } from "react";
 import { Route } from "../../../routes/$locationSlug/$tableNumber/index";

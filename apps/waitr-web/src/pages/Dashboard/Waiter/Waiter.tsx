@@ -5,7 +5,7 @@ import {
   useGetOrdersQuery,
   useGetBillsQuery,
   useLazyGetBillsQuery,
-} from "apps/waitr-web/src/api/waiterApi";
+} from "@/api/waiterApi";
 import Product from "./Product/Product";
 import Bill from "./Bill/Bill";
 import { connectWaiterSocket } from "./Waiter.sockets";

@@ -9,7 +9,7 @@ import {
   useGoToTableMutation,
   useLazyGetOrderQuery,
   useCreateWaiterBillMutation,
-} from "apps/waitr-web/src/api/waiterApi";
+} from "@/api/waiterApi";
 import { waiterActions } from "../Waiter.slice";
 import ProductSelectionPopup from "./ProductSelectionPopup";
 

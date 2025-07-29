@@ -1,9 +1,9 @@
 import { LocationResponseDto } from "types";
 import LocationCard from "./LocationCard/LocationCard";
-import { Link } from "@tanstack/react-router";
+import Link from "next/link";
 import styles from "./Admin.module.scss";
 import cardStyles from "../card.module.scss";
-import { useGetLocationsQuery } from "../../../api/adminApi";
+import { useGetLocationsQuery } from "@/api/adminApi";
 import { classNames } from "apps/waitr-web/src/helpers/className";
 
 type AdminProps = {
@@ -26,7 +26,7 @@ const Admin = ({ data: propsLocations }: AdminProps) => {
               <LocationCard key={index} isLoading={true} />
             ))}
         <Link
-          to="/dashboard/admin/location/create"
+          href="/dashboard/admin/location/create"
           className={classNames(cardStyles.card, styles.addLocation)}
         >
           Add a new location

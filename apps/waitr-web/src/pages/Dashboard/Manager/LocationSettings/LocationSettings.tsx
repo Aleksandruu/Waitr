@@ -10,8 +10,8 @@ import { useEffect, useState } from "react";
 import {
   useGetLocationSettingsQuery,
   useUpdateSettingsMutation,
-} from "apps/waitr-web/src/api/managerApi";
-import { useNavigate } from "@tanstack/react-router";
+} from "@/api/managerApi";
+import { useRouter } from "next/navigation";
 import { UpdateLocationSettingsDto, FileBuffer } from "types";
 import ImageInput from "apps/waitr-web/src/base_components/ImageInput/ImageInput";
 import { bufferToFile } from "apps/waitr-web/src/helpers/byteArrayToFile";
@@ -31,7 +31,7 @@ type FormData = yup.InferType<typeof settingsSchema>;
 
 const LocationSettings = ({}: LocationSettingsProps) => {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const { data } = useGetLocationSettingsQuery(undefined);
   const [updateSettings, { isLoading }] = useUpdateSettingsMutation();
@@ -97,7 +97,7 @@ const LocationSettings = ({}: LocationSettingsProps) => {
     };
     updateSettings(finalSettings).unwrap();
     localStorage.setItem("locationColor", settings.color!);
-    navigate({ to: "/dashboard/manager" });
+    router.push("/dashboard/manager");
   };
 
   return (

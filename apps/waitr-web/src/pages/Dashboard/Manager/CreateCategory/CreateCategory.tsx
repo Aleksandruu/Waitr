@@ -4,8 +4,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import Input from "apps/waitr-web/src/base_components/Input/Input";
 import Button from "apps/waitr-web/src/base_components/Button/Button";
 import styles from "./CreateCategory.module.scss";
-import { useCreateCategoryMutation } from "apps/waitr-web/src/api/managerApi";
-import { useNavigate } from "@tanstack/react-router";
+import { useCreateCategoryMutation } from "@/api/managerApi";
+import { useRouter } from "next/navigation";
 
 type CreateCategoryProps = {
   // props here
@@ -28,11 +28,11 @@ const CreateCategory = ({}: CreateCategoryProps) => {
   });
 
   const [createCategory, { isLoading }] = useCreateCategoryMutation();
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const onSubmit = async (data: FormData) => {
     await createCategory({ name: data.name }).unwrap();
-    navigate({ to: "/dashboard/manager" });
+    router.push("/dashboard/manager");
   };
 
   return (

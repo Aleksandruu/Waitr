@@ -8,11 +8,11 @@ import {
   useCreateProductMutation,
   useGetCategoriesQuery,
   useUpdateProductMutation,
-} from "apps/waitr-web/src/api/managerApi";
+} from "@/api/managerApi";
 import Select from "apps/waitr-web/src/base_components/Select/Select";
 import ImageInput from "apps/waitr-web/src/base_components/ImageInput/ImageInput";
 import { useState } from "react";
-import { useNavigate } from "@tanstack/react-router";
+import { useRouter } from "next/navigation";
 
 import { ManagerProductDetailsDto } from "types";
 
@@ -82,14 +82,14 @@ const CreateProduct = ({ product, isEditing = false }: CreateProductProps) => {
 
   const isLoading = isCreateLoading || isUpdateLoading;
 
-  const navigate = useNavigate();
+  const router = useRouter();
   const onSubmit = async (data: FormData) => {
     if (isEditing && product) {
       await updateProduct({ id: product.id, photo: photo, ...data }).unwrap();
     } else {
       await createProduct({ photo: photo, ...data }).unwrap();
     }
-    navigate({ to: "/dashboard/manager" });
+    router.push("/dashboard/manager");
   };
 
   return (

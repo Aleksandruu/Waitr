@@ -1,13 +1,13 @@
 import Button from "apps/waitr-web/src/base_components/Button/Button";
 import styles from "./BottomBar.module.scss";
-import { useNavigate, useParams } from "@tanstack/react-router";
+import { useRouter, useParams } from "next/navigation";
 import {
   useCreateOrderMutation,
   useGetCurrentOrderQuery,
   useCallWaiterMutation,
   useIsWaiterCalledQuery,
   useCreateBillMutation,
-} from "apps/waitr-web/src/api/customerApi";
+} from "../../../api/customerApi";
 import {
   CartItemDto,
   CreateOrderDto,
@@ -49,7 +49,7 @@ const BottomBar = ({}: BottomBarProps) => {
   );
 
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const placeOrder = () => {
     const orderObject: CreateOrderDto = {
@@ -64,37 +64,19 @@ const BottomBar = ({}: BottomBarProps) => {
     });
 
     setTimeout(() => {
-      navigate({
-        to: "/$locationSlug/$tableNumber",
-        params: {
-          locationSlug: locationSlug!,
-          tableNumber: tableNumber!,
-        },
-      });
+      router.push(`/${locationSlug}/${tableNumber}`);
       refetch();
     }, 2000);
   };
 
   const seeOrder = () => {
     dispatch(orderActions.setStatus("checkout"));
-    navigate({
-      to: "/$locationSlug/$tableNumber/order",
-      params: {
-        locationSlug: locationSlug!,
-        tableNumber: tableNumber!,
-      },
-    });
+    router.push(`/${locationSlug}/${tableNumber}/order`);
   };
 
   const goToPayment = () => {
     dispatch(orderActions.setStatus("payment"));
-    navigate({
-      to: "/$locationSlug/$tableNumber/payment",
-      params: {
-        locationSlug: locationSlug!,
-        tableNumber: tableNumber!,
-      },
-    });
+    router.push(`/${locationSlug}/${tableNumber}/payment`);
   };
 
   const handleCallWaiter = async () => {
@@ -128,13 +110,7 @@ const BottomBar = ({}: BottomBarProps) => {
 
       setIsPaymentPopupOpen(false);
 
-      navigate({
-        to: "/$locationSlug/$tableNumber",
-        params: {
-          locationSlug: locationSlug!,
-          tableNumber: tableNumber!,
-        },
-      });
+      router.push(`/${locationSlug}/${tableNumber}`);
     } catch (error) {
       console.error("Failed to create bill:", error);
       setIsPaymentPopupOpen(false);

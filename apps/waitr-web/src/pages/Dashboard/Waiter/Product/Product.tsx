@@ -5,7 +5,7 @@ import { classNames } from "apps/waitr-web/src/helpers/className";
 import {
   useDeliverMutation,
   useLazyGetOrderQuery,
-} from "apps/waitr-web/src/api/waiterApi";
+} from "@/api/waiterApi";
 import {
   useAppDispatch,
   useAppSelector,

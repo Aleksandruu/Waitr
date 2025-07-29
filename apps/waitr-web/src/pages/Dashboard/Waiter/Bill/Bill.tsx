@@ -5,7 +5,7 @@ import { classNames } from "apps/waitr-web/src/helpers/className";
 import {
   usePayBillMutation,
   useLazyGetOrderQuery,
-} from "apps/waitr-web/src/api/waiterApi";
+} from "@/api/waiterApi";
 import { useAppSelector } from "apps/waitr-web/src/helpers/app.hooks";
 
 type BillProps = {

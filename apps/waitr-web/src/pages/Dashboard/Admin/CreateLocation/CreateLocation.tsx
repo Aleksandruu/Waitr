@@ -1,7 +1,7 @@
 import Input from "../../../../base_components/Input/Input";
 import Button from "../../../../base_components/Button/Button";
-import { useCreateLocationMutation } from "../../../../api/adminApi";
-import { useNavigate } from "@tanstack/react-router";
+import { useCreateLocationMutation } from "@/api/adminApi";
+import { useRouter } from "next/navigation";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
@@ -47,7 +47,7 @@ type CreateLocationProps = {};
 const CreateLocation = ({}: CreateLocationProps) => {
   const [createLocation, { isLoading }] = useCreateLocationMutation();
 
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const {
     register,
@@ -60,7 +60,7 @@ const CreateLocation = ({}: CreateLocationProps) => {
 
   const onSubmit: SubmitHandler<FormData> = async (data: FormData) => {
     await createLocation(data).unwrap();
-    navigate({ to: "/dashboard/admin" });
+    router.push("/dashboard/admin");
   };
 
   return (

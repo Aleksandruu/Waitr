@@ -1,9 +1,9 @@
 import { LocationResponseDto } from "types";
-import { Link } from "@tanstack/react-router";
+import Link from "next/link";
 import styles from "./LocationCard.module.scss";
 import cardStyles from "../../card.module.scss";
 import Button from "apps/waitr-web/src/base_components/Button/Button";
-import { useChangeActiveStatusMutation } from "apps/waitr-web/src/api/adminApi";
+import { useChangeActiveStatusMutation } from "@/api/adminApi";
 
 interface LocationCardProps {
   location?: LocationResponseDto;
@@ -20,8 +20,7 @@ function LocationCard(props: LocationCardProps) {
   return (
     <Link
       className={cardStyles.card}
-      to="/dashboard/admin/location/$locationId"
-      params={{ locationId: location ? location.id : "" }}
+      href={`/dashboard/admin/location/${location ? location.id : ""}`}
     >
       {location ? (
         <>

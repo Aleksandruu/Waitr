@@ -1,11 +1,12 @@
-import { Link, useNavigate } from "@tanstack/react-router";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   useDeleteCategoryMutation,
   useDeleteProductMutation,
   useGetAllProductsQuery,
   useGetCategoriesQuery,
   useGetStaffQuery,
-} from "../../../api/managerApi";
+} from "@/api/managerApi";
 import StaffCard from "../Admin/LocationPage/StaffCard/StaffCard";
 import styles from "./Manager.module.scss";
 import cardStyles from "../card.module.scss";
@@ -21,14 +22,14 @@ const Manager = ({}: ManagerProps) => {
   const [deleteCategory] = useDeleteCategoryMutation();
   const [deleteProduct] = useDeleteProductMutation();
 
-  const navigate = useNavigate();
+  const router = useRouter();
 
   return (
     <div className="container">
       <div className="middle-column-container">
         <h1>Manager</h1>
         <Link
-          to="/dashboard/manager/location-setup"
+          href="/dashboard/manager/location-setup"
           className={cardStyles.addNewCard}
         >
           Location Settings
@@ -39,7 +40,7 @@ const Manager = ({}: ManagerProps) => {
           <StaffCard staff={staffMember} key={index}></StaffCard>
         ))}
         <Link
-          to="/dashboard/manager/staff/create"
+          href="/dashboard/manager/staff/create"
           className={cardStyles.addNewCard}
         >
           Add new staff member
@@ -60,7 +61,7 @@ const Manager = ({}: ManagerProps) => {
           </div>
         ))}
         <Link
-          to="/dashboard/manager/category/create"
+          href="/dashboard/manager/category/create"
           className={cardStyles.addNewCard}
         >
           Add new category
@@ -74,9 +75,7 @@ const Manager = ({}: ManagerProps) => {
           >
             <div
               onClick={() =>
-                navigate({
-                  to: `/dashboard/manager/product/edit/${product.productId}`,
-                })
+                router.push(`/dashboard/manager/product/edit/${product.productId}`)
               }
             >
               <strong>{product.productName}</strong>
@@ -90,7 +89,7 @@ const Manager = ({}: ManagerProps) => {
           </div>
         ))}
         <Link
-          to="/dashboard/manager/product/create"
+          href="/dashboard/manager/product/create"
           className={cardStyles.addNewCard}
         >
           Add new product

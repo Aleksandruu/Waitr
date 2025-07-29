@@ -1,4 +1,4 @@
-import { useNavigate } from "@tanstack/react-router";
+import { useRouter } from "next/navigation";
 import styles from "./Navbar.module.scss";
 import Button from "../../../base_components/Button/Button";
 import { authActions } from "../../Login/Auth.slice";
@@ -11,7 +11,7 @@ import {
 import { useGetLocationSettingsQuery } from "../../../api/managerApi";
 
 const Navbar = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const dispatch = useAppDispatch();
 
   useGetLocationSettingsQuery("undefined");
@@ -39,7 +39,7 @@ const Navbar = () => {
         <Button
           onClick={() => {
             dispatch(authActions.logout());
-            navigate({ to: "/login" });
+            router.push("/login");
           }}
           text="Logout"
           color="brand-light"
