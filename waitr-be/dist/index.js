@@ -33,14 +33,9 @@ io.on("connection", (socket) => {
     });
 });
 app.use((0, cors_1.default)({
-    origin: "*",
-    // [
-    //   // process.env.CORS_ORIGIN || "https://waitr-ten.vercel.app",
-    //   // "http://localhost:3000",
-    //   "*",
-    // ],
+    origin: "http://localhost:3000",
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
-    credentials: true,
+    credentials: false,
 }));
 app.use(body_parser_1.default.json());
 app.use(body_parser_1.default.urlencoded({
