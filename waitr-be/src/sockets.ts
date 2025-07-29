@@ -14,6 +14,7 @@ export const initSocket = (server: HttpServer) => {
       // ],
       credentials: true,
     },
+
     transports: ["websocket", "polling"],
   });
   return io;
