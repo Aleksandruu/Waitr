@@ -3,7 +3,7 @@ name: Build and deploy Node.js app to Azure Web App - Waitr
 on:
   push:
     branches:
-      - main
+      - old-web-app
   workflow_dispatch:
 
 jobs:
