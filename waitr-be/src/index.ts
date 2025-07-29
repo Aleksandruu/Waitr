@@ -38,7 +38,7 @@ io.on("connection", (socket) => {
 
 app.use(
   cors({
-    origin: "*",
+    origin: "http://localhost:3000",
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: false,
   })
