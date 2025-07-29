@@ -38,7 +38,11 @@ io.on("connection", (socket) => {
 
 app.use(
   cors({
-    origin: ["*"],
+    origin: [
+      "http://localhost:3000",
+      "http://localhost:3001",
+      "https://waitr-djfkfhdwgvete8cg.westeurope-01.azurewebsites.net",
+    ],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true,
   })
