@@ -6,12 +6,8 @@ let io: Server;
 export const initSocket = (server: HttpServer) => {
   io = new Server(server, {
     cors: {
-      origin: [
-        "http://localhost:3000",
-        "http://localhost:3001",
-        "https://waitr-djfkfhdwgvete8cg.westeurope-01.azurewebsites.net",
-      ],
-      credentials: true,
+      origin: "*",
+      credentials: false,
     },
     transports: ["websocket", "polling"],
   });
