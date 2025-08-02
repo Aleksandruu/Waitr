@@ -2,5 +2,15 @@
   "zencoder.enableRepoIndexing": true,
   "appService.zipIgnorePattern": ["node_modules{,/**}", ".vscode{,/**}"],
   "appService.defaultWebAppToDeploy": "/subscriptions/258d6534-23cd-4ff0-b041-a07f85642eaf/resourceGroups/Waitr_group/providers/Microsoft.Web/sites/Waitr",
-  "appService.deploySubpath": "."
+  "appService.deploySubpath": ".",
+  "zencoder.mcpServers": {
+    "sequential thinking": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"]
+    },
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp@latest"]
+    }
+  }
 }

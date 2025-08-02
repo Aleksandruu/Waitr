@@ -1,0 +1,1 @@
+import{j as o}from"./index-Blpx2UYK.js";const n=function(){return o.jsx("div",{children:'Hello "/dashboard/manager/category/edit/$categoryId"!'})};export{n as component};

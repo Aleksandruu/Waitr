@@ -1,0 +1,1 @@
+import{C as o}from"./CreateProduct-C4FYHOI4.js";import"./index-Blpx2UYK.js";import"./yup-CKXo_GdC.js";import"./Input-CfAk4NlR.js";import"./className-CUjXWMz9.js";import"./Button-DKMOCAwU.js";import"./Select-bc_foCoj.js";import"./ImageInput-DpaCdda2.js";const c=o;export{c as component};
