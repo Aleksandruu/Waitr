@@ -15,3 +15,16 @@
 .input:hover {
   border: 1px solid rgb(98, 97, 97);
 }
+
+.borderRadius-none {
+  border-radius: 0;
+}
+.borderRadius-small {
+  border-radius: 0.25rem;
+}
+.borderRadius-medium {
+  border-radius: 0.5rem;
+}
+.borderRadius-round {
+  border-radius: 1.5rem;
+}

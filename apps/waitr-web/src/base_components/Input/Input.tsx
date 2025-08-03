@@ -1,5 +1,4 @@
 import { classNames } from "../../helpers/className";
-import { toCammelCase } from "../../helpers/toCammelCase";
 import InputWrapper from "../InputWrapper/InputWrapper";
 import styles from "../Input.module.scss";
 
@@ -11,6 +10,7 @@ interface InputProps {
   type?: "text" | "email" | "password" | "number";
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   register?: any;
+  borderRadius?: "none" | "small" | "medium" | "round";
 }
 
 const Input = ({
@@ -21,6 +21,7 @@ const Input = ({
   type = "text",
   onChange = () => {},
   register = null,
+  borderRadius = "round",
 }: InputProps) => {
   return (
     <InputWrapper label={label} error={error}>
@@ -36,7 +37,8 @@ const Input = ({
         type={type}
         className={classNames(
           styles.input,
-          error !== undefined ? styles.error : ""
+          error !== undefined ? styles.error : "",
+          styles[`borderRadius-${borderRadius}`]
         )}
       />
     </InputWrapper>

@@ -8,7 +8,7 @@ export default function QRMenuScreen() {
     <View style={styles.container}>
       <Link href={"/dashboard"}>
         <Text>
-          {locationSlug}-{tableNumber}
+          {locationSlug}---{tableNumber}
         </Text>
       </Link>
     </View>

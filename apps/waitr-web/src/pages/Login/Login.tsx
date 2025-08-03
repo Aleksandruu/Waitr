@@ -29,6 +29,7 @@ const Login = () => {
           name="username"
           label="Username"
           onChange={handleChange}
+          borderRadius="small"
           error={isError ? "" : undefined}
         ></Input>
         <Input
@@ -36,6 +37,7 @@ const Login = () => {
           label="Password"
           type="password"
           onChange={handleChange}
+          borderRadius="small"
           error={isError ? "Username or password are wrong" : undefined}
         ></Input>
         <Button
@@ -43,6 +45,7 @@ const Login = () => {
           color="green"
           wide={true}
           tall={true}
+          borderRadius="none"
           loading={isLoading}
           onClick={async () => {
             await login(formState);

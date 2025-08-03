@@ -9,8 +9,8 @@ export default function HomeScreen() {
       <Button
         wider
         tall
-        text={"go to dashboard"}
-        onPress={() => router.navigate("/dashboard/admin")}
+        text={"go to menu"}
+        onPress={() => router.navigate("/the-bar/4")}
       ></Button>
     </View>
   );

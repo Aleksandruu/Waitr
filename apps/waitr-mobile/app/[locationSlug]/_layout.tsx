@@ -12,8 +12,8 @@ export default function RootLayout() {
         },
       }}
     >
-      <Stack.Screen name="[locationSlug]" options={{ title: "QR Menu" }} />
-      <Stack.Screen name="dashboard" options={{ title: "Dashboard" }} />
+      <Stack.Screen name="asd" />
+      <Stack.Screen name="details" />
     </Stack>
   );
 }
