@@ -14,7 +14,7 @@ import ImageInput from "apps/waitr-web/src/base_components/ImageInput/ImageInput
 import { useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 
-import { ManagerProductDetailsDto } from "types";
+import { ManagerProductDetailsDto } from "shared";
 
 type CreateProductProps = {
   product?: ManagerProductDetailsDto;

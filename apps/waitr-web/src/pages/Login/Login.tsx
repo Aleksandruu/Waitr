@@ -3,7 +3,7 @@ import { useNavigate } from "@tanstack/react-router";
 import Button from "../../base_components/Button/Button";
 import { useLoginMutation } from "../../api/authApi";
 import Input from "../../base_components/Input/Input";
-import { LoginRequest } from "types";
+import { LoginRequest } from "shared";
 import { classNames } from "../../helpers/className";
 import styles from "./Login.module.scss";
 

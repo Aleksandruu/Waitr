@@ -1,5 +1,5 @@
 import { io } from "socket.io-client";
-import { Role } from "types";
+import { Role } from "shared";
 
 const URL = import.meta.env.VITE_APP_API_URL;
 

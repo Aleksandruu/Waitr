@@ -1,1 +1,0 @@
-{"version":3,"file":"staffProduct.dto.d.ts","sourceRoot":"","sources":["../../../src/dtos/staff/staffProduct.dto.ts"],"names":[],"mappings":"AAAA,MAAM,WAAW,eAAe;IAC9B,cAAc,EAAE,MAAM,CAAC;IACvB,QAAQ,EAAE,MAAM,CAAC;IACjB,MAAM,EAAE,MAAM,CAAC;IACf,SAAS,EAAE,MAAM,CAAC;IAClB,WAAW,CAAC,EAAE,MAAM,CAAC;IACrB,WAAW,EAAE,MAAM,CAAC;IACpB,WAAW,EAAE,MAAM,CAAC;CACrB"}

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { jwtDecode } from "jwt-decode";
-import { UserModel } from "types";
+import { UserModel } from "shared";
 import { authApi } from "../../api/authApi";
 import { generateSetterReducers } from "../../helpers/reduxReducerGenerator";
 

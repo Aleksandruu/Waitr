@@ -12,7 +12,7 @@ import {
   useUpdateSettingsMutation,
 } from "apps/waitr-web/src/api/managerApi";
 import { useNavigate } from "@tanstack/react-router";
-import { UpdateLocationSettingsDto, FileBuffer } from "types";
+import { UpdateLocationSettingsDto, FileBuffer } from "shared";
 import ImageInput from "apps/waitr-web/src/base_components/ImageInput/ImageInput";
 import { bufferToFile } from "apps/waitr-web/src/helpers/byteArrayToFile";
 import { useAppDispatch, useAppSelector } from "apps/waitr-web/src/helpers/app.hooks";

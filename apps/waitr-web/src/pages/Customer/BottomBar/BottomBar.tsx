@@ -13,7 +13,7 @@ import {
   CreateOrderDto,
   ProductQuantityDto,
   CreateBillDto,
-} from "types";
+} from "shared";
 import { useAppDispatch, useAppSelector } from "apps/waitr-web/src/helpers/app.hooks";
 import { useState } from "react";
 import PaymentMethodPopup from "../Payment/PaymentMethodPopup";

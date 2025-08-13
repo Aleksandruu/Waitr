@@ -6,7 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import Button from "../../../../base_components/Button/Button";
 import { useCreateStaffMutation } from "../../../../api/managerApi";
 import { useNavigate } from "@tanstack/react-router";
-import { Role } from "types";
+import { Role } from "shared";
 
 const roles: Role[] = ["waiter", "cook", "barman", "barista"];
 

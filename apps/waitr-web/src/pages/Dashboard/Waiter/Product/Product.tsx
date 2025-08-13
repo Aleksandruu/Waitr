@@ -1,4 +1,4 @@
-import { OrderItemDto } from "types";
+import { OrderItemDto } from "shared";
 import styles from "./Product.module.scss";
 import Button from "apps/waitr-web/src/base_components/Button/Button";
 import { classNames } from "apps/waitr-web/src/helpers/className";

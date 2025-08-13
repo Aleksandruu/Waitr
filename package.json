@@ -1,0 +1,23 @@
+{
+  "name": "waitr-monorepo",
+  "version": "1.0.0",
+  "description": "Waitr monorepo with shared packages",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "apps/*",
+    "waitr-be"
+  ],
+  "scripts": {
+    "build": "npm run build:shared && npm run build:backend && npm run build:web",
+    "build:shared": "npm run build --workspace=packages/shared",
+    "build:backend": "npm run build --workspace=waitr-be",
+    "build:web": "npm run build --workspace=apps/waitr-web",
+    "clean": "npm run clean --workspace=packages/shared",
+    "dev:shared": "npm run dev --workspace=packages/shared",
+    "install:all": "npm install && npm install --workspace=packages/shared && npm install --workspace=waitr-be && npm install --workspace=apps/waitr-web && npm install --workspace=apps/waitr-mobile"
+  },
+  "devDependencies": {
+    "typescript": "^5.2.2"
+  }
+}

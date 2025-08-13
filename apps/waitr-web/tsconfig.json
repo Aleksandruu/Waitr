@@ -18,10 +18,12 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "paths": {
-      "@types/*": ["../../packages/types/dist/*"],
-      "types": ["../../packages/types/dist"],
+      "shared": ["../../packages/shared/dist"],
+      "shared/*": ["../../packages/shared/dist/*"],
+      "@types/*": ["../../packages/shared/dist/src/types/*"],
       "waitr-web/*": ["./src/*"]
     }
   },
-  "include": ["src"]
+  "include": ["src"],
+  "references": [{ "path": "../../packages/shared" }]
 }

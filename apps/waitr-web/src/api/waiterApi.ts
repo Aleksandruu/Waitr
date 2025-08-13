@@ -4,7 +4,7 @@ import {
   OrderResponseDto,
   BillResponseDto,
   CategoryWithProductsDto,
-} from "types";
+} from "shared";
 
 interface CreateOrderType {
   table: number;

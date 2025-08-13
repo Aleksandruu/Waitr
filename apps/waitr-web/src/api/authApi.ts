@@ -1,4 +1,4 @@
-import { LoginRequest, LoginResponse } from "types";
+import { LoginRequest, LoginResponse } from "shared";
 import { api } from "./baseApi";
 
 export const authApi = api.injectEndpoints({

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { generateSetterReducers } from "../../helpers/reduxReducerGenerator";
-import { CartItemDto } from "types";
+import { CartItemDto } from "shared";
 import { customerApi } from "../../api/customerApi";
 
 export interface OrderState {

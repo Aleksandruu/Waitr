@@ -8,7 +8,7 @@ import {
   CreateProductDto,
   ManagerProductResponseDto,
   ManagerProductDetailsDto,
-} from "types";
+} from "shared";
 import { api } from "./baseApi";
 
 export const managerApi = api.injectEndpoints({

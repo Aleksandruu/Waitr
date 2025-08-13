@@ -10,7 +10,7 @@ import Product from "./Product/Product";
 import Bill from "./Bill/Bill";
 import { connectWaiterSocket } from "./Waiter.sockets";
 import { use, useEffect } from "react";
-import { BillResponseDto, OrderItemDto, OrderResponseDto } from "types";
+import { BillResponseDto, OrderItemDto, OrderResponseDto } from "shared";
 import BottomBar from "./BottomBar/BottomBar";
 import { useAppSelector } from "apps/waitr-web/src/helpers/app.hooks";
 

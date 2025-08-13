@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import Admin from "./Admin";
-import { LocationResponseDto } from "types";
+import { LocationResponseDto } from "shared";
 
 const locations: LocationResponseDto[] = [
   {

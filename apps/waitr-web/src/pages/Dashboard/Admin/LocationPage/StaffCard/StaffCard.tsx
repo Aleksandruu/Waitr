@@ -1,4 +1,4 @@
-import { StaffMember } from "types";
+import { StaffMember } from "shared";
 import cardStyles from "../../../card.module.scss";
 
 interface StaffCardProps {

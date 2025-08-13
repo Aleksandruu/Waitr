@@ -4,7 +4,7 @@ import {
   useWaiterGetProductsQuery,
   useWaiterCreateOrderMutation,
 } from "apps/waitr-web/src/api/waiterApi";
-import { CategoryWithProductsDto, ProductResponseDto } from "types";
+import { CategoryWithProductsDto, ProductResponseDto } from "shared";
 import Button from "apps/waitr-web/src/base_components/Button/Button";
 
 type ProductSelectionPopupProps = {

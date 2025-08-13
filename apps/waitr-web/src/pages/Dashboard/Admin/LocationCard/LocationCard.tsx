@@ -1,4 +1,4 @@
-import { LocationResponseDto } from "types";
+import { LocationResponseDto } from "shared";
 import { Link } from "@tanstack/react-router";
 import styles from "./LocationCard.module.scss";
 import cardStyles from "../../card.module.scss";

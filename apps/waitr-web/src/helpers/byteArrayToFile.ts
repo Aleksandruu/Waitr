@@ -1,4 +1,4 @@
-import { FileBuffer } from "types";
+import { FileBuffer } from "shared";
 
 export const bufferToFile = (buffer: FileBuffer, mime: string) => {
   if (buffer) {

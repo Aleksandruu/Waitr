@@ -2,16 +2,18 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@types/*": ["packages/types/*"],
+      "shared": ["packages/shared/dist"],
+      "shared/*": ["packages/shared/dist/*"],
+      "@types/*": ["packages/shared/dist/src/types/*"],
       "apps/waitr-web/*": ["apps/waitr-web/src/*"],
       "apps/waitr-web/src/*": ["apps/waitr-web/src/*"]
     }
   },
   "references": [
+    { "path": "packages/shared" },
     { "path": "waitr-be" },
     { "path": "apps/waitr-web" },
-    { "path": "apps/mobile" },
-    { "path": "packages/types" }
+    { "path": "apps/waitr-mobile" }
     // { "path": "packages/api" },
     // { "path": "packages/store" }
   ]

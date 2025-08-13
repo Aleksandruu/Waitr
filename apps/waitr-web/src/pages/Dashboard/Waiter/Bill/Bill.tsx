@@ -1,4 +1,4 @@
-import { BillResponseDto } from "types";
+import { BillResponseDto } from "shared";
 import styles from "./Bill.module.scss";
 import Button from "apps/waitr-web/src/base_components/Button/Button";
 import { classNames } from "apps/waitr-web/src/helpers/className";

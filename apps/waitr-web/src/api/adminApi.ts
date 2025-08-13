@@ -1,4 +1,4 @@
-import { CreateLocationDto, LocationResponseDto } from "types";
+import { CreateLocationDto, LocationResponseDto } from "shared";
 import { api } from "./baseApi";
 
 export const adminApi = api.injectEndpoints({

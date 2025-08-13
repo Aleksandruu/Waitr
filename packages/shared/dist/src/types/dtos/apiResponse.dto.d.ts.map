@@ -1,0 +1,1 @@
+{"version":3,"file":"apiResponse.dto.d.ts","sourceRoot":"","sources":["../../../../src/types/dtos/apiResponse.dto.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,QAAQ,EAAE,MAAM,uBAAuB,CAAC;AAEjD,MAAM,WAAW,UAAU,CAAC,CAAC,GAAG,OAAO;IACrC,IAAI,EAAE,CAAC,CAAC;CACT;AAED,MAAM,MAAM,WAAW,CAAC,CAAC,GAAG,OAAO,IAAI,UAAU,CAAC,CAAC,CAAC,GAAG;IAAE,KAAK,EAAE,QAAQ,CAAA;CAAE,CAAC"}

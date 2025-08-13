@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { adminApi } from "../../../api/adminApi";
-import { LocationResponseDto } from "types";
+import { LocationResponseDto } from "shared";
 
 export interface AdminState {
   locations: LocationResponseDto[];

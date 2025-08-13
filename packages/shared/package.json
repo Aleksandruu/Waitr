@@ -1,0 +1,85 @@
+{
+  "name": "shared",
+  "version": "1.0.0",
+  "description": "Shared utilities, types, and common code for the project",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "module": "dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./assets/*": "./assets/*",
+    "./types": {
+      "types": "./dist/src/types/index.d.ts",
+      "import": "./dist/src/types/index.js",
+      "require": "./dist/src/types/index.js",
+      "default": "./dist/src/types/index.js"
+    },
+    "./utils": {
+      "types": "./dist/src/utils/index.d.ts",
+      "import": "./dist/src/utils/index.js",
+      "require": "./dist/src/utils/index.js",
+      "default": "./dist/src/utils/index.js"
+    },
+    "./constants": {
+      "types": "./dist/src/constants/index.d.ts",
+      "import": "./dist/src/constants/index.js",
+      "require": "./dist/src/constants/index.js",
+      "default": "./dist/src/constants/index.js"
+    },
+    "./stores": {
+      "types": "./dist/src/stores/index.d.ts",
+      "import": "./dist/src/stores/index.js",
+      "require": "./dist/src/stores/index.js",
+      "default": "./dist/src/stores/index.js"
+    },
+    "./hooks": {
+      "types": "./dist/src/hooks/index.d.ts",
+      "import": "./dist/src/hooks/index.js",
+      "require": "./dist/src/hooks/index.js",
+      "default": "./dist/src/hooks/index.js"
+    },
+    "./components": {
+      "types": "./dist/src/components/index.d.ts",
+      "import": "./dist/src/components/index.js",
+      "require": "./dist/src/components/index.js",
+      "default": "./dist/src/components/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "assets"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "clean": "rimraf dist tsconfig.tsbuildinfo",
+    "dev": "tsc --watch",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.2.2",
+    "rimraf": "^5.0.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0",
+    "@reduxjs/toolkit": "^2.0.0",
+    "react": "^18.0.0 || ^19.0.0",
+    "react-redux": "^9.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@reduxjs/toolkit": {
+      "optional": true
+    },
+    "react": {
+      "optional": true
+    },
+    "react-redux": {
+      "optional": true
+    }
+  }
+}

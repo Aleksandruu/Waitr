@@ -4,7 +4,7 @@ import styles from "./Payment.module.scss";
 import QuantityButton from "apps/waitr-web/src/base_components/QuantityButton/QuantityButton";
 import Button from "apps/waitr-web/src/base_components/Button/Button";
 import { useGetUnpaidOrderQuery } from "apps/waitr-web/src/api/customerApi";
-import { CartItemDto } from "types";
+import { CartItemDto } from "shared";
 import { orderActions } from "../Customer.slice";
 import { useAppDispatch, useAppSelector } from "apps/waitr-web/src/helpers/app.hooks";
 

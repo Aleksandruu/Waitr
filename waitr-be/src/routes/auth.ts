@@ -30,7 +30,6 @@ router.post("/login", async (req: Request, res: Response) => {
           process.env.JWT_SECRET_KEY!
         );
         res.status(200).json({ accessToken });
-        return;
       }
     }
   } catch (err) {

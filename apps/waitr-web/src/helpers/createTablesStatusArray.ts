@@ -3,7 +3,7 @@ import {
   OrderStatus,
   ProductStatus,
   TableStatus,
-} from "types";
+} from "shared";
 
 const statusPriority: OrderStatus[] = [
   "billed",

@@ -1,4 +1,4 @@
-import { OrderProductDto } from "types";
+import { OrderProductDto } from "shared";
 import { api } from "./baseApi";
 
 export const staffApi = api.injectEndpoints({

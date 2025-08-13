@@ -4,7 +4,7 @@ import {
   CategoryWithProductsDto,
   CartItemDto,
   CreateBillDto,
-} from "types";
+} from "shared";
 
 interface OrderType {
   order: CreateOrderDto;

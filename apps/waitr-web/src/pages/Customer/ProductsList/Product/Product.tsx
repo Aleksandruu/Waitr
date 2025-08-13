@@ -1,4 +1,4 @@
-import { ProductResponseDto } from "types";
+import { ProductResponseDto } from "shared";
 import styles from "./Product.module.scss";
 import { useState } from "react";
 import { orderActions } from "../../Customer.slice";
