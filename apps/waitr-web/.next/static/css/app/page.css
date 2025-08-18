@@ -1,0 +1,339 @@
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./node_modules/next/dist/build/webpack/loaders/resolve-url-loader/index.js??ruleSet[1].rules[13].oneOf[7].use[4]!./node_modules/next/dist/compiled/sass-loader/cjs.js??ruleSet[1].rules[13].oneOf[7].use[5]!./src/base_components/Button/Button.module.scss ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+.Button_btn__B_0uc {
+  border: none;
+  color: white;
+  text-align: center;
+  padding: 0.3rem 1.5rem;
+  text-decoration: none;
+  font-size: 15px;
+  cursor: pointer;
+  font-weight: 600;
+  text-wrap: nowrap;
+}
+
+.Button_btn__B_0uc:hover {
+  filter: brightness(95%);
+}
+
+.Button_wider__q5xWF {
+  min-width: 300px;
+}
+
+.Button_wide__zAdeC {
+  min-width: 200px;
+}
+
+.Button_tall__OuIVv {
+  font-size: 18px;
+  padding: 0.5rem 1.5rem;
+}
+
+.Button_red__EaGwh {
+  background-color: #fd0000;
+}
+
+.Button_green__UlnTE {
+  background-color: #086400;
+}
+
+.Button_yellow__O4CWt {
+  background-color: #ffd600;
+}
+
+.Button_orange__IXkWA {
+  background-color: orange;
+}
+
+.Button_brand__6ic_n {
+  background-color: var(--color-brand);
+}
+
+.Button_brand-light__nd29Y {
+  background-color: var(--color-brand-light);
+}
+
+.Button_brand-dark__Nfivk {
+  background-color: var(--color-brand-dark);
+}
+
+.Button_btn__B_0uc:disabled {
+  background-color: gray;
+}
+
+.Button_textWrap__QwToD {
+  text-wrap: wrap;
+}
+
+.Button_borderRadius-none__qPP0h {
+  border-radius: 0;
+}
+
+.Button_borderRadius-small__dmeWH {
+  border-radius: 0.25rem;
+}
+
+.Button_borderRadius-medium__XEqd2 {
+  border-radius: 0.5rem;
+}
+
+.Button_borderRadius-round__KpIxT {
+  border-radius: 1.5rem;
+}
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./node_modules/next/dist/build/webpack/loaders/resolve-url-loader/index.js??ruleSet[1].rules[13].oneOf[7].use[4]!./node_modules/next/dist/compiled/sass-loader/cjs.js??ruleSet[1].rules[13].oneOf[7].use[5]!./src/components/LandingPage/LandingPage.module.scss ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+.LandingPage_landingPage__sGGy0 {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.LandingPage_hero__KPwQB {
+  padding: 32px 0;
+  text-align: center;
+  background: linear-gradient(135deg, #086400 0%, rgb(3.92, 49, 0) 100%);
+  color: white;
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.LandingPage_hero__KPwQB::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+}
+.LandingPage_hero__KPwQB .LandingPage_container__EiQvn {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.LandingPage_hero__KPwQB .LandingPage_heroTitle__0dfA5 {
+  font-size: 56px;
+  font-weight: 800;
+  margin-bottom: 24px;
+  line-height: 1.2;
+}
+@media (max-width: 576px) {
+  .LandingPage_hero__KPwQB .LandingPage_heroTitle__0dfA5 {
+    font-size: 40px;
+  }
+}
+.LandingPage_hero__KPwQB .LandingPage_heroSubtitle__POfxU {
+  font-size: 20px;
+  margin-bottom: 48px;
+  opacity: 0.95;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+@media (max-width: 576px) {
+  .LandingPage_hero__KPwQB .LandingPage_heroSubtitle__POfxU {
+    font-size: 16px;
+    margin-bottom: 32px;
+  }
+}
+.LandingPage_hero__KPwQB .LandingPage_heroButtons__fFKER {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+@media (max-width: 576px) {
+  .LandingPage_hero__KPwQB .LandingPage_heroButtons__fFKER {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.LandingPage_features__EgBa1 {
+  padding: 72px 0;
+  background: white;
+}
+.LandingPage_features__EgBa1 .LandingPage_container__EiQvn {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.LandingPage_features__EgBa1 .LandingPage_sectionTitle__p7xSo {
+  text-align: center;
+  font-size: 48px;
+  font-weight: 700;
+  color: #086400;
+  margin-bottom: 32px;
+}
+@media (max-width: 576px) {
+  .LandingPage_features__EgBa1 .LandingPage_sectionTitle__p7xSo {
+    font-size: 40px;
+  }
+}
+.LandingPage_features__EgBa1 .LandingPage_featuresGrid__CQS0c {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+  margin-top: 48px;
+}
+.LandingPage_features__EgBa1 .LandingPage_featureCard__x8_2P {
+  background: white;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 2px solid transparent;
+}
+.LandingPage_features__EgBa1 .LandingPage_featureCard__x8_2P:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.15);
+  border-color: rgba(8, 100, 0, 0.2);
+}
+.LandingPage_features__EgBa1 .LandingPage_featureIcon__hcCoz {
+  font-size: 48px;
+  margin-bottom: 24px;
+  color: #086400;
+}
+.LandingPage_features__EgBa1 .LandingPage_featureTitle__uixi2 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: #333;
+}
+.LandingPage_features__EgBa1 .LandingPage_featureDescription__SoC1w {
+  color: #666;
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+.LandingPage_benefits__klKrn {
+  padding: 72px 0;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+.LandingPage_benefits__klKrn .LandingPage_container__EiQvn {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.LandingPage_benefits__klKrn .LandingPage_sectionTitle__p7xSo {
+  text-align: center;
+  font-size: 48px;
+  font-weight: 700;
+  color: #086400;
+  margin-bottom: 32px;
+}
+.LandingPage_benefits__klKrn .LandingPage_benefitsGrid___EtGN {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 32px;
+  margin-top: 48px;
+}
+.LandingPage_benefits__klKrn .LandingPage_benefitItem__OJeui {
+  display: flex;
+  align-items: center;
+  background: white;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+.LandingPage_benefits__klKrn .LandingPage_benefitItem__OJeui .LandingPage_benefitIcon__jRkzH {
+  font-size: 24px;
+  margin-right: 16px;
+  color: #28b012;
+  flex-shrink: 0;
+}
+.LandingPage_benefits__klKrn .LandingPage_benefitItem__OJeui .LandingPage_benefitText__WMpYx {
+  font-weight: 500;
+  color: #333;
+}
+
+.LandingPage_cta__AtCqG {
+  padding: 72px 0;
+  background: linear-gradient(135deg, #086400 0%, rgb(1.88, 23.5, 0) 100%);
+  color: white;
+  text-align: center;
+}
+.LandingPage_cta__AtCqG .LandingPage_container__EiQvn {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.LandingPage_cta__AtCqG .LandingPage_ctaTitle__Z_DJE {
+  font-size: 40px;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+@media (max-width: 576px) {
+  .LandingPage_cta__AtCqG .LandingPage_ctaTitle__Z_DJE {
+    font-size: 32px;
+  }
+}
+.LandingPage_cta__AtCqG .LandingPage_ctaDescription__mMuJN {
+  font-size: 20px;
+  margin-bottom: 48px;
+  opacity: 0.95;
+  line-height: 1.6;
+}
+@media (max-width: 576px) {
+  .LandingPage_cta__AtCqG .LandingPage_ctaDescription__mMuJN {
+    font-size: 16px;
+  }
+}
+
+.LandingPage_stats__VYc92 {
+  padding: 32px 0;
+  background: white;
+}
+.LandingPage_stats__VYc92 .LandingPage_container__EiQvn {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.LandingPage_stats__VYc92 .LandingPage_statsGrid__esIpr {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 40px;
+}
+.LandingPage_stats__VYc92 .LandingPage_statItem__hP6Q4 {
+  text-align: center;
+}
+.LandingPage_stats__VYc92 .LandingPage_statItem__hP6Q4 .LandingPage_statNumber__3Q8TB {
+  font-size: 48px;
+  font-weight: 800;
+  color: #086400;
+  margin-bottom: 8px;
+}
+@media (max-width: 576px) {
+  .LandingPage_stats__VYc92 .LandingPage_statItem__hP6Q4 .LandingPage_statNumber__3Q8TB {
+    font-size: 40px;
+  }
+}
+.LandingPage_stats__VYc92 .LandingPage_statItem__hP6Q4 .LandingPage_statLabel__Wsov1 {
+  color: #666;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.LandingPage_footer__FcXgj {
+  padding: 32px 0;
+  background: #333;
+  color: white;
+  text-align: center;
+}
+.LandingPage_footer__FcXgj .LandingPage_container__EiQvn {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.LandingPage_footer__FcXgj .LandingPage_footerText__HTsc2 {
+  opacity: 0.8;
+  font-size: 14px;
+}

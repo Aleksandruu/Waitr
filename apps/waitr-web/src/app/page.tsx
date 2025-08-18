@@ -1,6 +1,5 @@
-import { redirect } from 'next/navigation';
+import LandingPage from '../components/LandingPage/LandingPage';
 
 export default function HomePage() {
-  // Redirect to dashboard as the main entry point
-  redirect('/dashboard');
+  return <LandingPage />;
 }

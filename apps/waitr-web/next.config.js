@@ -10,6 +10,7 @@ const nextConfig = {
   // cssModules: true,
   // Redirect root to dashboard for now (can be changed later)
   async redirects() {
+    return [];
     return [
       {
         source: '/',
