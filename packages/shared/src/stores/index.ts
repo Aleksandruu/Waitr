@@ -1,5 +1,12 @@
-// Placeholder for Redux stores
-// Future Redux stores can be added here and exported
+// Redux stores
+export * from "./locationSlice";
+
+// Platform-specific configurations
+export * from "./webLocationSlice";
+export * from "./mobileLocationSlice";
+
+// Platform adapters
+export * from "./adapters";
 
 // Example store structure for future use:
 // export * from './authStore';

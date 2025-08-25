@@ -60,10 +60,15 @@
     "dev": "tsc --watch",
     "prepublishOnly": "npm run build"
   },
-  "dependencies": {},
+  "dependencies": {
+    "tinycolor2": "^1.6.0",
+    "jwt-decode": "^4.0.0"
+  },
   "devDependencies": {
     "typescript": "^5.2.2",
-    "rimraf": "^5.0.0"
+    "rimraf": "^5.0.0",
+    "@reduxjs/toolkit": "^2.0.0",
+    "@types/tinycolor2": "^1.4.6"
   },
   "peerDependencies": {
     "typescript": "^5.0.0",

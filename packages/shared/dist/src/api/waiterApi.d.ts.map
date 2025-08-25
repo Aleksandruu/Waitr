@@ -1,0 +1,1 @@
+{"version":3,"file":"waiterApi.d.ts","sourceRoot":"","sources":["../../../src/api/waiterApi.ts"],"names":[],"mappings":"AAMA,MAAM,WAAW,eAAe;IAC9B,KAAK,EAAE,MAAM,CAAC;IACd,QAAQ,EAAE;QAAE,EAAE,EAAE,MAAM,CAAC;QAAC,QAAQ,EAAE,MAAM,CAAA;KAAE,EAAE,CAAC;CAC9C;AAED,eAAO,MAAM,eAAe,GAAI,KAAK,GAAG,QA8FpC,CAAC"}

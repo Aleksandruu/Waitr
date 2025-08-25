@@ -1,0 +1,1 @@
+{"version":3,"file":"webLocationSlice.d.ts","sourceRoot":"","sources":["../../../src/stores/webLocationSlice.ts"],"names":[],"mappings":"AAAA,OAAO,EAEL,aAAa,EACb,eAAe,EAChB,MAAM,iBAAiB,CAAC;AAQzB,eAAO,MAAM,yBAAyB,GAAI,cAAc;IACtD,kBAAkB,CAAC,EAAE,GAAG,CAAC;IACzB,0BAA0B,CAAC,EAAE,GAAG,CAAC;CAClC,SAOA,CAAC;AAGF,OAAO,EAAE,aAAa,EAAE,eAAe,EAAE,CAAC;;AAC1C,wBAAqC"}

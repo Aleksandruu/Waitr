@@ -1,0 +1,1 @@
+{"version":3,"file":"webLocationAdapter.d.ts","sourceRoot":"","sources":["../../../../src/stores/adapters/webLocationAdapter.ts"],"names":[],"mappings":"AAAA,OAAO,EACL,sBAAsB,EACtB,oBAAoB,EACpB,kBAAkB,EACnB,MAAM,kBAAkB,CAAC;AAK1B,eAAO,MAAM,iBAAiB,EAAE,sBAY/B,CAAC;AAGF,eAAO,MAAM,eAAe,EAAE,oBAe7B,CAAC;AAGF,eAAO,MAAM,aAAa,EAAE,kBAI3B,CAAC"}
