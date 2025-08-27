@@ -1,7 +1,7 @@
 import { io } from "socket.io-client";
 import { Role } from "types";
 
-const URL = import.meta.env.VITE_APP_API_URL;
+const URL = process.env.NEXT_PUBLIC_API_URL;
 
 const socket = io(URL, {
   withCredentials: true,

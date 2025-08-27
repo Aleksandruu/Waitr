@@ -1,6 +1,8 @@
+"use client"
+
 import Input from "../../../../base_components/Input/Input";
 import Button from "../../../../base_components/Button/Button";
-import { useCreateLocationMutation } from "@/api/adminApi";
+import { useCreateLocationMutation } from "@api/adminApi";
 import { useRouter } from "next/navigation";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";

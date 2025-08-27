@@ -1,10 +1,12 @@
+"use client"
+
 import * as yup from "yup";
 import Input from "../../../../base_components/Input/Input";
 import Select from "../../../../base_components/Select/Select";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Button from "../../../../base_components/Button/Button";
-import { useCreateStaffMutation } from "@/api/managerApi";
+import { useCreateStaffMutation } from "@api/managerApi";
 import { useRouter } from "next/navigation";
 import { Role } from "types";
 

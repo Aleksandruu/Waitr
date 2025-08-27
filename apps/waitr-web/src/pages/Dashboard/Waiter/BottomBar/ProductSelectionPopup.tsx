@@ -3,9 +3,9 @@ import styles from "./ProductSelectionPopup.module.scss";
 import {
   useWaiterGetProductsQuery,
   useWaiterCreateOrderMutation,
-} from "@/api/waiterApi";
+} from "@api/waiterApi";
 import { CategoryWithProductsDto, ProductResponseDto } from "types";
-import Button from "apps/waitr-web/src/base_components/Button/Button";
+import Button from "@src/base_components/Button/Button";
 
 type ProductSelectionPopupProps = {
   isOpen: boolean;

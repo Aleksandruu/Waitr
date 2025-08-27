@@ -3,8 +3,8 @@
 import { useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { useSelector } from 'react-redux';
-import { RootState } from '@/store';
-import Order from '@/pages/Customer/Order/Order';
+import { RootState } from '@store';
+import Order from '@pages/Customer/Order/Order';
 
 export default function OrderPage() {
   const router = useRouter();
@@ -12,7 +12,7 @@ export default function OrderPage() {
   const { status } = useSelector((state: RootState) => state.order);
 
   useEffect(() => {
-    if (status === 'empty') {
+    if (status === 'empty' && params?.locationSlug && params?.tableNumber) {
       router.push(`/${params.locationSlug}/${params.tableNumber}`);
     }
   }, [status, router, params]);

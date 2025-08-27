@@ -3,13 +3,13 @@ import styles from "./BottomBar.module.scss";
 import {
   useAppDispatch,
   useAppSelector,
-} from "apps/waitr-web/src/helpers/app.hooks";
-import Button from "apps/waitr-web/src/base_components/Button/Button";
+} from "@helpers/app.hooks";
+import Button from "@src/base_components/Button/Button";
 import {
   useGoToTableMutation,
   useLazyGetOrderQuery,
   useCreateWaiterBillMutation,
-} from "@/api/waiterApi";
+} from "@api/waiterApi";
 import { waiterActions } from "../Waiter.slice";
 import ProductSelectionPopup from "./ProductSelectionPopup";
 

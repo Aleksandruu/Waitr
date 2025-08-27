@@ -1,10 +1,13 @@
+"use client"
+
 import { useParams } from "next/navigation";
 import StaffCard from "./StaffCard/StaffCard";
-import { useGetLocationByIdQuery } from "apps/waitr-web/src/api/adminApi";
+import { useGetLocationByIdQuery } from "@api/adminApi";
 
 const LocationPage = () => {
-  const clientUrl = import.meta.env.VITE_APP_CLIENT_URL;
-  const { locationId } = useParams({ strict: false });
+  const clientUrl = process.env.NEXT_PUBLIC_CLIENT_URL;
+  const params = useParams();
+  const { locationId } = params as { locationId: string };
 
   const {
     data: location,

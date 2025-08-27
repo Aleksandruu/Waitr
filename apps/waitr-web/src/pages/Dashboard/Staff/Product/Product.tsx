@@ -1,6 +1,6 @@
 import styles from "./Product.module.scss";
-import Button from "apps/waitr-web/src/base_components/Button/Button";
-import { useMarkProductReadyMutation } from "@/api/staffApi";
+import Button from "@src/base_components/Button/Button";
+import { useMarkProductReadyMutation } from "@api/staffApi";
 
 type StaffProductProps = {
   orderProductId: number;

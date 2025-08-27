@@ -2,13 +2,13 @@ import { useRouter } from "next/navigation";
 import styles from "./Navbar.module.scss";
 import Button from "../../../base_components/Button/Button";
 import { authActions } from "../../Login/Auth.slice";
-import { bufferToFile } from "apps/waitr-web/src/helpers/byteArrayToFile";
+import { bufferToFile } from "@helpers/byteArrayToFile";
 import { useEffect, useState } from "react";
 import {
   useAppDispatch,
   useAppSelector,
-} from "apps/waitr-web/src/helpers/app.hooks";
-import { useGetLocationSettingsQuery } from "../../../api/managerApi";
+} from "@helpers/app.hooks";
+import { useGetLocationSettingsQuery } from "@api/managerApi";
 
 const Navbar = () => {
   const router = useRouter();

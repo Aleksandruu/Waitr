@@ -20,14 +20,19 @@
         "name": "next"
       }
     ],
+    "baseUrl": "./",
     "paths": {
       "@types/*": ["../../packages/types/dist/*"],
       "types": ["../../packages/types/dist"],
-      "@/*": ["./src/*"],
-      "@styles/*": ["./src/styles/*"],
-      "@components/*": ["./src/base_components/*"],
-      "@pages/*": ["./src/pages/*"],
-      "@helpers/*": ["./src/helpers/*"]
+      "@src/*": ["src/*"],
+      "@styles/*": ["src/styles/*"],
+      "@components/*": ["src/base_components/*"],
+      "@pages/*": ["src/pages/*"],
+      "@helpers/*": ["src/helpers/*"],
+      "@store": ["src/store.ts"],
+      "@/store": ["src/store.ts"],
+      "@api/*": ["src/api/*"],
+      "@/api/*": ["src/api/*"]
     }
   },
   "include": [

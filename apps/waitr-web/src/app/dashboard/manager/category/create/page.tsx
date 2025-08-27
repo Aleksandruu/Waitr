@@ -1,5 +1,5 @@
-import CreateCategory from '@/pages/Dashboard/Manager/CreateCategory/CreateCategory';
+import Staff from '@pages/Dashboard/Staff/Staff';
 
-export default function CreateCategoryPage() {
-  return <CreateCategory />;
+export default function CookPage() {
+  return <Staff />;
 }

@@ -1,21 +1,23 @@
+"use client"
+
 import { useForm } from "react-hook-form";
 import styles from "./LocationSettings.module.scss";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import Input from "apps/waitr-web/src/base_components/Input/Input";
-import ColorSliders from "apps/waitr-web/src/base_components/ColorSlider/ColorSlider";
-import Button from "apps/waitr-web/src/base_components/Button/Button";
-import { locationActions } from "apps/waitr-web/src/pages/Location.slice";
+import Input from "@src/base_components/Input/Input";
+import ColorSliders from "@src/base_components/ColorSlider/ColorSlider";
+import Button from "@src/base_components/Button/Button";
+import { locationActions } from "@src/pages/Location.slice";
 import { useEffect, useState } from "react";
 import {
   useGetLocationSettingsQuery,
   useUpdateSettingsMutation,
-} from "@/api/managerApi";
+} from "@api/managerApi";
 import { useRouter } from "next/navigation";
 import { UpdateLocationSettingsDto, FileBuffer } from "types";
-import ImageInput from "apps/waitr-web/src/base_components/ImageInput/ImageInput";
-import { bufferToFile } from "apps/waitr-web/src/helpers/byteArrayToFile";
-import { useAppDispatch, useAppSelector } from "apps/waitr-web/src/helpers/app.hooks";
+import ImageInput from "@src/base_components/ImageInput/ImageInput";
+import { bufferToFile } from "@src/helpers/byteArrayToFile";
+import { useAppDispatch, useAppSelector } from "@src/helpers/app.hooks";
 
 type LocationSettingsProps = {
   // props here

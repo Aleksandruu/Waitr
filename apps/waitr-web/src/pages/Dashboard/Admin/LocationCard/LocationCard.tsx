@@ -2,7 +2,7 @@ import { LocationResponseDto } from "types";
 import Link from "next/link";
 import styles from "./LocationCard.module.scss";
 import cardStyles from "../../card.module.scss";
-import Button from "apps/waitr-web/src/base_components/Button/Button";
+import Button from "@src/base_components/Button/Button";
 import { useChangeActiveStatusMutation } from "../../../../api/adminApi";
 
 interface LocationCardProps {
@@ -12,7 +12,7 @@ interface LocationCardProps {
 
 function LocationCard(props: LocationCardProps) {
   const { location, isLoading } = props;
-  const clientUrl = import.meta.env.VITE_APP_CLIENT_URL;
+  const clientUrl = process.env.NEXT_PUBLIC_CLIENT_URL;
 
   const [changeActiveStatus, { isLoading: loading }] =
     useChangeActiveStatusMutation();

@@ -1,4 +1,4 @@
-import Button from "apps/waitr-web/src/base_components/Button/Button";
+import Button from "@src/base_components/Button/Button";
 import styles from "./BottomBar.module.scss";
 import { useRouter, useParams } from "next/navigation";
 import {
@@ -14,7 +14,7 @@ import {
   ProductQuantityDto,
   CreateBillDto,
 } from "types";
-import { useAppDispatch, useAppSelector } from "apps/waitr-web/src/helpers/app.hooks";
+import { useAppDispatch, useAppSelector } from "@helpers/app.hooks";
 import { useState } from "react";
 import PaymentMethodPopup from "../Payment/PaymentMethodPopup";
 import { orderActions } from "../Customer.slice";
@@ -26,7 +26,8 @@ const BottomBar = ({}: BottomBarProps) => {
     useAppSelector((state) => state.order);
   const [isPaymentPopupOpen, setIsPaymentPopupOpen] = useState(false);
 
-  const { locationSlug, tableNumber } = useParams({ strict: false });
+  const params = useParams();
+  const { locationSlug, tableNumber } = params as { locationSlug: string; tableNumber: string };
   const tableNumberInt = parseInt(tableNumber!, 10);
 
   const { data: currentOrder, refetch } = useGetCurrentOrderQuery({

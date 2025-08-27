@@ -1,17 +1,20 @@
+"use client"
+
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import styles from "./Payment.module.scss";
-import QuantityButton from "apps/waitr-web/src/base_components/QuantityButton/QuantityButton";
-import Button from "apps/waitr-web/src/base_components/Button/Button";
+import QuantityButton from "@src/base_components/QuantityButton/QuantityButton";
+import Button from "@src/base_components/Button/Button";
 import { useGetUnpaidOrderQuery } from "@/api/customerApi";
 import { CartItemDto } from "types";
 import { orderActions } from "../Customer.slice";
-import { useAppDispatch, useAppSelector } from "apps/waitr-web/src/helpers/app.hooks";
+import { useAppDispatch, useAppSelector } from "@helpers/app.hooks";
 
 type PaymentProps = {};
 
 const Payment = (props: PaymentProps) => {
-  const { locationSlug, tableNumber } = useParams({ strict: false });
+  const params = useParams();
+  const { locationSlug, tableNumber } = params as { locationSlug: string; tableNumber: string };
   const dispatch = useAppDispatch();
   const [tipInput, setTipInput] = useState<string>("0");
 
@@ -67,7 +70,7 @@ const Payment = (props: PaymentProps) => {
 
   const areAllProductsSelected =
     currentOrder.length > 0 &&
-    currentOrder.every((product) => {
+    currentOrder.every((product: any) => {
       const selectedProduct = selectedProductsForPayment.find(
         (p) => p.productId === product.productId
       );
@@ -88,7 +91,7 @@ const Payment = (props: PaymentProps) => {
         </div>
       )}
 
-      {currentOrder.map((product) => (
+      {currentOrder.map((product: any) => (
         <div key={product.productId} className={styles.productItem}>
           <div className={styles.productInfo}>
             <h3>{product.name}</h3>

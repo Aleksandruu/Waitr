@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { generateSetterReducers } from "../../../helpers/reduxReducerGenerator";
 import { OrderItemDto, TableStatus, OrderResponseDto } from "types";
 import { waiterApi } from "../../../api/waiterApi";
-import { mapAndSortTablesByStatus } from "apps/waitr-web/src/helpers/createTablesStatusArray";
+import { mapAndSortTablesByStatus } from "@helpers/createTablesStatusArray";
 
 export interface WaiterState {
   selectedTable: number;

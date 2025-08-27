@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "./ImageInput.module.scss";
-import { resizeImage } from "apps/waitr-web/src/helpers/resizeImage";
+import { resizeImage } from "@helpers/resizeImage";
 
 type ImageInputProps = {
   name: string;

@@ -1,16 +1,16 @@
 import { OrderItemDto } from "types";
 import styles from "./Product.module.scss";
-import Button from "apps/waitr-web/src/base_components/Button/Button";
-import { classNames } from "apps/waitr-web/src/helpers/className";
+import Button from "@src/base_components/Button/Button";
+import { classNames } from "@helpers/className";
 import {
   useDeliverMutation,
   useLazyGetOrderQuery,
-} from "@/api/waiterApi";
+} from "@api/waiterApi";
 import {
   useAppDispatch,
   useAppSelector,
-} from "apps/waitr-web/src/helpers/app.hooks";
-import QuantityButton from "apps/waitr-web/src/base_components/QuantityButton/QuantityButton";
+} from "@helpers/app.hooks";
+import QuantityButton from "@src/base_components/QuantityButton/QuantityButton";
 import { waiterActions } from "../Waiter.slice";
 
 type ProductProps = {

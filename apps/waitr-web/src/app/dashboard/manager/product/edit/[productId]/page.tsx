@@ -1,12 +1,12 @@
 'use client';
 
-import { useGetProductByIdQuery } from '@/api/managerApi';
-import CreateProduct from '@/pages/Dashboard/Manager/CreateProduct/CreateProduct';
+import { useGetProductByIdQuery } from '@api/managerApi';
+import CreateProduct from '@pages/Dashboard/Manager/CreateProduct/CreateProduct';
 import { useParams } from 'next/navigation';
 
 export default function EditProductPage() {
   const params = useParams();
-  const productId = params.productId as string;
+  const productId = params?.productId as string;
   const { data: product, isLoading, error } = useGetProductByIdQuery(productId);
 
   if (error || !product) {

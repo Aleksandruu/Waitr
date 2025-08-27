@@ -1,6 +1,6 @@
 import styles from "./QuantityButton.module.scss";
 import Button from "../Button/Button";
-import { classNames } from "apps/waitr-web/src/helpers/className";
+import { classNames } from "@src/helpers/className";
 
 type QuantityButtonProps = {
   text: string;

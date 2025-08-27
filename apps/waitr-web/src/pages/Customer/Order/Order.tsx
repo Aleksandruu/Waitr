@@ -1,7 +1,7 @@
 import styles from "./Order.module.scss";
 import { useEffect } from "react";
 import { orderActions } from "../Customer.slice";
-import { useAppDispatch, useAppSelector } from "apps/waitr-web/src/helpers/app.hooks";
+import { useAppDispatch, useAppSelector } from "@src/helpers/app.hooks";
 
 type OrderProps = {
   // props here

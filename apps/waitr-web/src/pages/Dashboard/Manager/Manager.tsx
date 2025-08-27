@@ -1,3 +1,5 @@
+"use client"
+
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
@@ -6,11 +8,11 @@ import {
   useGetAllProductsQuery,
   useGetCategoriesQuery,
   useGetStaffQuery,
-} from "@/api/managerApi";
+} from "@api/managerApi";
 import StaffCard from "../Admin/LocationPage/StaffCard/StaffCard";
 import styles from "./Manager.module.scss";
 import cardStyles from "../card.module.scss";
-import { classNames } from "apps/waitr-web/src/helpers/className";
+import { classNames } from "@src/helpers/className";
 
 type ManagerProps = {};
 
@@ -68,7 +70,7 @@ const Manager = ({}: ManagerProps) => {
         </Link>
 
         <h2>Products</h2>
-        {products?.map((product, index) => (
+        {products?.map((product: any, index: number) => (
           <div
             className={classNames(cardStyles.card, styles.category)}
             key={index}

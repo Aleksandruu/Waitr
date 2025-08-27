@@ -11,7 +11,7 @@ export default function LocationLayout({
   children: React.ReactNode;
 }) {
   const params = useParams();
-  const locationSlug = params.locationSlug as string;
+  const locationSlug = params?.locationSlug as string;
   
   useGetLocationSettingsQuery(locationSlug);
 

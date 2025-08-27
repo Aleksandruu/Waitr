@@ -1,10 +1,10 @@
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import Input from "apps/waitr-web/src/base_components/Input/Input";
-import Button from "apps/waitr-web/src/base_components/Button/Button";
+import Input from "@src/base_components/Input/Input";
+import Button from "@src/base_components/Button/Button";
 import styles from "./CreateCategory.module.scss";
-import { useCreateCategoryMutation } from "@/api/managerApi";
+import { useCreateCategoryMutation } from "@api/managerApi";
 import { useRouter } from "next/navigation";
 
 type CreateCategoryProps = {

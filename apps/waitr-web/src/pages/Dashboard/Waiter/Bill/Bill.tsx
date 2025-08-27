@@ -1,12 +1,12 @@
 import { BillResponseDto } from "types";
 import styles from "./Bill.module.scss";
-import Button from "apps/waitr-web/src/base_components/Button/Button";
-import { classNames } from "apps/waitr-web/src/helpers/className";
+import Button from "@src/base_components/Button/Button";
+import { classNames } from "@helpers/className";
 import {
   usePayBillMutation,
   useLazyGetOrderQuery,
-} from "@/api/waiterApi";
-import { useAppSelector } from "apps/waitr-web/src/helpers/app.hooks";
+} from "@api/waiterApi";
+import { useAppSelector } from "@helpers/app.hooks";
 
 type BillProps = {
   bill: BillResponseDto;

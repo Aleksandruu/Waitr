@@ -1,4 +1,4 @@
-import Manager from '@/pages/Dashboard/Manager/Manager';
+import Manager from '@pages/Dashboard/Manager/Manager';
 
 export default function ManagerPage() {
   return <Manager />;

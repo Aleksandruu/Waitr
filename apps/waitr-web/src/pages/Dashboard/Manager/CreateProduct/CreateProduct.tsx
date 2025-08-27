@@ -1,16 +1,18 @@
+"use client"
+
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import Input from "apps/waitr-web/src/base_components/Input/Input";
-import Button from "apps/waitr-web/src/base_components/Button/Button";
+import Input from "@src/base_components/Input/Input";
+import Button from "@src/base_components/Button/Button";
 import styles from "./CreateCategory.module.scss";
 import {
   useCreateProductMutation,
   useGetCategoriesQuery,
   useUpdateProductMutation,
-} from "@/api/managerApi";
-import Select from "apps/waitr-web/src/base_components/Select/Select";
-import ImageInput from "apps/waitr-web/src/base_components/ImageInput/ImageInput";
+} from "@api/managerApi";
+import Select from "@src/base_components/Select/Select";
+import ImageInput from "@src/base_components/ImageInput/ImageInput";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -119,7 +121,7 @@ const CreateProduct = ({ product, isEditing = false }: CreateProductProps) => {
           label="Categoria"
           options={[
             { value: "0", label: "Alegeti categoria" },
-            ...(categories?.map((category) => ({
+            ...(categories?.map((category: any) => ({
               value: category.id,
               label: category.name,
             })) || []),

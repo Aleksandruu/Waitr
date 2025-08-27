@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Slider } from "@mui/material";
 import styles from "./ColorSlider.module.scss";
-import { parseHsl } from "apps/waitr-web/src/helpers/parseHsl";
+import { parseHsl } from "@helpers/parseHsl";
 
 interface ColorSlidersProps {
   setColor: (color: string) => void;

@@ -4,7 +4,7 @@ import Link from "next/link";
 import styles from "./Admin.module.scss";
 import cardStyles from "../card.module.scss";
 import { useGetLocationsQuery } from "../../../api/adminApi";
-import { classNames } from "apps/waitr-web/src/helpers/className";
+import { classNames } from "@src/helpers/className";
 
 type AdminProps = {
   data?: LocationResponseDto[];

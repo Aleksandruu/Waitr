@@ -1,10 +1,10 @@
 import styles from "./TableList.module.scss";
-import { classNames } from "apps/waitr-web/src/helpers/className";
+import { classNames } from "@helpers/className";
 import { waiterActions } from "../Waiter.slice";
 import {
   useAppDispatch,
   useAppSelector,
-} from "apps/waitr-web/src/helpers/app.hooks";
+} from "@helpers/app.hooks";
 
 type TableListProps = {};
 

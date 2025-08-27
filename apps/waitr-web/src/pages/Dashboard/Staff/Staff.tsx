@@ -1,10 +1,12 @@
+"use client"
+
 import { useEffect } from "react";
 import styles from "./Staff.module.scss";
-import { useLazyGetStaffProductsQuery } from "@/api/staffApi";
+import { useLazyGetStaffProductsQuery } from "@api/staffApi";
 import Product from "./Product/Product";
 import { connectStaffSocket } from "./Staff.sockets";
-import { RootState } from "apps/waitr-web/src/store";
-import { useAppSelector } from "apps/waitr-web/src/helpers/app.hooks";
+import { RootState } from "@store";
+import { useAppSelector } from "@helpers/app.hooks";
 
 type StaffProps = {
   // props here
@@ -31,7 +33,7 @@ const Staff = ({}: StaffProps) => {
   return (
     <div className={styles.products}>
       {data && data.length > 0
-        ? data.map((product) => (
+        ? data.map((product: any) => (
             <Product
               key={product.orderProductId}
               orderProductId={product.orderProductId}

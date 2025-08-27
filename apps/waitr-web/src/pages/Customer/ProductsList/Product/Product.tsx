@@ -2,8 +2,8 @@ import { ProductResponseDto } from "types";
 import styles from "./Product.module.scss";
 import { useState } from "react";
 import { orderActions } from "../../Customer.slice";
-import QuantityButton from "apps/waitr-web/src/base_components/QuantityButton/QuantityButton";
-import { useAppDispatch } from "apps/waitr-web/src/helpers/app.hooks";
+import QuantityButton from "@src/base_components/QuantityButton/QuantityButton";
+import { useAppDispatch } from "@helpers/app.hooks";
 
 type ProductProps = {
   product: ProductResponseDto;

@@ -3,8 +3,8 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux';
-import { RootState } from '@/store';
-import { useGetLocationQuery } from '@/api/managerApi';
+import { RootState } from '@store';
+import { useGetLocationQuery } from '@api/managerApi';
 
 export default function ManagerLayout({
   children,

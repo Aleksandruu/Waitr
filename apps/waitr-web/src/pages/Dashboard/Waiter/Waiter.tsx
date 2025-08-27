@@ -1,3 +1,5 @@
+"use client"
+
 import TableList from "./TableList/TableList";
 import styles from "./Waiter.module.scss";
 import {
@@ -5,14 +7,14 @@ import {
   useGetOrdersQuery,
   useGetBillsQuery,
   useLazyGetBillsQuery,
-} from "@/api/waiterApi";
+} from "@api/waiterApi";
 import Product from "./Product/Product";
 import Bill from "./Bill/Bill";
 import { connectWaiterSocket } from "./Waiter.sockets";
 import { use, useEffect } from "react";
 import { BillResponseDto, OrderItemDto, OrderResponseDto } from "types";
 import BottomBar from "./BottomBar/BottomBar";
-import { useAppSelector } from "apps/waitr-web/src/helpers/app.hooks";
+import { useAppSelector } from "@helpers/app.hooks";
 
 type WaiterProps = {
   // props here

@@ -1,5 +1,5 @@
 import styles from "./PaymentMethodPopup.module.scss";
-import Button from "apps/waitr-web/src/base_components/Button/Button";
+import Button from "@src/base_components/Button/Button";
 
 interface PaymentMethodPopupProps {
   isOpen: boolean;

@@ -1,7 +1,7 @@
-import { useAppSelector } from "apps/waitr-web/src/helpers/app.hooks";
+import { useAppSelector } from "@helpers/app.hooks";
 import styles from "./Navbar.module.scss";
 import { useEffect, useState } from "react";
-import { bufferToFile } from "apps/waitr-web/src/helpers/byteArrayToFile";
+import { bufferToFile } from "@helpers/byteArrayToFile";
 
 type NavbarProps = {
   // props here
