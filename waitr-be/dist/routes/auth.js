@@ -33,7 +33,6 @@ router.post("/login", (req, res) => __awaiter(void 0, void 0, void 0, function* 
                     locationId: user.location_id,
                 }, process.env.JWT_SECRET_KEY);
                 res.status(200).json({ accessToken });
-                return;
             }
         }
     }
